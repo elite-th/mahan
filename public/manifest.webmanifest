@@ -1,0 +1,16 @@
+{
+  "name": "ویرا شبکه آران",
+  "short_name": "ویرا",
+  "description": "فروشگاه آنلاین تجهیزات شبکه و راهکارهای فناوری اطلاعات",
+  "lang": "fa",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "categories": ["business", "shopping", "technology"],
+  "icons": [
+    { "src": "/favicon.gif", "sizes": "any", "type": "image/gif", "purpose": "any" },
+    { "src": "/logo.gif", "sizes": "any", "type": "image/gif", "purpose": "any" }
+  ]
+}

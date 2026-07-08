@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-vazirmatn), var(--font-plex), system-ui, sans-serif;
+  --font-heading: var(--font-vazirmatn), var(--font-plex), system-ui, sans-serif;
+  --font-numeric: var(--font-plex), var(--font-vazirmatn), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem; /* offset for fixed header (~80px) when navigating to anchors */
+  /* For Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #0ea5e9 #1f2937;
+  /* thumb track */
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0f172a;
+  /* Fallback background, matches slate-900 */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  /* Gives modern tech headings a sleeker look */
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+  /* Corresponds to gray-800, a dark track */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0ea5e9;
+  /* Corresponds to sky-500, the accent color */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #38bdf8;
+  /* Corresponds to sky-400, a lighter accent */
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* --- Accessibility Improvement: Consistent Focus Indicator --- */
+:is(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid #38bdf8;
+  /* sky-400 */
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Cart Icon Badge */
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  /* Adjust as needed */
+  right: -8px;
+  /* Adjust as needed for RTL, effectively top-left for icon */
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  /* red-500 */
+  color: white;
+  font-size: 0.75rem;
+  /* 12px */
+  line-height: 1rem;
+  /* 16px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  /* Horizontal padding for numbers > 9 */
+  font-weight: bold;
+  pointer-events: none;
+  /* So it doesn't interfere with link clicks */
+}
+
+/* Cart Icon Shake Animation */
+@keyframes shake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-3px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(3px);
+  }
+}
+
+.cart-icon-shake {
+  animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+/* --- "Show More" Products Animation --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* --- Animated Gradient Background for Hero --- */
+@keyframes animated-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient-background {
+  background: linear-gradient(-45deg, #0f172a, #132141, #0c4a6e, #1e3a8a);
+  background-size: 400% 400%;
+  animation: animated-gradient 25s ease infinite;
+  will-change: background-position;
+}
+
+/* --- Dynamic Subtitle Fade Animation --- */
+@keyframes subtitle-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+.subtitle-animate {
+  animation: subtitle-fade 5s ease-in-out forwards;
+}
+
+/* --- Success Checkmark Animation --- */
+.success-checkmark-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.success-checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #22c55e;
+  /* green-500 */
+  stroke-miterlimit: 10;
+  animation: success-scale 0.3s ease-in-out 0.6s both;
+}
+
+.success-checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #22c55e;
+  fill: none;
+  animation: success-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.success-checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 3;
+  animation: success-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes success-stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes success-scale {
+
+  0%,
+  100% {
+    transform: none;
+  }
+
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+/* Hide scrollbar utility — keeps scroll functionality, hides visual scrollbar */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tabular numbers for prices, SKUs, phone numbers, order IDs
+   Uses font-variant-numeric (modern) + font-feature-settings (legacy Safari)
+   so digits align in columns and don't shift width when value changes. */
+.nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}

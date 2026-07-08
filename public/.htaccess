@@ -1,0 +1,32 @@
+# Enable directory indexes
+Options +Indexes
+DirectoryIndex index.html
+
+# Handle clean URLs for Next.js static export
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # If the request is for a directory, serve index.html
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME}/index.html -f
+  RewriteRule ^(.*)$ $1/index.html [L]
+
+  # If the request doesn't have an extension and file.html exists, serve it
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# Prevent 403 errors on directories
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+# Set proper MIME types
+<IfModule mod_mime.c>
+  AddType text/html .html
+  AddType application/javascript .js
+  AddType text/css .css
+</IfModule>

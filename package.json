@@ -1,0 +1,52 @@
+{
+  "name": "vira-website-next",
+  "private": true,
+  "version": "1.0.0",
+  "description": "وبسایت شرکت ویرا با معماری Next.js",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.10.8",
+    "@apollo/experimental-nextjs-app-support": "^0.11.2",
+    "framer-motion": "^12.40.0",
+    "graphql": "^16.9.0",
+    "isomorphic-dompurify": "^3.15.0",
+    "lucide-react": "^1.17.0",
+    "next": "^15.3.3",
+    "p5": "1.9.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.0",
+    "@tailwindcss/postcss": "^4.1.2",
+    "@tailwindcss/typography": "0.5.13",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "24.1.0",
+    "@types/p5": "1.7.6",
+    "@types/react": "19.2.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "eslint": "9.34.0",
+    "eslint-config-next": "15.3.3",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "jsdom": "^25.0.1",
+    "postcss": "^8.4.41",
+    "tailwindcss": "4.1.11",
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
