@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from 'next/server';
 import { getClient } from '@/lib/apollo-client-server';
 import { GET_PRODUCTS_QUERY } from '@/graphql/queries';
