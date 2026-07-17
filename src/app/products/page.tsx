@@ -7,6 +7,7 @@ import { COMPANY_SLOGAN, SITE_URL } from "@/constants";
 import type { Metadata } from 'next';
 import { ProductNode } from "@/types";
 import { logger } from '@/lib/logger';
+import { fetchProductImagesFromRest, enrichProductsWithImages } from '@/lib/product-images';
 
 // ISR: Revalidate every 5 minutes instead of re-rendering on every request
 export const revalidate = 300;
@@ -32,7 +33,11 @@ export default async function ProductsPage() {
       variables: { first: 1000 },
     });
 
-    const products: ProductNode[] = data?.products?.nodes || [];
+    let products: ProductNode[] = data?.products?.nodes || [];
+
+    // Enrich with REST API images (fallback for CSV-imported products)
+    const imageMap = await fetchProductImagesFromRest();
+    products = enrichProductsWithImages(products, imageMap);
 
     return (
       <section className="py-12 sm:py-16">

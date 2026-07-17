@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SITE_URL } from '@/constants';
 import { logger } from '@/lib/logger';
+import { fetchProductImagesFromRest, enrichProductsWithImages } from '@/lib/product-images';
 
 /**
  * Torob API v3 — Product feed endpoint.
@@ -169,7 +170,15 @@ async function fetchAllProducts(): Promise<any[]> {
   }
 
   const json = await response.json();
-  return json?.data?.products?.nodes ?? [];
+  let products = json?.data?.products?.nodes ?? [];
+
+  // Enrich with REST API images (fallback for CSV-imported products)
+  if (products.length > 0) {
+    const imageMap = await fetchProductImagesFromRest();
+    products = enrichProductsWithImages(products, imageMap);
+  }
+
+  return products;
 }
 
 // ---------------------------------------------------------------------------

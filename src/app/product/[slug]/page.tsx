@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 import { COMPANY_NAME, COMPANY_SLOGAN, SITE_URL } from "@/constants";
 import { productSchema, breadcrumbSchema } from "@/lib/seo";
 import { logger } from '@/lib/logger';
+import { fetchProductImagesFromRest, enrichProductsWithImages } from '@/lib/product-images';
 
 export interface ProductDetails {
   __typename: 'SimpleProduct' | 'VariableProduct';
@@ -82,6 +83,16 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     });
     const product: ProductDetails | null = data?.product;
     if (!product) { notFound(); }
+
+    // Enrich with REST API image (fallback for CSV-imported products)
+    if (!product.image?.sourceUrl) {
+      const imageMap = await fetchProductImagesFromRest();
+      const enriched = enrichProductsWithImages([product], imageMap);
+      if (enriched[0]?.image) {
+        product.image = enriched[0].image;
+      }
+    }
+
     const category = product.productCategories?.nodes?.[0];
     const description = stripHtml(product.description) || `خرید ${product.name} با گارانتی و پشتیبانی تخصصی.`;
     const numericPrice = extractNumericPrice(product.price);
