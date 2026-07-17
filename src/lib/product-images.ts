@@ -85,14 +85,9 @@ export async function fetchProductImagesFromRest(): Promise<Map<number, { source
  * @param products — array of product nodes from GraphQL
  * @returns the same array, with image filled in where missing
  */
-export function enrichProductsWithImages<
-  T extends {
-    databaseId: number;
-    image?: { sourceUrl: string; altText: string | null } | null;
-    name: string;
-  }
->(products: T[], imageMap: Map<number, { sourceUrl: string; altText: string }>): T[] {
-  return products.map((product): T => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function enrichProductsWithImages(products: any[], imageMap: Map<number, { sourceUrl: string; altText: string }>): any[] {
+  return products.map((product) => {
     if (!product.image?.sourceUrl) {
       const restImage = imageMap.get(product.databaseId);
       if (restImage) {
@@ -102,7 +97,7 @@ export function enrichProductsWithImages<
             sourceUrl: restImage.sourceUrl,
             altText: restImage.altText || product.name,
           },
-        } as T;
+        };
       }
     }
     return product;
