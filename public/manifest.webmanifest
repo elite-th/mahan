@@ -1,16 +1,16 @@
 {
-  "name": "ویرا شبکه آران",
-  "short_name": "ویرا",
+  "name": "ماهان ارتباطات خردمنده",
+  "short_name": "ماهان",
   "description": "فروشگاه آنلاین تجهیزات شبکه و راهکارهای فناوری اطلاعات",
   "lang": "fa",
   "dir": "rtl",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0f172a",
+  "background_color": "#0c0418",
+  "theme_color": "#0c0418",
   "categories": ["business", "shopping", "technology"],
   "icons": [
-    { "src": "/favicon.gif", "sizes": "any", "type": "image/gif", "purpose": "any" },
-    { "src": "/logo.gif", "sizes": "any", "type": "image/gif", "purpose": "any" }
+    { "src": "/favicon.png", "sizes": "any", "type": "image/png", "purpose": "any" },
+    { "src": "/logo.png", "sizes": "any", "type": "image/png", "purpose": "any" }
   ]
 }

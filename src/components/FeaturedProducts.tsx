@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useQuery } from '@apollo/client/react/hooks';
+import { GET_PRODUCTS_QUERY } from '@/graphql/queries';
 import ProductListSection from '@/components/ProductListSection';
 import ErrorDisplay from '@/components/ErrorDisplay';
 import { ProductNode } from '@/types';
@@ -8,30 +10,27 @@ import { ProductNode } from '@/types';
 /**
  * FeaturedProducts — Client-side fetch for the homepage product grid.
  *
- * Fetches products from /api/products-feed which:
- * 1. Gets products from GraphQL (price, stock, meta)
- * 2. Enriches with images from REST API (fallback for CSV-imported products
- *    where GraphQL returns image: null)
+ * WHY CLIENT-SIDE?
+ * Previously this was an async Server Component (SSR + ISR via `getClient()`).
+ * In the Next.js App Router, an async Server Component without an immediately
+ * available data cache blocks the *entire* page render (including HeroSection,
+ * which is independent of product data). During a cache miss / dev, the user
+ * landed on the page and saw the product skeleton while the hero animation
+ * had not even rendered yet.
+ *
+ * By fetching on the client after mount:
+ *  - HeroSection renders instantly on first paint.
+ *  - Products load progressively with a skeleton that matches the grid layout.
+ *  - Apollo cache + NextSSR hydration still hydrate server data if present.
  */
 export default function FeaturedProducts() {
-  const [products, setProducts] = useState<ProductNode[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    fetch('/api/products-feed?limit=4')
-      .then(res => res.json())
-      .then(data => {
-        setProducts(data.products || []);
-        setError(false);
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const { data, loading, error } = useQuery<{ products: { nodes: ProductNode[] } }>(
+    GET_PRODUCTS_QUERY,
+    {
+      variables: { first: 4 },
+      fetchPolicy: 'cache-first',
+    }
+  );
 
   if (error) {
     return (
@@ -41,7 +40,9 @@ export default function FeaturedProducts() {
     );
   }
 
+  // Return empty until data is ready — no skeleton, no animation.
   if (loading) return null;
 
+  const products = data?.products?.nodes || [];
   return <ProductListSection products={products} />;
 }

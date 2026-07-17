@@ -1,64 +1,64 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { ClientLogo } from '../types';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 interface ClientLogoCardProps {
   client: ClientLogo;
-  index: number;
 }
 
-const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client, index }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const isVisible = useIntersectionObserver(cardRef, { threshold: 0.1, triggerOnce: true });
+/**
+ * ClientLogoCard — a single logo card used inside the OurClients marquee.
+ *
+ * Simplified (Task 5-C): the marquee is always visible, so the previous
+ * IntersectionObserver-driven fade-in is no longer needed. The card is now
+ * a plain `.glass` rounded card with a fixed marquee slot size
+ * (h-24 w-40) and an image error fallback. React.memo kept so duplicating
+ * the list for the seamless marquee loop doesn't trigger re-renders.
+ */
+const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
   const [imgError, setImgError] = useState(false);
 
   const cardContent = (
     <div
-      className={`
-        bg-gray-800 p-6 rounded-xl shadow-lg 
-        flex items-center justify-center h-32 sm:h-36
-        transform transition-all duration-500 ease-out group
-        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}
-      `}
-      style={{ transitionDelay: `${index * 100}ms` }}
+      className="glass flex h-24 w-40 items-center justify-center rounded-2xl px-4
+                 transition-transform duration-300 hover:scale-[1.04] hover:glow-ring"
     >
       {imgError ? (
-        <div className="max-h-16 sm:max-h-20 max-w-full flex items-center justify-center bg-gray-700 rounded px-3 py-2">
-          <span className="text-gray-400 text-xs text-center">{client.name}</span>
+        <div className="flex max-h-16 max-w-full items-center justify-center rounded-lg bg-[#2a1450]/60 px-3 py-2 text-center">
+          <span className="text-[10px] leading-tight text-purple-200/70">
+            {client.name}
+          </span>
         </div>
       ) : (
         <Image
           src={client.logoUrl}
-          alt={client.name || 'لوگوی مشتری ویرا شبکه آران'}
+          alt={client.name || 'لوگوی مشتری ماهان ارتباطات خردمنده'}
           width={160}
-          height={80}
-          className="max-h-16 sm:max-h-20 max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+          height={64}
+          className="max-h-16 max-w-full object-contain"
           onError={() => setImgError(true)}
         />
       )}
     </div>
   );
 
-  return (
-    <div ref={cardRef}>
-      {client.websiteUrl && client.websiteUrl !== '#' ? (
-        <a
-          href={client.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`وب‌سایت ${client.name}`}
-          className="block hover:shadow-lg hover:shadow-lg rounded-xl transition-shadow duration-300"
-        >
-          {cardContent}
-        </a>
-      ) : (
-        cardContent
-      )}
-    </div>
-  );
+  if (client.websiteUrl && client.websiteUrl !== '#') {
+    return (
+      <a
+        href={client.websiteUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`وب‌سایت ${client.name}`}
+        className="block rounded-2xl outline-none"
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return cardContent;
 };
 
 export default React.memo(ClientLogoCard);

@@ -1,13 +1,24 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback, useState } from 'react';
-import type p5 from 'p5'; // Type-only import — erased at compile time, safe for SSR
+import React, { useRef, useEffect, useState } from 'react';
 import { useInView } from 'framer-motion';
+import { Award, Building2, Boxes, Headphones, type LucideIcon } from 'lucide-react';
 import { COMPANY_NAME, COMPANY_SLOGAN } from '../constants';
 
 // ---------------------------------------------------------------------------
-// StatCounter — animates from 0 to target value when scrolled into view.
-// Uses easeOutCubic for a smooth deceleration. Persian digit conversion.
+// Design notes (Task 5-C):
+//   • p5.js neural-network particle animation REMOVED entirely — this was the
+//     most identifiable VIRA element. Replaced with a pure inline SVG
+//     decorative overlay (concentric arcs + hexagonal honeycomb) that is
+//     clearly geometric, NOT a particle network.
+//   • Count-up animation kept (framer-motion useInView + requestAnimationFrame)
+//     but with NO p5 dependency.
+//   • Stat cards now use .glass utility with violet→orchid gradient numbers.
+//   • Section uses .aurora for ambient background blobs (defined in globals.css).
+// ---------------------------------------------------------------------------
+
+// ---------------------------------------------------------------------------
+// Persian digit helper
 // ---------------------------------------------------------------------------
 const PERSIAN_DIGITS = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
 
@@ -15,25 +26,54 @@ function toPersianDigits(n: number): string {
   return n.toString().replace(/\d/g, (d) => PERSIAN_DIGITS[parseInt(d, 10)]);
 }
 
-function StatCounter({
-  value,
-  prefix = '',
-  label,
-  duration = 1500,
-}: {
+// ---------------------------------------------------------------------------
+// Stat config — four cards rendered in a 2×2 (mobile) / 4-col (desktop) grid
+// ---------------------------------------------------------------------------
+interface StatConfig {
   value: number;
-  prefix?: string;
+  suffix?: string;
   label: string;
-  duration?: number;
-}) {
+  Icon: LucideIcon;
+}
+
+const STATS: StatConfig[] = [
+  { value: 5, suffix: '+', label: 'سال تجربه تخصصی', Icon: Award },
+  { value: 10, suffix: '+', label: 'سازمان مشتری', Icon: Building2 },
+  { value: 100, suffix: '+', label: 'محصول تخصصی', Icon: Boxes },
+];
+
+// 24/7 is a static (non-counting) stat — rendered separately.
+const STATIC_STAT = { label: 'پشتیبانی فنی', Icon: Headphones, display: '۲۴/۷' };
+
+// ---------------------------------------------------------------------------
+// StatCounter — animates from 0 → value when scrolled into view.
+// Uses easeOutCubic for smooth deceleration. Persian digit conversion.
+// Respects prefers-reduced-motion: jumps to final value immediately.
+// ---------------------------------------------------------------------------
+function StatCounter({ value, suffix = '', label, Icon }: StatConfig) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
   const [display, setDisplay] = useState(0);
+  const prefersReducedMotionRef = useRef(false);
+
+  // Detect reduced-motion preference once on mount (browser only).
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    prefersReducedMotionRef.current = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+  }, []);
 
   useEffect(() => {
     if (!inView) return;
+    // Skip animation under reduced-motion: show final value right away.
+    if (prefersReducedMotionRef.current) {
+      setDisplay(value);
+      return;
+    }
     let raf: number;
     let start: number | undefined;
+    const duration = 1500;
     const step = (t: number) => {
       if (start === undefined) start = t;
       const progress = Math.min((t - start) / duration, 1);
@@ -44,250 +84,192 @@ function StatCounter({
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [inView, value]);
 
   return (
-    <div className="text-center" ref={ref}>
-      <div className="text-3xl sm:text-4xl font-black text-sky-400">
-        {prefix}{toPersianDigits(display)}
+    <div
+      ref={ref}
+      className="glass glow-ring rounded-2xl p-5 sm:p-6 text-center fade-in
+                 transition-transform duration-300 hover:-translate-y-1
+                 flex flex-col items-center justify-center gap-3"
+    >
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl
+                       bg-gradient-to-br from-[#a855f7]/20 to-[#e879f9]/20
+                       ring-1 ring-[#c084fc]/30 text-[#e879f9]">
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <div
+        className="text-3xl sm:text-4xl font-black text-gradient nums leading-none"
+        aria-label={`${toPersianDigits(value)}${suffix}`}
+      >
+        {toPersianDigits(display)}
+        {suffix && <span className="text-[#c084fc]">{suffix}</span>}
       </div>
-      <div className="text-sm text-gray-400 mt-1">{label}</div>
+      <div className="text-xs sm:text-sm text-purple-100/70 font-medium leading-snug">
+        {label}
+      </div>
     </div>
   );
 }
 
-/**
- * AboutSection — Neural network particle animation using p5.js
- *
- * SSR Safety: p5.js references `window` at module initialization time,
- * which crashes during server-side rendering. This component uses a type-only
- * import for p5 types and lazily imports p5 at runtime inside the browser
- * callback (via `await import('p5')`) to avoid the "window is not defined" error.
- * Since this is a Client Component ("use client"), it can be safely imported
- * statically from a Server Component page.
- */
-
-const AboutSection: React.FC = () => {
-  const sketchRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const p5InstanceRef = useRef<p5 | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const isObserverSetup = useRef(false);
-  const isCancelledRef = useRef(false); // Guard against unmount during async import
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Ensure we only run browser-only code after mount
-  useEffect(() => {
-    setIsMounted(true);
-    return () => { isCancelledRef.current = true; };
-  }, []);
-
-  const createP5Sketch = useCallback(async () => {
-    if (!sketchRef.current || p5InstanceRef.current) {
-        return;
-    }
-
-    try {
-      // Lazy import p5 to avoid SSR "window is not defined" crash
-      // p5.js accesses `window` at the top level of its module
-      const p5Module = await import('p5');
-      const P5Constructor = p5Module.default;
-
-      // Guard: component may have unmounted while awaiting the dynamic import
-      if (isCancelledRef.current || !sketchRef.current) return;
-      
-      const sketch = (p: p5) => {
-        const config = { 
-            particleCount: 150, 
-            colorPalette: ['#22d3ee', '#67e8f9', '#a5f3fc', '#f0f9ff'], 
-            synapseThreshold: 80,
-            mouseRadius: 150
-        };
-        let particles: Particle[] = [];
-        let time = 0;
-
-        class Particle {
-            x: number;
-            y: number;
-            vx: number;
-            vy: number;
-            baseSize: number;
-            color: p5.Color;
-            noiseOffsetX: number;
-            noiseOffsetY: number;
-
-            constructor() {
-                this.x = p.random(p.width);
-                this.y = p.random(p.height);
-                this.vx = 0;
-                this.vy = 0;
-                this.baseSize = p.random(1, 2.5);
-                this.color = p.color(p.random(config.colorPalette));
-                this.noiseOffsetX = p.random(1000);
-                this.noiseOffsetY = p.random(1000);
-            }
-
-            update() {
-                this.vx = p.map(p.noise(this.noiseOffsetX + time), 0, 1, -0.3, 0.3);
-                this.x += this.vx;
-
-                if (this.x < 0) this.x = p.width;
-                if (this.x > p.width) this.x = 0;
-            }
-
-            display(alpha: number = 150) {
-                let finalAlpha = alpha;
-                let finalSize = this.baseSize;
-
-                const dSq = (this.x - p.mouseX)**2 + (this.y - p.mouseY)**2;
-                if (dSq < config.mouseRadius**2) {
-                    const influence = p.map(p.sqrt(dSq), 0, config.mouseRadius, 1, 0);
-                    finalAlpha = p.lerp(alpha, 255, influence);
-                    finalSize = p.lerp(this.baseSize, this.baseSize * 2.5, influence);
-                }
-
-                this.color.setAlpha(finalAlpha);
-                p.fill(this.color);
-                p.noStroke();
-                
-                p.drawingContext.shadowBlur = finalSize * 1.5;
-                p.drawingContext.shadowColor = this.color.toString();
-                
-                p.ellipse(this.x, this.y, finalSize);
-
-                p.drawingContext.shadowBlur = 0;
-            }
-        }
-        
-        const updateConfig = () => {
-            if (p.width < 480) {
-                config.particleCount = 50;
-                config.synapseThreshold = 60;
-                config.mouseRadius = 100;
-            } else if (p.width < 768) {
-                config.particleCount = 80;
-                config.synapseThreshold = 70;
-                config.mouseRadius = 120;
-            } else {
-                config.particleCount = 150;
-                config.synapseThreshold = 80;
-                config.mouseRadius = 150;
-            }
-        };
-
-        const createParticles = () => {
-            particles = [];
-            for (let i = 0; i < config.particleCount; i++) {
-                particles.push(new Particle());
-            }
-        };
-
-        p.setup = () => {
-            if (sketchRef.current) {
-                p.createCanvas(sketchRef.current.offsetWidth, sketchRef.current.offsetHeight);
-                updateConfig();
-                createParticles();
-            }
-        };
-
-        p.draw = () => {
-            p.clear();
-            time += 0.005;
-            const thresholdSq = config.synapseThreshold * config.synapseThreshold;
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].display();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dSq = (particles[i].x - particles[j].x) ** 2 + (particles[i].y - particles[j].y) ** 2;
-                    if (dSq < thresholdSq) {
-                        const alpha = p.map(dSq, 0, thresholdSq, 60, 0);
-                        p.stroke(200, alpha);
-                        p.line(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-                    }
-                }
-            }
-        };
-
-        p.windowResized = () => {
-            if (sketchRef.current) {
-                p.resizeCanvas(sketchRef.current.offsetWidth, sketchRef.current.offsetHeight);
-                updateConfig();
-                createParticles();
-            }
-        };
-      };
-      p5InstanceRef.current = new P5Constructor(sketch, sketchRef.current);
-    } catch (error) {
-      console.error('[AboutSection] Failed to load p5.js:', error);
-    }
-  }, []);
-
-  const destroyP5Instance = useCallback(() => {
-    isCancelledRef.current = true;
-    if (p5InstanceRef.current) {
-      p5InstanceRef.current.remove();
-      p5InstanceRef.current = null;
-    }
-  }, []);
-
-  const setupObserver = useCallback(() => {
-    if (isObserverSetup.current || !sectionRef.current) return;
-    isObserverSetup.current = true;
-    
-    const handleIntersect: IntersectionObserverCallback = ([entry]) => {
-      if (entry.isIntersecting) {
-        if (!p5InstanceRef.current) {
-          createP5Sketch();
-        } else {
-          p5InstanceRef.current.loop();
-        }
-      } else {
-        if (p5InstanceRef.current) {
-          p5InstanceRef.current.noLoop();
-        }
-      }
-    };
-
-    observerRef.current = new IntersectionObserver(handleIntersect, { threshold: 0.1 });
-    observerRef.current.observe(sectionRef.current);
-  }, [createP5Sketch]);
-
-  useEffect(() => {
-    // Only setup observer after component is mounted (browser-only)
-    if (!isMounted) return;
-    setupObserver();
-
-    const sectionEl = sectionRef.current;
-    return () => {
-        if (observerRef.current && sectionEl) {
-            observerRef.current.unobserve(sectionEl);
-        }
-        destroyP5Instance();
-    };
-  }, [setupObserver, destroyP5Instance, isMounted]);
-
+// ---------------------------------------------------------------------------
+// Static stat (۲۴/۷) — same visual treatment, no count-up.
+// ---------------------------------------------------------------------------
+function StaticStatCard({
+  label,
+  display,
+  Icon,
+}: {
+  label: string;
+  display: string;
+  Icon: LucideIcon;
+}) {
   return (
-    <section id="about" ref={sectionRef} className="py-16 sm:py-24 bg-slate-800 relative overflow-hidden">
-      <div ref={sketchRef} className="absolute inset-0 z-0 opacity-40"></div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-5xl mx-auto">
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-sky-400 mb-6">
+    <div
+      className="glass glow-ring rounded-2xl p-5 sm:p-6 text-center fade-in
+                 transition-transform duration-300 hover:-translate-y-1
+                 flex flex-col items-center justify-center gap-3"
+    >
+      <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl
+                       bg-gradient-to-br from-[#a855f7]/20 to-[#e879f9]/20
+                       ring-1 ring-[#c084fc]/30 text-[#e879f9]">
+        <Icon className="h-5 w-5" aria-hidden="true" />
+      </span>
+      <div className="text-3xl sm:text-4xl font-black text-gradient nums leading-none">
+        {display}
+      </div>
+      <div className="text-xs sm:text-sm text-purple-100/70 font-medium leading-snug">
+        {label}
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Decorative SVG — concentric arcs (top-left) + hexagonal honeycomb (bottom-right)
+// Pure inline SVG. Deliberately geometric & static, NOT a particle network.
+// ---------------------------------------------------------------------------
+function DecorativeSVG() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.18]"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid slice"
+      viewBox="0 0 1200 800"
+      fill="none"
+    >
+      <defs>
+        <radialGradient id="mahan-ring-grad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#e879f9" stopOpacity="0.9" />
+          <stop offset="60%" stopColor="#a855f7" stopOpacity="0.5" />
+          <stop offset="100%" stopColor="#9333ea" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="mahan-arc-stroke" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#c084fc" stopOpacity="0.0" />
+          <stop offset="50%" stopColor="#c084fc" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#e879f9" stopOpacity="0.0" />
+        </linearGradient>
+        <pattern
+          id="mahan-hex"
+          x="0"
+          y="0"
+          width="56"
+          height="48"
+          patternUnits="userSpaceOnUse"
+          patternTransform="translate(0 0)"
+        >
+          <path
+            d="M28 0 L56 16 L56 32 L28 48 L0 32 L0 16 Z"
+            fill="none"
+            stroke="#c084fc"
+            strokeOpacity="0.35"
+            strokeWidth="0.7"
+          />
+        </pattern>
+      </defs>
+
+      {/* Concentric arcs emanating from the top-right corner */}
+      <g transform="translate(1180 60)" strokeLinecap="round">
+        {[60, 120, 190, 270, 360, 460, 570, 690].map((r, i) => (
+          <circle
+            key={`ring-${i}`}
+            r={r}
+            fill="none"
+            stroke="url(#mahan-arc-stroke)"
+            strokeWidth={i % 2 === 0 ? 1.6 : 0.9}
+            opacity={0.85 - i * 0.08}
+          />
+        ))}
+        {/* Soft inner glow disk */}
+        <circle r="48" fill="url(#mahan-ring-grad)" opacity="0.45" />
+      </g>
+
+      {/* Hexagonal honeycomb panel in the lower-left */}
+      <g transform="translate(-30 540)">
+        <rect x="0" y="0" width="520" height="320" fill="url(#mahan-hex)" />
+      </g>
+
+      {/* A few dotted hexagon accents scattered between the two clusters */}
+      <g fill="#e879f9" opacity="0.55">
+        {[
+          [220, 220],
+          [520, 140],
+          [780, 360],
+          [340, 420],
+          [640, 540],
+          [920, 250],
+        ].map(([cx, cy], i) => (
+          <circle key={`dot-${i}`} cx={cx} cy={cy} r="2.4" />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// AboutSection — pure CSS/SVG redesign (no p5)
+// ---------------------------------------------------------------------------
+const AboutSection: React.FC = () => {
+  return (
+    <section
+      id="about"
+      className="aurora relative overflow-hidden bg-[#0c0418] py-20 sm:py-28 lg:py-32"
+      aria-labelledby="about-heading"
+    >
+      {/* Decorative geometric overlay (replaces p5 neural net) */}
+      <DecorativeSVG />
+
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Heading block */}
+        <div className="mx-auto max-w-4xl text-center">
+          <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#e879f9] sm:text-sm">
+            درباره ما
+          </span>
+          <h2
+            id="about-heading"
+            className="text-gradient mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl"
+          >
             درباره {COMPANY_NAME}
           </h2>
-          <p className="text-lg text-gray-300 leading-relaxed">
-            <span className="font-bold text-sky-400">{COMPANY_SLOGAN}</span> از سال ۱۴۰۰ با تمرکز بر واردات، تأمین و اجرای پروژه‌های تجهیزات شبکه و زیرساخت فناوری اطلاعات فعالیت می‌کند. مجموعه ما با در اختیار داشتن کارت بازرگانی، نماد اعتماد الکترونیک (اینماد) و کد مالیاتی، فرایند خرید را شفاف و قابل اعتماد برای مشتریان سازمانی و دولتی فراهم کرده است.
+          <p className="mx-auto max-w-3xl text-base leading-loose text-purple-100/80 sm:text-lg">
+            <span className="font-bold text-[#c084fc]">{COMPANY_SLOGAN}</span> از
+            سال ۱۴۰۰ با تمرکز بر واردات، تأمین و اجرای پروژه‌های تجهیزات شبکه و
+            زیرساخت فناوری اطلاعات فعالیت می‌کند. مجموعه ما با در اختیار داشتن کارت
+            بازرگانی، نماد اعتماد الکترونیک (اینماد) و کد مالیاتی، فرایند خرید را
+            شفاف و قابل اعتماد برای مشتریان سازمانی و دولتی فراهم کرده است.
           </p>
-          <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            <StatCounter value={5} label="سال تجربه تخصصی" />
-            <StatCounter value={10} prefix="+" label="سازمان مشتری" />
-            <StatCounter value={100} prefix="+" label="محصول تخصصی" />
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-black text-sky-400">۲۴/۷</div>
-              <div className="text-sm text-gray-400 mt-1">پشتیبانی فنی</div>
-            </div>
-          </div>
+        </div>
+
+        {/* Stats grid: 2×2 on mobile, 4 columns on desktop */}
+        <div className="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:mt-16 lg:grid-cols-4">
+          {STATS.map((stat) => (
+            <StatCounter key={stat.label} {...stat} />
+          ))}
+          <StaticStatCard
+            label={STATIC_STAT.label}
+            display={STATIC_STAT.display}
+            Icon={STATIC_STAT.Icon}
+          />
         </div>
       </div>
     </section>

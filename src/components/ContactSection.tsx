@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Send, Loader2, AlertCircle, RotateCcw, CheckCircle, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { MapPin, Phone, Mail, Send, Loader2, AlertCircle, RotateCcw, CheckCircle, Clock, MessageSquare } from 'lucide-react';
 
 const isOpenNow = (): boolean => {
     try {
@@ -69,116 +70,192 @@ const ContactSection: React.FC = () => {
 
     const currentlyOpen = isOpenNow();
 
+    const phones = [
+        { href: 'tel:02191090702', label: '021-91090702', sub: 'دفتر مرکزی' },
+        { href: 'tel:09386473626', label: '0938-647-3626', sub: 'واحد فروش' },
+        { href: 'tel:09104491267', label: '0910-449-1267', sub: 'پشتیبانی' },
+    ];
+
     return (
-        <section id="contact" className="py-16 sm:py-24 bg-slate-900">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="contact" className="aurora relative py-16 sm:py-24 bg-[#0c0418] overflow-hidden">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Heading */}
-                <div className="text-center mb-12">
-                    <h2 className="text-4xl sm:text-5xl font-extrabold text-sky-400 mb-4">
-                        تماس با ما
+                <motion.div
+                    className="text-center mb-12 sm:mb-14"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-60px' }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-5">
+                        <MessageSquare className="w-3.5 h-3.5 text-[#e879f9]" aria-hidden="true" />
+                        <span className="text-xs font-medium text-[#f0abfc] tracking-wide">تماس با ما</span>
+                    </div>
+                    <h2 className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-gradient mb-4">
+                        با ما در ارتباط باشید
                     </h2>
-                    <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-                        برای مشاوره، دریافت قیمت یا هرگونه سوال با ما در ارتباط باشید.
+                    <p className="text-purple-100/60 text-sm sm:text-base max-w-2xl mx-auto leading-7">
+                        برای مشاوره تخصصی، دریافت قیمت یا هرگونه سوال، تیم ماهان ارتباطات خردمنده آماده پاسخگویی به شماست.
                     </p>
-                </div>
+                </motion.div>
 
-                <div className="max-w-4xl mx-auto">
-                    {/* Unified contact info card — single panel with all info */}
-                    <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 sm:p-8 mb-8">
-                        <div className="grid sm:grid-cols-2 gap-6 sm:gap-8">
-                            {/* Phones */}
-                            <div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <Phone className="w-4 h-4 text-sky-400" />
-                                    <span className="text-xs text-gray-500 tracking-wide">تلفن تماس</span>
-                                </div>
-                                <div className="space-y-2">
-                                    <a
-                                        href="tel:02191090702"
-                                        className="block text-gray-200 hover:text-sky-400 transition-colors font-semibold nums focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none rounded"
-                                    >
-                                        021-91090702
-                                    </a>
-                                    <a
-                                        href="tel:09386473626"
-                                        className="block text-gray-300 hover:text-sky-400 transition-colors text-sm nums focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none rounded"
-                                    >
-                                        0938-647-3626 (فروش)
-                                    </a>
-                                    <a
-                                        href="tel:09104491267"
-                                        className="block text-gray-400 hover:text-sky-400 transition-colors text-sm nums focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none rounded"
-                                    >
-                                        0910-449-1267 (پشتیبانی)
-                                    </a>
-                                </div>
+                {/* Side-by-side: info panel + form */}
+                <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto">
+                    {/* LEFT (visual right in RTL): Contact info panel */}
+                    <motion.div
+                        className="border-gradient p-6 sm:p-8 flex flex-col"
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h3 className="text-lg sm:text-xl font-bold text-purple-50 mb-1">اطلاعات تماس</h3>
+                        <p className="text-purple-100/50 text-xs sm:text-sm mb-6">
+                            راه‌های ارتباطی مستقیم با ماهان ارتباطات خردمنده
+                        </p>
+
+                        {/* Phones */}
+                        <div className="mb-6">
+                            <div className="flex items-center gap-2.5 mb-3">
+                                <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#9333ea] to-[#d946ef] text-white shadow-lg shadow-[#9333ea]/20">
+                                    <Phone className="w-4 h-4" aria-hidden="true" />
+                                </span>
+                                <span className="text-xs font-medium text-purple-100/70 tracking-wide">تلفن تماس</span>
                             </div>
-
-                            {/* Email */}
-                            <div>
-                                <div className="flex items-center gap-2 mb-4">
-                                    <Mail className="w-4 h-4 text-sky-400" />
-                                    <span className="text-xs text-gray-500 tracking-wide">ایمیل</span>
-                                </div>
-                                <a
-                                    href="mailto:info@vna-co.ir"
-                                    className="text-gray-200 hover:text-sky-400 transition-colors font-medium focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none rounded"
-                                    dir="ltr"
-                                >
-                                    info@vna-co.ir
-                                </a>
+                            <div className="space-y-1.5 pr-12">
+                                {phones.map((phone) => (
+                                    <a
+                                        key={phone.href}
+                                        href={phone.href}
+                                        className="group flex items-baseline gap-2 text-purple-50 hover:text-[#e879f9] transition-colors focus-visible:ring-2 focus-visible:ring-[#e879f9] focus-visible:outline-none rounded"
+                                        dir="ltr"
+                                    >
+                                        <span className="font-semibold nums text-sm sm:text-base">{phone.label}</span>
+                                        <span className="text-[11px] text-purple-100/40 group-hover:text-[#e879f9]/60 transition-colors">
+                                            ({phone.sub})
+                                        </span>
+                                    </a>
+                                ))}
                             </div>
+                        </div>
 
-                            {/* Address */}
-                            <div className="sm:col-span-2">
-                                <div className="flex items-center gap-2 mb-4">
-                                    <MapPin className="w-4 h-4 text-sky-400" />
-                                    <span className="text-xs text-gray-500 tracking-wide">آدرس</span>
+                        {/* Divider */}
+                        <div className="h-px w-full bg-gradient-to-l from-transparent via-[#c084fc]/20 to-transparent mb-6" />
+
+                        {/* Email */}
+                        <div className="mb-6">
+                            <div className="flex items-center gap-2.5 mb-3">
+                                <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#9333ea] to-[#d946ef] text-white shadow-lg shadow-[#9333ea]/20">
+                                    <Mail className="w-4 h-4" aria-hidden="true" />
+                                </span>
+                                <span className="text-xs font-medium text-purple-100/70 tracking-wide">ایمیل</span>
+                            </div>
+                            <a
+                                href="mailto:info@mahan-ic.ir"
+                                className="block pr-12 text-purple-50 hover:text-[#e879f9] transition-colors font-medium nums focus-visible:ring-2 focus-visible:ring-[#e879f9] focus-visible:outline-none rounded w-fit"
+                                dir="ltr"
+                            >
+                                info@mahan-ic.ir
+                            </a>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="h-px w-full bg-gradient-to-l from-transparent via-[#c084fc]/20 to-transparent mb-6" />
+
+                        {/* Address */}
+                        <div className="mb-6">
+                            <div className="flex items-center gap-2.5 mb-3">
+                                <span className="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-[#9333ea] to-[#d946ef] text-white shadow-lg shadow-[#9333ea]/20">
+                                    <MapPin className="w-4 h-4" aria-hidden="true" />
+                                </span>
+                                <span className="text-xs font-medium text-purple-100/70 tracking-wide">آدرس</span>
+                            </div>
+                            <p className="pr-12 text-purple-50/80 text-sm leading-7">
+                                استان تهران، شهرستان شمیرانات، بخش مرکزی، شهر تجریش، محله ازگل، خیابان گلچین جنوبی، کوچه لاله، پلاک ۳
+                            </p>
+                        </div>
+
+                        {/* Working hours + open/closed indicator */}
+                        <div className="mt-auto pt-6">
+                            <div className="glass rounded-xl p-4">
+                                <div className="flex items-center gap-2.5 mb-2">
+                                    <Clock className="w-4 h-4 text-[#c084fc]" aria-hidden="true" />
+                                    <span className="text-xs font-medium text-purple-100/70">ساعات پاسخگویی</span>
                                 </div>
-                                <p className="text-gray-300 text-sm leading-relaxed">
-                                    استان تهران، شهرستان شمیرانات، بخش مرکزی، شهر تجریش، محله ازگل، خیابان گلچین جنوبی، کوچه لاله، پلاک ۳
+                                <p className="text-purple-50 text-sm font-medium mb-3">
+                                    شنبه تا پنجشنبه — <span className="nums">۸ الی ۱۶</span>
                                 </p>
-                                <div className="flex flex-wrap items-center gap-3 mt-3 text-xs text-gray-500">
-                                    <div className="flex items-center gap-1.5">
-                                        <Clock className="w-3 h-3" />
-                                        <span>شنبه تا پنجشنبه — ۸ الی ۱۶</span>
-                                    </div>
-                                    <span className={`w-1.5 h-1.5 rounded-full ${currentlyOpen ? 'bg-emerald-400' : 'bg-gray-600'}`} />
-                                    <span className={currentlyOpen ? 'text-emerald-400' : 'text-gray-600'}>
-                                        {currentlyOpen ? 'باز' : 'تعطیل'}
+                                <div className="flex items-center gap-2">
+                                    <span
+                                        className={`relative flex h-2.5 w-2.5 ${
+                                            currentlyOpen ? '' : ''
+                                        }`}
+                                        aria-hidden="true"
+                                    >
+                                        {currentlyOpen && (
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                        )}
+                                        <span
+                                            className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                                                currentlyOpen ? 'bg-emerald-400' : 'bg-gray-500'
+                                            }`}
+                                        />
+                                    </span>
+                                    <span
+                                        className={`text-sm font-semibold ${
+                                            currentlyOpen ? 'text-emerald-400' : 'text-gray-400'
+                                        }`}
+                                    >
+                                        {currentlyOpen ? 'هم‌اکنون باز است' : 'در حال حاضر تعطیل'}
                                     </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
 
-                    {/* Form */}
-                    <div className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
-                        <div className="h-0.5 bg-sky-400" aria-hidden="true" />
+                    {/* RIGHT (visual left in RTL): Form */}
+                    <motion.div
+                        className="glass rounded-2xl overflow-hidden flex flex-col"
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, margin: '-40px' }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                    >
+                        <div className="h-1 bg-gradient-to-l from-[#9333ea] via-[#d946ef] to-[#e879f9]" aria-hidden="true" />
 
-                        <div className="p-6 sm:p-8">
-                            <div aria-live="polite">
+                        <div className="p-6 sm:p-8 flex-1 flex flex-col">
+                            <div aria-live="polite" className="flex-1">
                                 {isSubmitted && !submitError ? (
-                                    <div className="text-center py-10">
-                                        <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
-                                            <CheckCircle className="w-6 h-6 text-emerald-400" />
+                                    <div className="text-center py-10 flex flex-col items-center justify-center h-full">
+                                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#9333ea]/20 to-[#d946ef]/20 border border-[#c084fc]/30 flex items-center justify-center mx-auto mb-5">
+                                            <CheckCircle className="w-8 h-8 text-emerald-400" />
                                         </div>
-                                        <p className="font-semibold text-white mb-1">پیام شما ارسال شد</p>
-                                        <p className="text-sm text-gray-400 mb-5">به زودی با شما تماس خواهیم گرفت.</p>
+                                        <p className="font-semibold text-purple-50 mb-1 text-lg">پیام شما ارسال شد</p>
+                                        <p className="text-sm text-purple-100/60 mb-6">
+                                            به زودی با شما تماس خواهیم گرفت.
+                                        </p>
                                         <button
                                             onClick={handleResetForm}
-                                            className="text-sm text-sky-400 hover:text-sky-300 transition-colors focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:outline-none rounded"
+                                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass hover:border-[#c084fc]/40 transition-all text-sm text-purple-50 focus-visible:ring-2 focus-visible:ring-[#e879f9] focus-visible:outline-none"
                                         >
+                                            <RotateCcw className="w-3.5 h-3.5" />
                                             ارسال پیام جدید
                                         </button>
                                     </div>
                                 ) : (
                                     <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                                        <div className="mb-2">
+                                            <h3 className="text-lg sm:text-xl font-bold text-purple-50">فرم تماس</h3>
+                                            <p className="text-purple-100/50 text-xs sm:text-sm">
+                                                پیام خود را برای ما ارسال کنید
+                                            </p>
+                                        </div>
+
                                         {submitError && (
-                                            <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg flex items-start gap-2.5">
+                                            <div className="p-3.5 bg-red-500/10 border border-red-500/25 rounded-xl flex items-start gap-2.5">
                                                 <AlertCircle className="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5" />
                                                 <div className="flex-1">
-                                                    <p className="text-sm text-red-400">{submitError}</p>
+                                                    <p className="text-sm text-red-300">{submitError}</p>
                                                     <button
                                                         type="button"
                                                         onClick={handleRetry}
@@ -191,7 +268,7 @@ const ContactSection: React.FC = () => {
                                             </div>
                                         )}
 
-                                        <div className="grid sm:grid-cols-2 gap-5">
+                                        <div className="grid sm:grid-cols-2 gap-4">
                                             {/* Name — floating label */}
                                             <div className="relative">
                                                 <input
@@ -206,19 +283,19 @@ const ContactSection: React.FC = () => {
                                                     required
                                                     minLength={2}
                                                     disabled={isSubmitting}
-                                                    className="peer w-full pt-6 pb-2 px-4 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-200 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-400/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="peer w-full pt-6 pb-2 px-4 glass rounded-xl text-purple-50 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-[#c084fc]/60 focus-visible:border-[#c084fc]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                                 />
                                                 <label
                                                     htmlFor="name"
                                                     className={`absolute right-4 transition-all duration-200 pointer-events-none ${
                                                         formData.name || focusedField === 'name'
                                                             ? 'top-2 text-xs'
-                                                            : 'top-4 text-sm text-gray-500'
+                                                            : 'top-4 text-sm text-purple-100/40'
                                                     } ${
                                                         focusedField === 'name'
-                                                            ? 'text-sky-400'
+                                                            ? 'text-[#e879f9]'
                                                             : formData.name
-                                                                ? 'text-gray-400'
+                                                                ? 'text-purple-100/50'
                                                                 : ''
                                                     }`}
                                                 >
@@ -239,19 +316,19 @@ const ContactSection: React.FC = () => {
                                                     onBlur={() => setFocusedField(null)}
                                                     required
                                                     disabled={isSubmitting}
-                                                    className="peer w-full pt-6 pb-2 px-4 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-200 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-400/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    className="peer w-full pt-6 pb-2 px-4 glass rounded-xl text-purple-50 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-[#c084fc]/60 focus-visible:border-[#c084fc]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                                 />
                                                 <label
                                                     htmlFor="email"
                                                     className={`absolute right-4 transition-all duration-200 pointer-events-none ${
                                                         formData.email || focusedField === 'email'
                                                             ? 'top-2 text-xs'
-                                                            : 'top-4 text-sm text-gray-500'
+                                                            : 'top-4 text-sm text-purple-100/40'
                                                     } ${
                                                         focusedField === 'email'
-                                                            ? 'text-sky-400'
+                                                            ? 'text-[#e879f9]'
                                                             : formData.email
-                                                                ? 'text-gray-400'
+                                                                ? 'text-purple-100/50'
                                                                 : ''
                                                     }`}
                                                 >
@@ -274,19 +351,19 @@ const ContactSection: React.FC = () => {
                                                 required
                                                 minLength={10}
                                                 disabled={isSubmitting}
-                                                className="peer w-full pt-6 pb-2 px-4 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-200 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-400/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed resize-none"
+                                                className="peer w-full pt-6 pb-2 px-4 glass rounded-xl text-purple-50 text-sm placeholder-transparent focus-visible:ring-2 focus-visible:ring-[#c084fc]/60 focus-visible:border-[#c084fc]/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed resize-none"
                                             />
                                             <label
                                                 htmlFor="message"
                                                 className={`absolute right-4 transition-all duration-200 pointer-events-none ${
                                                     formData.message || focusedField === 'message'
                                                         ? 'top-2 text-xs'
-                                                        : 'top-5 text-sm text-gray-500'
+                                                        : 'top-5 text-sm text-purple-100/40'
                                                 } ${
                                                     focusedField === 'message'
-                                                        ? 'text-sky-400'
+                                                        ? 'text-[#e879f9]'
                                                         : formData.message
-                                                            ? 'text-gray-400'
+                                                            ? 'text-purple-100/50'
                                                             : ''
                                                 }`}
                                             >
@@ -297,7 +374,7 @@ const ContactSection: React.FC = () => {
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-sky-600 hover:bg-sky-500 text-white font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                                            className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 bg-gradient-to-l from-[#9333ea] to-[#d946ef] text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-[0_0_30px_-5px_rgba(217,70,239,0.6)] hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[#e879f9] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0c0418]"
                                         >
                                             {isSubmitting ? (
                                                 <>
@@ -306,7 +383,7 @@ const ContactSection: React.FC = () => {
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Send className="w-4 h-4" />
+                                                    <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                                                     ارسال پیام
                                                 </>
                                             )}
@@ -315,7 +392,7 @@ const ContactSection: React.FC = () => {
                                 )}
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

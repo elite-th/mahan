@@ -45,76 +45,107 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
   };
 
   return (
-    <div className="group relative flex flex-col h-full bg-slate-800 rounded-xl border border-slate-700/50 hover:border-sky-500/50 transition-all duration-500 shadow-lg hover:shadow-lg hover:shadow-lg overflow-hidden">
+    <div
+      className="group relative flex flex-col h-full border-gradient overflow-hidden transition-all duration-500 hover:glow-ring"
+      style={{ background: 'rgba(31, 14, 54, 0.8)', backdropFilter: 'blur(12px)' }}
+    >
       {/* Product Link wrapper (Main content) */}
       <Link href={navigateTo} aria-label={product.name} className="block relative h-full">
         {/* Image Area */}
-        <div className="relative overflow-hidden aspect-[4/3]">
+        <div className="relative overflow-hidden aspect-[4/3] rounded-t-xl">
           {product.image?.sourceUrl ? (
             <Image
               src={product.image.sourceUrl}
               alt={product.image.altText || product.name}
               fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+              className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           ) : (
-            <div className="w-full h-full bg-slate-700/50 flex items-center justify-center text-slate-500 italic">تصویر در دسترس نیست</div>
+            <div className="w-full h-full bg-[#2a1450]/60 flex items-center justify-center text-purple-300/50 italic">
+              تصویر در دسترس نیست
+            </div>
           )}
 
-          {/* Overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          {/* Subtle hover darkening overlay (always-on legibility guard) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0c0418]/70 via-[#0c0418]/10 to-transparent pointer-events-none transition-opacity duration-500 group-hover:from-[#0c0418]/85"></div>
 
+          {/* Out-of-stock glass overlay */}
           {isOutOfStock && (
-            <div className="absolute inset-0 bg-slate-900/80 flex items-center justify-center z-10">
-              <span className="text-white text-sm font-black border border-red-500/30 bg-red-500/10 px-6 py-2 rounded-full shadow-lg">
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-[#0c0418]/60 backdrop-blur-sm">
+              <span className="text-purple-50 text-sm font-black px-6 py-2 rounded-full glass border border-red-500/30 text-red-200 shadow-lg">
                 ناموجود
               </span>
             </div>
           )}
 
+          {/* Featured badge — gradient pill with glow */}
           {isFeatured && !isOutOfStock && (
-            <div className="absolute top-4 left-4 bg-gradient-to-l from-sky-600 to-sky-500 text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg z-10 border border-white/10">
-              ویژه
+            <div className="absolute top-4 left-4 z-10">
+              <span
+                className="inline-flex items-center text-white text-xs font-black px-4 py-1.5 rounded-full shadow-lg border border-white/10 bg-gradient-to-l from-[#9333ea] to-[#d946ef]"
+                style={{ boxShadow: '0 0 18px -4px rgba(217, 70, 239, 0.65)' }}
+              >
+                ویژه
+              </span>
             </div>
           )}
         </div>
 
         {/* Info Area */}
-        <div className="p-6 flex flex-col flex-grow">
-          <h3 className="text-lg font-bold text-gray-100 transition-colors group-hover:text-white line-clamp-2 h-14 mb-4">
+        <div className="p-5 flex flex-col flex-grow">
+          <h3 className="text-base font-bold text-purple-50 transition-colors group-hover:text-white line-clamp-2 h-12 mb-3 leading-6">
             {product.name}
           </h3>
 
           <div className="mt-auto flex items-end justify-between gap-2">
             <div className="flex flex-col">
-              <span className="text-xs text-slate-500 font-medium mb-1">قیمت نهایی:</span>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-2xl font-black text-sky-400 nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }} />
-              </div>
+              <span className="text-xs text-purple-300/60 font-medium mb-1">قیمت نهایی:</span>
+              <span
+                className="text-2xl font-black text-gradient nums leading-none"
+                dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }}
+              />
               {usdPrice ? (
-                <span className="text-xs text-slate-400 mt-1 nums">
-                  ({formatUsdPrice(usdPrice)})
-                </span>
+                <span className="text-xs text-purple-300/50 mt-1.5 nums">({formatUsdPrice(usdPrice)})</span>
               ) : null}
             </div>
 
-            <div className="w-12 h-10 rounded-xl bg-slate-800/50 flex items-center justify-center border border-slate-700/50 group-hover:bg-sky-500/10 group-hover:border-sky-500/30 transition-all duration-300 transform group-hover:scale-105">
-              <ArrowLeftIcon className="w-5 h-5 text-slate-400 group-hover:text-sky-400 group-hover:-translate-x-1 transition-all" />
+            {/* Circular gradient arrow button — scales + glows on hover */}
+            <div
+              className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center bg-gradient-to-br from-[#a855f7] to-[#d946ef] shadow-md transition-all duration-300 transform group-hover:scale-110"
+              style={{ boxShadow: '0 6px 18px -6px rgba(168, 85, 247, 0.55)' }}
+              aria-hidden="true"
+            >
+              <ArrowLeftIcon className="w-5 h-5 text-white transition-transform duration-300 group-hover:-translate-x-0.5" />
             </div>
           </div>
         </div>
       </Link>
 
-      {/* Floating Buy Button - outside main link to avoid hydration issues */}
+      {/* Floating Cart Button — glass circle with violet→orchid gradient ring */}
       {!isOutOfStock && (
         <button
+          type="button"
           onClick={handleAddToCart}
           aria-label="افزودن به سبد خرید"
-          className="absolute top-4 right-4 z-20 w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center
-                    opacity-0 translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-500 ease-out hover:bg-emerald-500 hover:scale-110 shadow-lg border border-white/10"
+          className="absolute top-4 right-4 z-20 w-11 h-11 rounded-full flex items-center justify-center
+                     opacity-0 translate-y-2 translate-x-2 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0
+                     transition-all duration-500 ease-out hover:scale-110 hover:glow-ring
+                     bg-gradient-to-br from-[#a855f7] to-[#d946ef] p-[1.5px] shadow-md"
         >
-          <ShoppingCartIcon className="w-6 h-6" />
+          {/* Glass inner disc that sits on top of the gradient ring */}
+          <span
+            className="flex w-full h-full rounded-full items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, rgba(168,85,247,0.18), rgba(232,121,249,0.10))',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)',
+              boxShadow: 'inset 0 0 0 1px rgba(192,132,252,0.15)',
+            }}
+            aria-hidden="true"
+          >
+            <ShoppingCartIcon className="w-5 h-5 text-[#c084fc]" />
+          </span>
         </button>
       )}
     </div>

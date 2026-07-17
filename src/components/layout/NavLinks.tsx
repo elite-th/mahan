@@ -38,21 +38,26 @@ const NavLinks: React.FC<NavLinksProps> = ({ mobile = false }) => {
 
     if (mobile) {
         return (
-            <div className="flex flex-col space-y-2 w-full">
+            <div className="flex flex-col gap-2.5 w-full">
                 {NAV_LINKS.map((link, index) => {
                     const isActive = isLinkActive(link.href, pathname);
                     return (
                         <Link
                             key={link.href}
                             href={link.href}
-                            className={`relative px-6 py-4 text-lg font-medium transition-all duration-300 rounded-xl border flex items-center justify-between group overflow-hidden ${isActive
-                                ? 'bg-sky-500/10 text-sky-400 border-sky-500/20 shadow-lg'
-                                : 'text-gray-300 border-slate-700/30 hover:border-slate-600 hover:bg-slate-800/50'
-                                }`}
-                            style={{ transitionDelay: `${index * 50}ms` }}
+                            className={`relative rounded-2xl px-5 py-4 text-base font-medium transition-all duration-300 group overflow-hidden ${
+                                isActive
+                                    ? 'border-gradient text-[#f0abfc]'
+                                    : 'glass text-violet-200 hover:text-[#f0abfc]'
+                            }`}
+                            style={{ transitionDelay: `${index * 40}ms` }}
                         >
-                            <span className="relative z-10 group-hover:translate-x-[-4px] transition-transform duration-300">{link.label}</span>
-                            {isActive && <div className="w-2 h-2 rounded-full bg-sky-400 shadow-lg"></div>}
+                            <span className="relative z-10 flex items-center justify-between">
+                                {link.label}
+                                {isActive && (
+                                    <span className="w-2 h-2 rounded-full bg-gradient-to-r from-[#a855f7] to-[#e879f9] shadow-[0_0_10px_rgba(232,121,249,0.7)]" />
+                                )}
+                            </span>
                         </Link>
                     );
                 })}
@@ -61,19 +66,36 @@ const NavLinks: React.FC<NavLinksProps> = ({ mobile = false }) => {
     }
 
     return (
-        <div className="flex items-center gap-4 lg:gap-10">
+        <div className="flex items-center gap-6 xl:gap-8">
             {NAV_LINKS.map((link) => {
                 const isActive = isLinkActive(link.href, pathname);
                 return (
                     <Link
                         key={link.href}
                         href={link.href}
-                        className={`group relative py-3 text-base font-semibold transition-colors duration-300 ${isActive ? 'text-sky-400' : 'text-gray-300 hover:text-white'
-                            }`}
+                        className={`group relative py-2 text-sm font-medium transition-colors duration-300 ${
+                            isActive
+                                ? 'text-gradient'
+                                : 'text-violet-200/80 hover:text-[#f0abfc]'
+                        }`}
                     >
                         {link.label}
-                        <span className={`absolute bottom-0 right-0 h-[2px] bg-sky-500 rounded-full transition-all duration-300 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-50'
-                            }`}></span>
+
+                        {/* Animated underline — grows from the right (RTL) */}
+                        <span
+                            className={`absolute -bottom-0.5 right-0 h-[2px] rounded-full bg-gradient-to-l from-[#a855f7] to-[#e879f9] transition-all duration-300 ${
+                                isActive
+                                    ? 'w-full opacity-100'
+                                    : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-70'
+                            }`}
+                        />
+
+                        {/* Active dot indicator */}
+                        <span
+                            className={`absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[#e879f9] shadow-[0_0_8px_rgba(232,121,249,0.8)] transition-opacity duration-300 ${
+                                isActive ? 'opacity-100' : 'opacity-0'
+                            }`}
+                        />
                     </Link>
                 );
             })}
