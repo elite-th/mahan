@@ -37,7 +37,7 @@ export default async function ProductsPage() {
 
     // Enrich with REST API images (fallback for CSV-imported products)
     const imageMap = await fetchProductImagesFromRest();
-    products = enrichProductsWithImages(products, imageMap);
+    products = enrichProductsWithImages(products, imageMap) as ProductNode[];
 
     return (
       <section className="py-12 sm:py-16">

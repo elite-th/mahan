@@ -34,7 +34,7 @@ export async function GET(request: Request) {
     const imageMap = await fetchProductImagesFromRest();
 
     // 3. Enrich products with REST images
-    products = enrichProductsWithImages(products, imageMap);
+    products = enrichProductsWithImages(products, imageMap) as ProductNode[];
 
     return NextResponse.json({ products }, {
       headers: { 'Cache-Control': 'public, max-age=300' },
