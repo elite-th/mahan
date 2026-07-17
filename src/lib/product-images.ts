@@ -92,7 +92,7 @@ export function enrichProductsWithImages<
     name: string;
   }
 >(products: T[], imageMap: Map<number, { sourceUrl: string; altText: string }>): T[] {
-  return products.map((product) => {
+  return products.map((product): T => {
     if (!product.image?.sourceUrl) {
       const restImage = imageMap.get(product.databaseId);
       if (restImage) {
@@ -102,7 +102,7 @@ export function enrichProductsWithImages<
             sourceUrl: restImage.sourceUrl,
             altText: restImage.altText || product.name,
           },
-        };
+        } as T;
       }
     }
     return product;
