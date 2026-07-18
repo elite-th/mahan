@@ -1,6 +1,6 @@
 /**
  * Centralized SEO data — single source of truth for structured data,
- * metadata, and rich-snippet content across the VIRA site.
+ * metadata, and rich-snippet content across the MAHAN site.
  *
  * Keeping this server-side (no "use client") lets us emit JSON-LD
  * structured data from Server Components for Google rich results,
@@ -16,7 +16,7 @@ import { SITE_URL, COMPANY_NAME, COMPANY_SLOGAN } from '@/constants';
 export const CONTACT = {
   phoneSales: '09386473626',
   phoneSupport: '09104491267',
-  email: 'info@vna-co.ir',
+  email: 'info@mahan-ic.ir',
   addressCountry: 'IR',
   addressRegion: 'تهران',
   addressLocality: 'شمیرانات، تجریش',
@@ -50,14 +50,14 @@ export interface FaqItem {
 
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    question: 'آران از چه سالی شرکت شروع به کار کرده است؟',
+    question: 'ماهان از چه سالی شرکت شروع به کار کرده است؟',
     answer:
-      'ویرا شبکه آران از سال 1400 فعالیت خود را شروع کرده است.',
+      'ماهان ارتباطات خردمنده از سال 1400 فعالیت خود را شروع کرده است.',
   },
   {
-    question: 'از چه زمانی فروشگاه اینترنتی آران راه اندازی شده است؟',
+    question: 'از چه زمانی فروشگاه اینترنتی ماهان راه اندازی شده است؟',
     answer:
-      'آران، از همان ابتدا آغاز به کار فعالیت خود، درکنار فروش عمده، به صورت فروشگاه آنلاین نیز فعالیت خود را ادامه داده است.',
+      'ماهان، از همان ابتدا آغاز به کار فعالیت خود، درکنار فروش عمده، به صورت فروشگاه آنلاین نیز فعالیت خود را ادامه داده است.',
   },
   {
     question: 'آیا اینماد و کد مالیاتی دارید؟',
@@ -69,7 +69,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     answer: 'بله در صورت موجود بودن محصولات شارژ میگردد.',
   },
   {
-    question: 'آدرس ویرا شبکه کجاست؟',
+    question: 'آدرس ماهان ارتباطات کجاست؟',
     answer:
       'استان تهران - شهرستان شمیرانات - بخش مرکزی - شهر تجریش - محله ازگل - خیابان گلچین جنوبی - کوچه لاله - پلاک ۳',
   },
@@ -79,7 +79,7 @@ export const FAQ_ITEMS: FaqItem[] = [
       'ما از شنبه تا پنج شنبه 8 الی 16 در خدمت شما به صورت آنلاین و تلفنی هستیم.',
   },
   {
-    question: 'شماره تماس آران؟',
+    question: 'شماره تماس ماهان؟',
     answer: 'شماره فروش: 09386473626 | شماره پشتیبانی: 09104491267',
   },
 ];
@@ -98,11 +98,11 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: {
     '@type': 'ImageObject',
-    url: `${SITE_URL}/logo.gif`,
+    url: `${SITE_URL}/logo.svg`,
     width: 400,
     height: 160,
   },
-  image: `${SITE_URL}/og-image.jpg`,
+  image: `${SITE_URL}/logo.svg`,
   email: CONTACT.email,
   telephone: [CONTACT.phoneSales, CONTACT.phoneSupport],
   address: {

@@ -77,7 +77,7 @@ const Header: React.FC = () => {
                             aria-label="ماهان ارتباطات خردمنده - خانه"
                         >
                             <Image
-                                src="/logo.png"
+                                src="/logo.svg"
                                 alt="ماهان ارتباطات خردمنده"
                                 width={36}
                                 height={36}
@@ -161,7 +161,7 @@ const Header: React.FC = () => {
                 <div className="flex h-full flex-col pt-20 pb-6 px-4">
                     <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[#262430]">
                         <Image
-                            src="/logo.png"
+                            src="/logo.svg"
                             alt="ماهان ارتباطات خردمنده"
                             width={32}
                             height={32}

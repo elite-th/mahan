@@ -1,22 +1,12 @@
 import React from 'react';
-import { getClient } from "@/lib/apollo-client-server";
-import { GET_PRODUCTS_QUERY } from "@/graphql/queries";
 import ProductGrid from "./ProductGrid";
-import ErrorDisplay from "@/components/ErrorDisplay";
+import { MOCK_PRODUCTS } from "@/lib/mock-data";
 import { COMPANY_SLOGAN, SITE_URL } from "@/constants";
 import type { Metadata } from 'next';
-import { ProductNode } from "@/types";
-import { logger } from '@/lib/logger';
-import { fetchProductImagesFromRest, enrichProductsWithImages } from '@/lib/product-images';
-
-// ISR: Revalidate every 5 minutes instead of re-rendering on every request
-export const revalidate = 300;
-
-// ProductNode imported from types
 
 export const metadata: Metadata = {
   title: `محصولات و تجهیزات شبکه | ${COMPANY_SLOGAN}`,
-  description: `کاتالوگ کامل تجهیزات شبکه ویرا شبکه آران؛ سوئیچ سیسکو، روتر، تجهیزات دیتاسنتر و سرور با گارانتی و قیمت رقابتی. خرید آنلاین با مشاوره تخصصی.`,
+  description: `کاتالوگ کامل تجهیزات شبکه ماهان ارتباطات خردمنده؛ سوئیچ سیسکو، روتر، تجهیزات دیتاسنتر و سرور با گارانتی و قیمت رقابتی. خرید آنلاین با مشاوره تخصصی.`,
   keywords: ['خرید تجهیزات شبکه', 'سوئیچ سیسکو', 'روتر سیسکو', 'تجهیزات دیتاسنتر', 'سرور', 'کاتالوگ محصولات شبکه', COMPANY_SLOGAN],
   alternates: { canonical: '/products/' },
   openGraph: {
@@ -26,40 +16,28 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ProductsPage() {
-  try {
-    const { data } = await getClient().query({
-      query: GET_PRODUCTS_QUERY,
-      variables: { first: 1000 },
-    });
+/**
+ * ProductsPage — mock mode.
+ *
+ * Uses static mock data instead of an Apollo server query. No backend
+ * connection required.
+ */
+export default function ProductsPage() {
+  const products = MOCK_PRODUCTS;
 
-    let products: ProductNode[] = data?.products?.nodes || [];
-
-    // Enrich with REST API images (fallback for CSV-imported products)
-    const imageMap = await fetchProductImagesFromRest();
-    products = enrichProductsWithImages(products, imageMap) as ProductNode[];
-
-    return (
-      <section className="py-12 sm:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-sky-400 mb-4">
-              کاتالوگ محصولات
-            </h1>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-              جدیدترین تجهیزات شبکه و راهکارهای فناوری اطلاعات را اینجا بیابید.
-            </p>
-          </div>
-          <ProductGrid allProducts={products} />
+  return (
+    <section className="py-12 sm:py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl font-semibold text-[#ece9f2] sm:text-4xl">
+            کاتالوگ محصولات
+          </h1>
+          <p className="mt-3 text-sm text-[#a8a3b8] max-w-2xl">
+            جدیدترین تجهیزات شبکه و راهکارهای فناوری اطلاعات را اینجا بیابید.
+          </p>
         </div>
-      </section>
-    );
-  } catch (error) {
-    logger.error('Error fetching products for products page', undefined, error instanceof Error ? error : undefined);
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <ErrorDisplay message="خطا در بارگذاری لیست محصولات. لطفا بعدا تلاش کنید." />
+        <ProductGrid allProducts={products} />
       </div>
-    );
-  }
+    </section>
+  );
 }

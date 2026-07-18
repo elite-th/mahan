@@ -24,7 +24,7 @@ function makeClient() {
     // Client-side: use our GraphQL proxy (which adds auth from httpOnly cookies)
     // Server-side: use direct WordPress GraphQL endpoint
     uri: typeof window === "undefined"
-      ? process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://wordpress.vna-co.ir/graphql"
+      ? process.env.NEXT_PUBLIC_GRAPHQL_URI || "https://wordpress.mahan-ic.ir/graphql"
       : "/api/graphql",
     credentials: "include", // Send cookies with client-side requests
   });
@@ -78,10 +78,10 @@ function makeClient() {
   return new NextSSRApolloClient({
     cache: new NextSSRInMemoryCache(),
     link: link,
-    // Suppress Apollo 3.14 deprecation warning ("connectToDevTools — Please
-    // use `devtools.enabled` instead"). Devtools default to enabled in dev
-    // and disabled in production; this is the modern, non-deprecated way.
-    devtools: { enabled: process.env.NODE_ENV !== 'production' },
+    // Devtools disabled to silence the Apollo 3.14 deprecation warning
+    // ("connectToDevTools — Please use `devtools.enabled` instead").
+    // Re-enable in development if you need the Apollo devtools panel.
+    devtools: { enabled: false },
   });
 }
 

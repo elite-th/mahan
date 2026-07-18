@@ -4,18 +4,14 @@ const nextConfig = {
 
   poweredByHeader: false,
 
-  // NOTE: The www → non-www redirect is handled in src/middleware.ts (NOT here).
-  //
-  // WHY: When defined in next.config.js `redirects()`, Next.js strips the
-  // trailing slash during the www → non-www redirect, which then triggers
-  // ANOTHER redirect from `trailingSlash: true` to re-append the slash.
-  // This creates a 3-hop redirect chain:
-  //   www.x.com/p/slug/ → x.com/p/slug → x.com/p/slug/ → 200
-  // Torob (and some other crawlers) treat 3+ redirects as TooManyRedirects
-  // and fail to index product pages.
-  //
-  // Moving the redirect to middleware lets us preserve the trailing slash
-  // in a single hop: www.x.com/p/slug/ → x.com/p/slug/ → 200.
+  // Mock mode: disable next/image optimization so data-URI SVGs and any
+  // inline placeholder images pass through without hostname configuration.
+  // Re-enable optimization + configure remotePatterns when switching back
+  // to the real WooCommerce backend (product images served from
+  // wordpress.mahan-ic.ir).
+  images: {
+    unoptimized: true,
+  },
 
   // isomorphic-dompurify pulls in jsdom, which loads a bundled CSS file
   // (`browser/default-stylesheet.css`) via a runtime path. Webpack rewrites
@@ -24,55 +20,6 @@ const nextConfig = {
   serverExternalPackages: ['isomorphic-dompurify'],
 
   trailingSlash: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'trustseal.enamad.ir',
-      },
-      {
-        protocol: 'http',
-        hostname: 'vira.local',
-      },
-      {
-        protocol: 'https',
-        hostname: 'vira.local',
-      },
-      {
-        protocol: 'http',
-        hostname: 'new.vna-co.ir',
-      },
-      {
-        protocol: 'https',
-        hostname: 'new.vna-co.ir',
-      },
-      {
-        protocol: 'http',
-        hostname: 'wordpress.vna-co.ir',
-      },
-      {
-        protocol: 'https',
-        hostname: 'wordpress.vna-co.ir',
-      },
-      {
-        protocol: 'http',
-        hostname: 'vna-co.ir',
-      },
-      {
-        protocol: 'https',
-        hostname: 'vna-co.ir',
-      },
-      // Allow all subdomains of common image CDNs
-      {
-        protocol: 'https',
-        hostname: '**.wordpress.com',
-      },
-      {
-        protocol: 'https',
-        hostname: '**.woocommerce.com',
-      },
-    ],
-  },
 };
 
 export default nextConfig;

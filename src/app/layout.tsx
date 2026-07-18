@@ -58,17 +58,17 @@ export const metadata: Metadata = {
     type: 'website', locale: 'fa_IR', url: SITE_URL, siteName: COMPANY_SLOGAN,
     title: `${COMPANY_NAME} | ${COMPANY_SLOGAN} - تجهیزات شبکه و راهکارهای ICT`,
     description: `خرید آنلاین تجهیزات شبکه از ${COMPANY_SLOGAN}؛ سوئیچ سیسکو، روتر، تجهیزات دیتاسنتر و خدمات تخصصی شبکه با گارانتی.`,
-    images: [{ url: '/og-image.png', width: 1344, height: 768, alt: `${COMPANY_SLOGAN} - تجهیزات شبکه و راهکارهای فناوری اطلاعات` }],
+    images: [],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${COMPANY_NAME} | ${COMPANY_SLOGAN}`,
     description: `خرید آنلاین تجهیزات شبکه؛ سوئیچ سیسکو، روتر و راهکارهای تخصصی ICT.`,
-    images: ['/og-image.png'],
+    images: [],
   },
   icons: {
-    icon: [{ url: '/favicon.png' }, { url: '/favicon.png', sizes: 'any' }],
-    apple: '/favicon.png',
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: '/favicon.svg',
   },
   manifest: '/manifest.webmanifest',
   other: {

@@ -9,23 +9,10 @@ interface ClientLogoCardProps {
 }
 
 /**
- * ClientLogoCard — anti-slop redesign (v3).
+ * ClientLogoCard — mock mode.
  *
- * Removed (AI slop):
- *  - `.glass` card surface + `backdrop-blur`
- *  - `.glow-ring` on hover
- *  - `hover:scale-[1.04]` zoom on the logo
- *  - IntersectionObserver entrance animation (opacity/translate-y)
- *  - `index` prop + staggered `transitionDelay` (per-card entrance choreography)
- *
- * Replaced with: a plain bordered cell (the border comes from the parent
- * grid's `gap-px` on a `bg-border` wrapper, so each cell is separated by a
- * 1px line). The logo sits centered with generous padding. On hover, the
- * logo brightness shifts slightly — that's it.
- *
- * The `index` prop is removed (no longer needed). If any caller still passes
- * it, TypeScript will warn — but the parent (OurClientsSection) was updated
- * in lockstep.
+ * Logos are inline SVG data URIs (from mock-data.ts). next/image with
+ * `unoptimized` passes data URIs through without hitting the image optimizer.
  */
 const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
   const [imgError, setImgError] = useState(false);
@@ -42,6 +29,7 @@ const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
           alt={client.name || 'لوگوی همکار تجاری'}
           width={140}
           height={60}
+          unoptimized
           className="max-h-14 max-w-full object-contain opacity-60 transition-opacity duration-200 hover:opacity-100"
           onError={() => setImgError(true)}
         />
