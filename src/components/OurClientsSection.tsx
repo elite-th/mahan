@@ -20,83 +20,52 @@ const clientsData: ClientLogo[] = [
   { id: 'client-8', name: 'مشتری ۸ - همکار تجاری ماهان ارتباطات خردمنده', logoUrl: `${WP_UPLOADS}/Picture8.png` },
 ];
 
+/**
+ * OurClientsSection — anti-slop redesign (v3).
+ *
+ * Removed (AI slop):
+ *  - Infinite marquee scroll (`.marquee-track`) — a flashy effect that
+ *    prioritizes motion over legibility. Logos whipping by are hard to read.
+ *  - Gradient fade masks on both edges (`bg-gradient-to-r from-bg to-transparent`)
+ *  - Eyebrow label "مشتریان ما" in orchid uppercase tracking
+ *  - `text-gradient` on the H2
+ *
+ * Replaced with: a static, evenly-spaced grid of client logos on a solid
+ * background. Each logo sits in a bordered cell. No animation, no masks.
+ * Logos are readable and scannable — which is the entire point of a
+ * "our clients" section.
+ */
 const OurClientsSection: React.FC = () => {
-  // Duplicate the list so the marquee loop is seamless — when the track has
-  // moved 50% of its own width (= exactly one full set), the second copy is
-  // in the same position the first copy started in, so the animation can
-  // jump back to 0 with no visible glitch. The CSS keyframe `marquee-rtl`
-  // in globals.css does exactly this (0% → translateX(50%)).
-  const marqueeItems = [...clientsData, ...clientsData];
-
   return (
     <section
       id="clients"
-      className="relative overflow-hidden bg-[#160826] py-20 sm:py-24 lg:py-28"
+      className="border-b border-[#262430] bg-[#0b0a0f] py-20 sm:py-24"
       aria-labelledby="clients-heading"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Heading block */}
-        <div className="mx-auto mb-12 max-w-3xl text-center lg:mb-16">
-          <span className="mb-4 inline-block text-xs font-bold uppercase tracking-[0.25em] text-[#e879f9] sm:text-sm">
-            مشتریان ما
-          </span>
+        <div className="mb-12 max-w-2xl">
           <h2
             id="clients-heading"
-            className="text-gradient mb-4 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl"
+            className="text-3xl font-semibold leading-tight text-[#ece9f2] sm:text-4xl"
           >
             همکاران تجاری ما
           </h2>
-          <p className="text-base leading-loose text-purple-100/70 sm:text-lg">
-            افتخار همکاری با مجموعه‌ای از برترین سازمان‌ها و شرکت‌ها در صنایع
-            مختلف.
+          <p className="mt-4 text-base leading-8 text-[#a8a3b8]">
+            افتخار همکاری با مجموعه‌ای از سازمان‌ها و شرکت‌ها در صنایع مختلف.
           </p>
         </div>
-      </div>
 
-      {/* Full-bleed marquee strip — sits outside the container so logos scroll
-          edge-to-edge across the viewport. Gradient fade masks on both sides
-          blend the logos in/out against the section background. */}
-      <div className="relative w-full">
-        {/* Left fade mask */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 sm:w-28 lg:w-40
-                     bg-gradient-to-l from-[#160826] to-transparent"
-        />
-        {/* Right fade mask */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 sm:w-28 lg:w-40
-                     bg-gradient-to-r from-[#160826] to-transparent"
-        />
-
-        <div
-          className="overflow-hidden"
-          role="region"
-          aria-label={`نوار همکاران تجاری ${COMPANY_SLOGAN}`}
+        <ul
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-[#262430] border border-[#262430] rounded-lg overflow-hidden"
+          role="list"
+          aria-label={`همکاران تجاری ${COMPANY_SLOGAN}`}
         >
-          {/* The marquee-track CSS class lives in globals.css and applies
-              `animation: marquee-rtl 40s linear infinite;` with
-              `:hover { animation-play-state: paused; }`.
-
-              Spacing is applied per-item via `me-*` (margin-inline-end)
-              rather than flex `gap`. With `gap`, the trailing gap before
-              the duplicated set introduces a 0.5×gap misalignment when the
-              keyframe resets from translateX(50%) → translateX(0), causing
-              a visible jump every loop. Per-item margin keeps the spacing
-              uniform across the loop boundary → seamless. */}
-          <ul className="marquee-track py-2">
-            {marqueeItems.map((client, index) => (
-              <li
-                key={`${client.id}-dup-${index}`}
-                className="me-4 shrink-0 sm:me-6"
-                aria-label={client.name}
-              >
-                <ClientLogoCard client={client} />
-              </li>
-            ))}
-          </ul>
-        </div>
+          {clientsData.map((client) => (
+            <li key={client.id} className="bg-[#0b0a0f]">
+              <ClientLogoCard client={client} />
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

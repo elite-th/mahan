@@ -6,8 +6,8 @@
   "dir": "rtl",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c0418",
-  "theme_color": "#0c0418",
+  "background_color": "#0b0a0f",
+  "theme_color": "#0b0a0f",
   "categories": ["business", "shopping", "technology"],
   "icons": [
     { "src": "/favicon.png", "sizes": "any", "type": "image/png", "purpose": "any" },

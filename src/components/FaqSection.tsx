@@ -1,14 +1,37 @@
 "use client";
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Minus, HelpCircle, ArrowLeft } from 'lucide-react';
+import { Plus, Minus } from 'lucide-react';
 import { FAQ_ITEMS } from '@/lib/seo';
 
-// FAQ content lives in src/lib/seo.ts so it can be shared with the
-// server-side FAQPage structured data (JSON-LD) for Google rich results.
 const faqData = FAQ_ITEMS;
 
+/**
+ * FaqItem — single expandable row.
+ *
+ * Removed (AI slop):
+ *  - `.glow-ring` + `.border-gradient` on the open state
+ *  - `.glass` on the closed state with `hover:border-orchid/30`
+ *  - Numbered badge "01", "02" with gradient fill `from-violet to-orchid`
+ *  - Gradient icon circle for the Plus/Minus toggle
+ *  - `motion.span` rotate animation on the toggle icon
+ *  - framer-motion `AnimatePresence` height animation on the answer
+ *  - Gradient hairline divider above the answer (`bg-gradient-to-l from-transparent via-violet to-transparent`)
+ *  - `motion.aside` / `motion.div` entrance animations (opacity + x/y)
+ *  - `.glass` pill eyebrow "سوالات متداول" with HelpCircle icon
+ *  - `text-gradient` on the H2
+ *  - `.glass` CTA pill with sliding arrow
+ *  - Fake "+۱۰۰۰ مشتری راضی" mini-stat with emoji avatars (✓/★/⚡) in
+ *    gradient circles — entirely fabricated social proof
+ *
+ * Replaced with:
+ *  - A two-column layout: heading + contact link on the right (RTL),
+ *    a plain accordion list on the left. No entrance animations.
+ *  - Each FAQ item is a row separated by 1px borders (no card chrome).
+ *    The Plus/Minus icon is a plain icon (no circle, no gradient).
+ *    The answer expands inline using a CSS grid-rows transition (no JS
+ *    height measurement, no framer-motion).
+ */
 const FaqItem: React.FC<{
     item: { question: string; answer: string };
     index: number;
@@ -16,71 +39,34 @@ const FaqItem: React.FC<{
     onClick: () => void;
 }> = ({ item, index, isOpen, onClick }) => {
     return (
-        <div
-            className={`relative rounded-2xl transition-all duration-300 ${
-                isOpen
-                    ? 'glow-ring border-gradient'
-                    : 'glass hover:border-[#c084fc]/30'
-            }`}
-        >
+        <div className="border-b border-[#262430]">
             <button
                 onClick={onClick}
-                className="w-full flex items-center justify-between gap-4 text-right p-5 sm:p-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#e879f9] rounded-2xl"
+                className="w-full flex items-center justify-between gap-4 text-right py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded"
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${index}`}
             >
-                <span className="flex items-start gap-3 flex-1">
-                    <span
-                        className={`mt-0.5 flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-lg text-xs font-bold nums transition-colors ${
-                            isOpen
-                                ? 'bg-gradient-to-br from-[#9333ea] to-[#d946ef] text-white'
-                                : 'bg-[#2a1450] text-[#c084fc] border border-[#c084fc]/20'
-                        }`}
-                        aria-hidden="true"
-                    >
-                        {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <h3 className="text-sm sm:text-base font-medium text-purple-50 leading-relaxed">
-                        {item.question}
-                    </h3>
+                <span className="text-sm sm:text-base font-medium text-[#ece9f2] leading-relaxed flex-1">
+                    {item.question}
                 </span>
-                <motion.span
-                    animate={{ rotate: isOpen ? 90 : 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    className={`flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-full transition-colors ${
-                        isOpen
-                            ? 'bg-gradient-to-br from-[#9333ea] to-[#d946ef] text-white'
-                            : 'bg-[#1f0e36] text-[#e879f9] border border-[#c084fc]/20'
-                    }`}
-                    aria-hidden="true"
-                >
+                <span className="shrink-0 text-[#a8a3b8]" aria-hidden="true">
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
-                </motion.span>
+                </span>
             </button>
-            <AnimatePresence initial={false}>
-                {isOpen && (
-                    <motion.div
-                        id={`faq-answer-${index}`}
-                        key="content"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                        role="region"
-                        aria-labelledby={`faq-question-${index}`}
-                        className="overflow-hidden"
-                    >
-                        <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                            <div className="pr-10 sm:pr-11">
-                                <div className="h-px w-full bg-gradient-to-l from-transparent via-[#c084fc]/30 to-transparent mb-4" />
-                                <p className="text-purple-100/70 text-sm sm:text-[15px] leading-7">
-                                    {item.answer}
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {/* CSS grid-rows transition: 0fr → 1fr. No JS height measurement. */}
+            <div
+                id={`faq-answer-${index}`}
+                role="region"
+                aria-labelledby={`faq-question-${index}`}
+                className="grid transition-[grid-template-rows] duration-200 ease-out"
+                style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
+            >
+                <div className="overflow-hidden">
+                    <p className="pb-4 text-sm text-[#a8a3b8] leading-7">
+                        {item.answer}
+                    </p>
+                </div>
+            </div>
         </div>
     );
 };
@@ -93,74 +79,28 @@ const FaqSection: React.FC = () => {
     };
 
     return (
-        <section id="faq" className="aurora relative py-16 sm:py-24 bg-[#160826] overflow-hidden">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
-                    {/* Sidebar: heading + intro + CTA */}
-                    <motion.aside
-                        className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24 lg:self-start"
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: '-60px' }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass mb-5">
-                            <HelpCircle className="w-3.5 h-3.5 text-[#e879f9]" aria-hidden="true" />
-                            <span className="text-xs font-medium text-[#f0abfc] tracking-wide">
-                                سوالات متداول
-                            </span>
-                        </div>
-                        <h2 className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-gradient leading-tight mb-4">
-                            پاسخ پرسش‌های
-                            <br />
-                            رایج شما
+        <section id="faq" className="border-b border-[#262430] bg-[#0b0a0f] py-20 sm:py-24">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
+                    {/* Sidebar: heading + contact link (right in RTL) */}
+                    <aside className="lg:col-span-4 lg:sticky lg:top-24 lg:self-start">
+                        <h2 className="text-3xl font-semibold leading-tight text-[#ece9f2] sm:text-4xl">
+                            سوالات متداول
                         </h2>
-                        <p className="text-purple-100/60 text-sm sm:text-base leading-7 mb-8 max-w-md">
-                            پاسخ به برخی از رایج‌ترین سوالات شما درباره ماهان ارتباطات خردمنده. اگر پاسخ پرسش خود را نیافتید، با ما تماس بگیرید.
+                        <p className="mt-4 text-sm text-[#a8a3b8] leading-7 max-w-md">
+                            پاسخ به برخی از رایج‌ترین سوالات. اگر پاسخ خود را نیافتید، با ما تماس بگیرید.
                         </p>
-
-                        {/* CTA pill */}
                         <a
                             href="#contact"
-                            className="group inline-flex items-center gap-2 px-5 py-3 rounded-full glass hover:border-[#c084fc]/40 transition-all focus-visible:ring-2 focus-visible:ring-[#e879f9] focus-visible:outline-none"
+                            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#a78bfa] transition-colors hover:text-[#c4b5fd]"
                         >
-                            <span className="text-sm font-medium text-purple-50">
-                                سوال دیگری دارید؟ با ما تماس بگیرید
-                            </span>
-                            <ArrowLeft
-                                className="w-4 h-4 text-[#e879f9] transition-transform group-hover:-translate-x-1"
-                                aria-hidden="true"
-                            />
+                            سوال دیگری دارید؟ تماس بگیرید
+                            <span aria-hidden="true">←</span>
                         </a>
+                    </aside>
 
-                        {/* Mini stat */}
-                        <div className="hidden lg:flex items-center gap-3 mt-10 pt-8 border-t border-[#c084fc]/10">
-                            <div className="flex -space-x-2 -space-x-reverse">
-                                {[0, 1, 2].map((i) => (
-                                    <span
-                                        key={i}
-                                        className="w-8 h-8 rounded-full bg-gradient-to-br from-[#9333ea] to-[#d946ef] border-2 border-[#160826] flex items-center justify-center text-[10px] font-bold text-white"
-                                    >
-                                        {['✓', '★', '⚡'][i]}
-                                    </span>
-                                ))}
-                            </div>
-                            <p className="text-xs text-purple-100/60 leading-relaxed">
-                                <span className="text-purple-50 font-semibold nums">+۱۰۰۰</span> مشتری
-                                <br />
-                                راضی از پاسخگویی ما
-                            </p>
-                        </div>
-                    </motion.aside>
-
-                    {/* Accordion column */}
-                    <motion.div
-                        className="lg:col-span-8 xl:col-span-8 space-y-3"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '-40px' }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                    >
+                    {/* Accordion (left in RTL) */}
+                    <div className="lg:col-span-8 border-t border-[#262430]">
                         {faqData.map((item, index) => (
                             <FaqItem
                                 key={index}
@@ -170,7 +110,7 @@ const FaqSection: React.FC = () => {
                                 onClick={() => handleToggle(index)}
                             />
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

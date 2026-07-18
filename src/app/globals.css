@@ -1,226 +1,130 @@
 @import "tailwindcss";
 
 /* ====================================================================== */
-/*  ماهان ارتباطات خردمنده — Design System v2                              */
-/*  Two-tone palette: deep violet base + orchid/fuchsia accent             */
-/*  (replaces the previous flat purple theme to feel distinct & premium)  */
+/*  ماهان ارتباطات خردمنده — Design System v3 (anti-slop)                  */
+/*                                                                        */
+/*  Principles (deliberate restraint):                                    */
+/*   1. ONE accent color, used sparingly (violet-400). No second         */
+/*      "orchid" accent, no gradient text.                               */
+/*   2. Solid surfaces with real 1px borders. No glassmorphism, no       */
+/*      backdrop-blur, no gradient borders.                              */
+/*   3. No ambient blobs, no aurora, no glow rings, no colored shadows.  */
+/*   4. Motion only where it communicates state — no decorative         */
+/*      entrance animations, no hover lifts, no scale-105.               */
+/*   5. Real content density. No filler trust badges, no fake stats,    */
+/*      no emoji avatars, no version strings.                            */
 /* ====================================================================== */
 
 @theme {
   --font-sans: var(--font-vazirmatn), var(--font-plex), system-ui, sans-serif;
   --font-heading: var(--font-vazirmatn), var(--font-plex), system-ui, sans-serif;
   --font-numeric: var(--font-plex), var(--font-vazirmatn), system-ui, sans-serif;
+}
 
-  /* ---- Brand palette (two-tone: violet + orchid) ---- */
-  --color-base-950: #0c0418;   /* near-black violet */
-  --color-base-900: #160826;   /* deep violet */
-  --color-base-800: #1f0e36;   /* card violet */
-  --color-base-700: #2a1450;   /* elevated surface */
+/* ---- Solid palette (no gradients in the system itself) ---- */
+/* Base surfaces — warm-neutral dark, NOT saturated violet */
+:root {
+  --bg:           #0b0a0f;   /* near-black, slight warmth */
+  --surface-1:    #131218;   /* card surface */
+  --surface-2:    #1b1923;   /* elevated / hover surface */
+  --border:       #262430;   /* 1px borders, low-contrast */
+  --border-strong:#34303f;   /* hover / focus border */
 
-  --color-brand-300: #d8b4fe;  /* light violet */
-  --color-brand-400: #c084fc;  /* violet accent */
-  --color-brand-500: #a855f7;  /* primary violet */
-  --color-brand-600: #9333ea;  /* deep violet */
+  --text:         #ece9f2;   /* primary text */
+  --text-muted:   #a8a3b8;   /* secondary text */
+  --text-faint:   #6b6680;   /* tertiary / labels */
 
-  --color-orchid-300: #f0abfc; /* light orchid */
-  --color-orchid-400: #e879f9; /* orchid — secondary accent */
-  --color-orchid-500: #d946ef; /* fuchsia */
-  --color-orchid-600: #c026d3; /* deep fuchsia */
-
-  --color-glow: #c084fc;       /* glow color for halos */
+  --accent:       #a78bfa;   /* violet-400 — the ONE accent */
+  --accent-hover: #c4b5fd;   /* violet-300 — hover state */
+  --accent-press: #8b5cf6;   /* violet-500 — active/pressed */
+  --accent-soft:  rgba(167,139,250,0.12); /* tinted background */
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--color-brand-500) var(--color-base-900);
+  scrollbar-color: var(--border-strong) var(--bg);
 }
 
 body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-base-950);
-  color: #e9d5ff;
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* ---------- Custom scrollbar ---------- */
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-track { background: var(--color-base-900); }
+::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--color-brand-500), var(--color-orchid-500));
+  background: var(--border-strong);
   border-radius: 5px;
-  border: 2px solid var(--color-base-900);
+  border: 2px solid var(--bg);
 }
-::-webkit-scrollbar-thumb:hover { background: var(--color-orchid-400); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
 ::-webkit-scrollbar-corner { background: transparent; }
 
 /* ---------- Focus indicator ---------- */
 :is(a, button, input, textarea, select):focus-visible {
-  outline: 2px solid var(--color-orchid-400);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
-/* ---------- Utility: gradient text (violet→orchid) ---------- */
-.text-gradient {
-  background: linear-gradient(120deg, var(--color-brand-300) 0%, var(--color-orchid-400) 60%, var(--color-brand-400) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-/* ---------- Utility: glass card ---------- */
-.glass {
-  background: linear-gradient(135deg, rgba(168, 85, 247, 0.06), rgba(232, 121, 249, 0.03));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(192, 132, 252, 0.12);
-}
-
-/* ---------- Utility: glow halo ---------- */
-.glow-ring {
-  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.15),
-              0 8px 30px -8px rgba(168, 85, 247, 0.4),
-              0 0 60px -20px rgba(232, 121, 249, 0.35);
-}
-
-/* ---------- Utility: gradient border (for premium cards) ---------- */
-.border-gradient {
-  position: relative;
-  background: var(--color-base-800);
-  border-radius: 16px;
-}
-.border-gradient::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(135deg, var(--color-brand-500), var(--color-orchid-500), transparent 70%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-/* ---------- Utility: aurora background (animated soft blobs) ---------- */
-.aurora {
-  position: relative;
-  overflow: hidden;
-}
-.aurora::before,
-.aurora::after {
-  content: '';
-  position: absolute;
-  width: 60vw;
-  height: 60vw;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 0;
-}
-.aurora::before {
-  background: radial-gradient(circle, var(--color-brand-500), transparent 65%);
-  top: -20%;
-  right: -10%;
-  animation: aurora-drift-1 18s ease-in-out infinite alternate;
-}
-.aurora::after {
-  background: radial-gradient(circle, var(--color-orchid-500), transparent 65%);
-  bottom: -25%;
-  left: -15%;
-  animation: aurora-drift-2 22s ease-in-out infinite alternate;
-}
-@keyframes aurora-drift-1 {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-8%, 12%) scale(1.15); }
-}
-@keyframes aurora-drift-2 {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(10%, -10%) scale(1.2); }
-}
-
-/* ---------- Cart badge ---------- */
+/* ---------- Cart badge (solid, no glow) ---------- */
 .cart-badge {
   position: absolute;
-  top: -6px;
-  right: -8px;
-  min-width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-orchid-500), var(--color-brand-500));
-  color: white;
-  font-size: 0.75rem;
-  line-height: 1rem;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.6875rem;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 5px;
-  font-weight: bold;
+  padding: 0 4px;
+  font-weight: 700;
   pointer-events: none;
-  box-shadow: 0 0 10px rgba(232, 121, 249, 0.6);
 }
 
-/* ---------- Cart shake animation ---------- */
+/* ---------- Cart shake (the ONE functional animation) ---------- */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-3px); }
-  20%, 40%, 60%, 80% { transform: translateX(3px); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
 }
-.cart-icon-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+.cart-icon-shake { animation: shake 0.3s ease-in-out; }
 
-/* ---------- Fade in ---------- */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.fade-in { animation: fadeIn 0.6s ease-out forwards; }
-
-/* ---------- Shimmer (for skeleton loaders) ---------- */
-@keyframes shimmer {
-  0%   { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-.shimmer {
-  background: linear-gradient(90deg,
-    var(--color-base-800) 0%,
-    var(--color-base-700) 50%,
-    var(--color-base-800) 100%);
-  background-size: 200% 100%;
-  animation: shimmer 1.6s infinite;
-}
-
-/* ---------- Success checkmark ---------- */
-.success-checkmark-container { width: 80px; height: 80px; margin: 0 auto; }
+/* ---------- Success checkmark (functional, communicates completion) ---------- */
+.success-checkmark-container { width: 64px; height: 64px; margin: 0 auto; }
 .success-checkmark {
-  width: 80px; height: 80px; border-radius: 50%; display: block;
-  stroke-width: 2; stroke: #22c55e; stroke-miterlimit: 10;
-  animation: success-scale 0.3s ease-in-out 0.6s both;
+  width: 64px; height: 64px; border-radius: 50%; display: block;
+  stroke-width: 2; stroke: #4ade80; stroke-miterlimit: 10;
 }
 .success-checkmark__circle {
   stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2;
-  stroke-miterlimit: 10; stroke: #22c55e; fill: none;
-  animation: success-stroke 0.6s cubic-bezier(0.65,0,0.45,1) forwards;
+  stroke-miterlimit: 10; stroke: #4ade80; fill: none;
+  animation: success-stroke 0.5s cubic-bezier(0.65,0,0.45,1) forwards;
 }
 .success-checkmark__check {
   transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48;
   stroke-width: 3;
-  animation: success-stroke 0.3s cubic-bezier(0.65,0,0.45,1) 0.6s forwards;
+  animation: success-stroke 0.3s cubic-bezier(0.65,0,0.45,1) 0.3s forwards;
 }
-@keyframes success-stroke { 100% { stroke-dashoffset: 0; } }
-@keyframes success-scale {
-  0%, 100% { transform: none; }
-  50% { transform: scale3d(1.1,1.1,1); }
-}
+@keyframes success-stroke { to { stroke-dashoffset: 0; } }
 
 /* ---------- No-scrollbar utility ---------- */
 .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
@@ -229,19 +133,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 /* ---------- Tabular numbers ---------- */
 .nums { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
 
-/* ---------- Marquee (infinite scroll for client logos) ---------- */
-@keyframes marquee-rtl {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(50%); }
-}
-.marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee-rtl 40s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
-
-/* ---------- Respect reduced motion ---------- */
+/* ---------- Prefers-reduced-motion: kill ALL animation ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -249,6 +141,4 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .aurora::before, .aurora::after { display: none; }
-  .marquee-track { animation: none; }
 }

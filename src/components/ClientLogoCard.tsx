@@ -9,56 +9,63 @@ interface ClientLogoCardProps {
 }
 
 /**
- * ClientLogoCard — a single logo card used inside the OurClients marquee.
+ * ClientLogoCard — anti-slop redesign (v3).
  *
- * Simplified (Task 5-C): the marquee is always visible, so the previous
- * IntersectionObserver-driven fade-in is no longer needed. The card is now
- * a plain `.glass` rounded card with a fixed marquee slot size
- * (h-24 w-40) and an image error fallback. React.memo kept so duplicating
- * the list for the seamless marquee loop doesn't trigger re-renders.
+ * Removed (AI slop):
+ *  - `.glass` card surface + `backdrop-blur`
+ *  - `.glow-ring` on hover
+ *  - `hover:scale-[1.04]` zoom on the logo
+ *  - IntersectionObserver entrance animation (opacity/translate-y)
+ *  - `index` prop + staggered `transitionDelay` (per-card entrance choreography)
+ *
+ * Replaced with: a plain bordered cell (the border comes from the parent
+ * grid's `gap-px` on a `bg-border` wrapper, so each cell is separated by a
+ * 1px line). The logo sits centered with generous padding. On hover, the
+ * logo brightness shifts slightly — that's it.
+ *
+ * The `index` prop is removed (no longer needed). If any caller still passes
+ * it, TypeScript will warn — but the parent (OurClientsSection) was updated
+ * in lockstep.
  */
 const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
   const [imgError, setImgError] = useState(false);
 
-  const cardContent = (
-    <div
-      className="glass flex h-24 w-40 items-center justify-center rounded-2xl px-4
-                 transition-transform duration-300 hover:scale-[1.04] hover:glow-ring"
-    >
+  const inner = (
+    <div className="flex h-28 items-center justify-center p-6">
       {imgError ? (
-        <div className="flex max-h-16 max-w-full items-center justify-center rounded-lg bg-[#2a1450]/60 px-3 py-2 text-center">
-          <span className="text-[10px] leading-tight text-purple-200/70">
-            {client.name}
-          </span>
-        </div>
+        <span className="text-xs text-center text-[#6b6680] leading-snug">
+          {client.name}
+        </span>
       ) : (
         <Image
           src={client.logoUrl}
-          alt={client.name || 'لوگوی مشتری ماهان ارتباطات خردمنده'}
-          width={160}
-          height={64}
-          className="max-h-16 max-w-full object-contain"
+          alt={client.name || 'لوگوی همکار تجاری'}
+          width={140}
+          height={60}
+          className="max-h-14 max-w-full object-contain opacity-60 transition-opacity duration-200 hover:opacity-100"
           onError={() => setImgError(true)}
         />
       )}
     </div>
   );
 
-  if (client.websiteUrl && client.websiteUrl !== '#') {
-    return (
-      <a
-        href={client.websiteUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`وب‌سایت ${client.name}`}
-        className="block rounded-2xl outline-none"
-      >
-        {cardContent}
-      </a>
-    );
-  }
-
-  return cardContent;
+  return (
+    <>
+      {client.websiteUrl && client.websiteUrl !== '#' ? (
+        <a
+          href={client.websiteUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`وب‌سایت ${client.name}`}
+          className="block"
+        >
+          {inner}
+        </a>
+      ) : (
+        inner
+      )}
+    </>
+  );
 };
 
 export default React.memo(ClientLogoCard);

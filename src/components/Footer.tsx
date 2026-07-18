@@ -3,53 +3,49 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Phone, Mail, Camera, Briefcase, Clock } from 'lucide-react';
+import { Phone, Mail, Clock } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { NAV_LINKS, COMPANY_NAME, COMPANY_SLOGAN } from '../constants';
 
+/**
+ * Footer — anti-slop redesign (v3).
+ *
+ * Removed (AI slop):
+ *  - Top gradient hairline (`bg-gradient-to-l from-transparent via-orchid to-transparent`)
+ *  - Big blurred glow blob (`blur-[100px] bg-violet/15`)
+ *  - `text-gradient` on the brand name
+ *  - Social icon circles with `.glass` + hover gradient border (placeholders for
+ *    Instagram/LinkedIn that don't exist — pure filler)
+ *  - Gradient hairline accents next to column headings (`bg-gradient-to-l from-violet to-orchid`)
+ *  - Gradient bottom border
+ *  - `hover:scale` / `group-hover` color transitions on every link's dot
+ *
+ * Replaced with: a quiet 3-column footer with solid 1px top border, plain
+ * text links, and a single centered copyright line. No glow, no gradients.
+ */
 const Footer: React.FC = () => {
   const pathname = usePathname();
   const year = new Date().getFullYear();
 
   const renderLink = (href: string, label: string) => {
-    // Hash links on non-home pages: use plain <a> so the browser navigates
-    // home and the ScrollToHash component handles the in-page jump.
+    const className = "text-sm text-[#a8a3b8] transition-colors hover:text-[#ece9f2]";
     if (href.startsWith('/#') && pathname !== '/') {
       return (
-        <a
-          href={href}
-          className="group inline-flex items-center gap-2 text-sm text-violet-200/70 hover:text-[#f0abfc] transition-colors duration-300"
-        >
-          <span className="w-1 h-1 rounded-full bg-[#a855f7]/60 group-hover:bg-[#e879f9] transition-colors" />
+        <a href={href} className={className}>
           {label}
         </a>
       );
     }
     return (
-      <Link
-        href={href}
-        className="group inline-flex items-center gap-2 text-sm text-violet-200/70 hover:text-[#f0abfc] transition-colors duration-300"
-      >
-        <span className="w-1 h-1 rounded-full bg-[#a855f7]/60 group-hover:bg-[#e879f9] transition-colors" />
+      <Link href={href} className={className}>
         {label}
       </Link>
     );
   };
 
   return (
-    <footer className="relative mt-auto bg-[#0c0418] overflow-hidden">
-      {/* Subtle top gradient glow */}
-      <div
-        className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#d946ef]/60 to-transparent"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute -top-32 left-1/2 -translate-x-1/2 w-[60vw] h-40 rounded-full bg-[#a855f7]/15 blur-[100px] pointer-events-none"
-        aria-hidden="true"
-      />
-
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-8">
-        {/* 3-column grid (RTL: first child renders on the right) */}
+    <footer className="mt-auto border-t border-[#262430] bg-[#0b0a0f]">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
 
           {/* Column 1 — Brand (right in RTL) */}
@@ -58,53 +54,31 @@ const Footer: React.FC = () => {
               <Image
                 src="/logo.png"
                 alt="ماهان ارتباطات خردمنده"
-                width={48}
-                height={48}
-                className="h-12 w-auto"
+                width={36}
+                height={36}
+                className="h-9 w-auto"
               />
               <div>
-                <p className="text-base font-bold text-gradient leading-tight">
+                <p className="text-sm font-semibold text-[#ece9f2] leading-tight">
                   {COMPANY_NAME}
                 </p>
-                <p className="text-xs text-violet-300/70 mt-0.5">
+                <p className="text-xs text-[#6b6680] mt-0.5">
                   {COMPANY_SLOGAN}
-                </p>
-                <p className="text-[11px] text-violet-300/50 mt-1">
-                  تجهیزات شبکه و راهکارهای ICT
                 </p>
               </div>
             </div>
-            <p className="text-sm leading-7 text-violet-200/70 max-w-xs">
-              ارائه‌دهنده تخصصی تجهیزات شبکه، امنیت، مجازی‌سازی و راهکارهای
-              فناوری اطلاعات با گارانتی و پشتیبانی حرفه‌ای.
+            <p className="text-sm leading-7 text-[#a8a3b8] max-w-xs">
+              واردات و تأمین تخصصی تجهیزات شبکه و زیرساخت فناوری اطلاعات
+              برای سازمان‌های دولتی و خصوصی.
             </p>
-
-            {/* Social icons */}
-            <div className="flex items-center gap-2.5 mt-1">
-              {[
-                { Icon: Camera, label: 'اینستاگرام' },
-                { Icon: Briefcase, label: 'لینکدین' },
-                { Icon: Mail, label: 'ایمیل' },
-              ].map(({ Icon, label }) => (
-                <span
-                  key={label}
-                  aria-label={label}
-                  title={label}
-                  className="w-9 h-9 rounded-full glass flex items-center justify-center text-violet-200/80 hover:text-[#f0abfc] hover:border-[#e879f9]/40 transition-all duration-300 cursor-pointer"
-                >
-                  <Icon className="w-4 h-4" />
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Column 2 — Quick links (middle) */}
           <div className="md:px-4">
-            <h3 className="text-sm font-bold text-[#f0abfc] mb-4 flex items-center gap-2">
-              <span className="w-6 h-px bg-gradient-to-l from-[#a855f7] to-[#e879f9]" />
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#6b6680] mb-4">
               دسترسی سریع
             </h3>
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-2.5">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>{renderLink(link.href, link.label)}</li>
               ))}
@@ -113,66 +87,63 @@ const Footer: React.FC = () => {
 
           {/* Column 3 — Contact (left in RTL) */}
           <div>
-            <h3 className="text-sm font-bold text-[#f0abfc] mb-4 flex items-center gap-2">
-              <span className="w-6 h-px bg-gradient-to-l from-[#a855f7] to-[#e879f9]" />
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#6b6680] mb-4">
               تماس با ما
             </h3>
-
-            <ul className="flex flex-col gap-3 text-sm">
+            <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <a
                   href="tel:02191090702"
-                  className="group inline-flex items-center gap-2.5 text-violet-200/80 hover:text-[#f0abfc] transition-colors"
+                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
                 >
-                  <Phone className="w-4 h-4 text-[#a855f7] group-hover:text-[#e879f9] transition-colors" />
+                  <Phone className="h-4 w-4 text-[#6b6680]" />
                   <span className="nums">۰۲۱-۹۱۰۹۰۷۰۲</span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09386473626"
-                  className="group inline-flex items-center gap-2.5 text-violet-200/80 hover:text-[#f0abfc] transition-colors"
+                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
                 >
-                  <Phone className="w-4 h-4 text-[#a855f7] group-hover:text-[#e879f9] transition-colors" />
+                  <Phone className="h-4 w-4 text-[#6b6680]" />
                   <span>
                     <span className="nums">۰۹۳۸-۶۴۷-۳۶۲۶</span>{' '}
-                    <span className="text-violet-300/50 text-xs">(فروش)</span>
+                    <span className="text-[#6b6680] text-xs">(فروش)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09104491267"
-                  className="group inline-flex items-center gap-2.5 text-violet-200/80 hover:text-[#f0abfc] transition-colors"
+                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
                 >
-                  <Phone className="w-4 h-4 text-[#a855f7] group-hover:text-[#e879f9] transition-colors" />
+                  <Phone className="h-4 w-4 text-[#6b6680]" />
                   <span>
                     <span className="nums">۰۹۱۰-۴۴۹-۱۲۶۷</span>{' '}
-                    <span className="text-violet-300/50 text-xs">(پشتیبانی)</span>
+                    <span className="text-[#6b6680] text-xs">(پشتیبانی)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:info@mahan-ic.ir"
-                  className="group inline-flex items-center gap-2.5 text-violet-200/80 hover:text-[#f0abfc] transition-colors break-all"
+                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2] break-all"
                 >
-                  <Mail className="w-4 h-4 text-[#a855f7] group-hover:text-[#e879f9] transition-colors shrink-0" />
+                  <Mail className="h-4 w-4 text-[#6b6680] shrink-0" />
                   <span dir="ltr">info@mahan-ic.ir</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2.5 text-violet-200/70 pt-1">
-                <Clock className="w-4 h-4 text-[#a855f7] shrink-0 mt-0.5" />
+              <li className="inline-flex items-center gap-2 text-[#a8a3b8] pt-1">
+                <Clock className="h-4 w-4 text-[#6b6680]" />
                 <span>شنبه تا پنجشنبه، ۸ الی ۱۶</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom bar — copyright with gradient top border */}
-        <div className="relative mt-12 pt-6">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-l from-transparent via-[#2a1450] to-transparent" />
-          <p className="text-center text-xs text-violet-300/60">
+        {/* Bottom bar — plain, single line */}
+        <div className="mt-10 pt-6 border-t border-[#262430]">
+          <p className="text-center text-xs text-[#6b6680]">
             © {year} {COMPANY_SLOGAN}. تمامی حقوق محفوظ است.
           </p>
         </div>
