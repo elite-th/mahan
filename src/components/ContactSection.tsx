@@ -103,88 +103,88 @@ const ContactSection: React.FC = () => {
     ];
 
     return (
-        <section id="contact" className="border-b border-[#262430] bg-[#0b0a0f] py-20 sm:py-24">
+        <section id="contact" className="border-b border-[#2a2640] bg-[#0c0a14] py-20 sm:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-12 max-w-2xl">
-                    <h2 className="text-3xl font-semibold leading-tight text-[#ece9f2] sm:text-4xl">
+                    <h2 className="text-3xl font-semibold leading-tight text-[#f0edf7] sm:text-4xl">
                         تماس با ما
                     </h2>
-                    <p className="mt-4 text-sm text-[#a8a3b8] leading-7">
-                        برای مشاوره تخصصی، دریافت قیمت یا هرگونه سوال، تیم ماهان ارتباطات خردمنده آماده پاسخگویی به شماست.
+                    <p className="mt-4 text-sm text-[#b4aecb] leading-7">
+                        برای مشاوره تخصصی، دریافت قیمت یا هرگونه سوال، تیم ماهان ارتباطات آماده پاسخگویی به شماست.
                     </p>
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-8 max-w-5xl">
                     {/* Info panel (right in RTL) */}
-                    <div className="border border-[#262430] rounded-lg p-6 sm:p-8 flex flex-col">
-                        <h3 className="text-base font-semibold text-[#ece9f2] mb-6">اطلاعات تماس</h3>
+                    <div className="border border-[#2a2640] rounded-lg p-6 sm:p-8 flex flex-col">
+                        <h3 className="text-base font-semibold text-[#f0edf7] mb-6">اطلاعات تماس</h3>
 
                         {/* Phones */}
                         <div className="mb-6">
                             <div className="flex items-center gap-2 mb-3">
-                                <Phone className="w-4 h-4 text-[#6b6680]" aria-hidden="true" />
-                                <span className="text-xs font-medium uppercase tracking-wider text-[#6b6680]">تلفن تماس</span>
+                                <Phone className="w-4 h-4 text-[#7a7396]" aria-hidden="true" />
+                                <span className="text-xs font-medium uppercase tracking-wider text-[#b4aecb]">تلفن تماس</span>
                             </div>
                             <div className="space-y-1.5 pl-6">
                                 {phones.map((phone) => (
                                     <a
                                         key={phone.href}
                                         href={phone.href}
-                                        className="block text-[#ece9f2] transition-colors hover:text-[#a78bfa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded"
+                                        className="block text-[#f0edf7] transition-colors hover:text-[#a78bfa] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded"
                                         dir="ltr"
                                     >
                                         <span className="font-medium nums text-sm">{phone.label}</span>
-                                        <span className="text-[11px] text-[#6b6680] mr-2">({phone.sub})</span>
+                                        <span className="text-[11px] text-[#b4aecb] mr-2">({phone.sub})</span>
                                     </a>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="h-px bg-[#262430] mb-6" />
+                        <div className="h-px bg-[#2a2640] mb-6" />
 
                         {/* Email */}
                         <div className="mb-6">
                             <div className="flex items-center gap-2 mb-3">
-                                <Mail className="w-4 h-4 text-[#6b6680]" aria-hidden="true" />
-                                <span className="text-xs font-medium uppercase tracking-wider text-[#6b6680]">ایمیل</span>
+                                <Mail className="w-4 h-4 text-[#7a7396]" aria-hidden="true" />
+                                <span className="text-xs font-medium uppercase tracking-wider text-[#b4aecb]">ایمیل</span>
                             </div>
                             <a
                                 href="mailto:info@mahan-ic.ir"
-                                className="block pl-6 text-[#ece9f2] transition-colors hover:text-[#a78bfa] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded w-fit"
+                                className="block pl-6 text-[#f0edf7] transition-colors hover:text-[#a78bfa] font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded w-fit"
                                 dir="ltr"
                             >
                                 info@mahan-ic.ir
                             </a>
                         </div>
 
-                        <div className="h-px bg-[#262430] mb-6" />
+                        <div className="h-px bg-[#2a2640] mb-6" />
 
                         {/* Address */}
                         <div className="mb-6">
                             <div className="flex items-center gap-2 mb-3">
-                                <MapPin className="w-4 h-4 text-[#6b6680]" aria-hidden="true" />
-                                <span className="text-xs font-medium uppercase tracking-wider text-[#6b6680]">آدرس</span>
+                                <MapPin className="w-4 h-4 text-[#7a7396]" aria-hidden="true" />
+                                <span className="text-xs font-medium uppercase tracking-wider text-[#b4aecb]">آدرس</span>
                             </div>
-                            <p className="pl-6 text-sm text-[#a8a3b8] leading-7">
+                            <p className="pl-6 text-sm text-[#b4aecb] leading-7">
                                 استان تهران، شهرستان شمیرانات، بخش مرکزی، شهر تجریش، محله ازگل، خیابان گلچین جنوبی، کوچه لاله، پلاک ۳
                             </p>
                         </div>
 
                         {/* Working hours — steady dot, no ping */}
-                        <div className="mt-auto pt-6 border-t border-[#262430]">
+                        <div className="mt-auto pt-6 border-t border-[#2a2640]">
                             <div className="flex items-center gap-2 mb-2">
-                                <Clock className="w-4 h-4 text-[#6b6680]" aria-hidden="true" />
-                                <span className="text-xs font-medium uppercase tracking-wider text-[#6b6680]">ساعات پاسخگویی</span>
+                                <Clock className="w-4 h-4 text-[#7a7396]" aria-hidden="true" />
+                                <span className="text-xs font-medium uppercase tracking-wider text-[#b4aecb]">ساعات پاسخگویی</span>
                             </div>
-                            <p className="text-sm text-[#ece9f2] mb-2">
+                            <p className="text-sm text-[#f0edf7] mb-2">
                                 شنبه تا پنجشنبه — <span className="nums">۸ الی ۱۶</span>
                             </p>
                             <div className="flex items-center gap-2">
                                 <span
-                                    className={`inline-block h-2 w-2 rounded-full ${currentlyOpen ? 'bg-emerald-400' : 'bg-[#6b6680]'}`}
+                                    className={`inline-block h-2 w-2 rounded-full ${currentlyOpen ? 'bg-emerald-400' : 'bg-[#7a7396]'}`}
                                     aria-hidden="true"
                                 />
-                                <span className={`text-sm font-medium ${currentlyOpen ? 'text-emerald-400' : 'text-[#6b6680]'}`}>
+                                <span className={`text-sm font-medium ${currentlyOpen ? 'text-emerald-400' : 'text-[#7a7396]'}`}>
                                     {currentlyOpen ? 'هم‌اکنون باز است' : 'در حال حاضر تعطیل'}
                                 </span>
                             </div>
@@ -192,13 +192,13 @@ const ContactSection: React.FC = () => {
                     </div>
 
                     {/* Form (left in RTL) */}
-                    <div className="border border-[#262430] rounded-lg p-6 sm:p-8 flex flex-col">
+                    <div className="border border-[#2a2640] rounded-lg p-6 sm:p-8 flex flex-col">
                         <div aria-live="polite" className="flex-1">
                             {isSubmitted && !submitError ? (
                                 <div className="text-center py-12 flex flex-col items-center justify-center h-full">
                                     <CheckCircle className="w-10 h-10 text-emerald-400 mb-4" />
-                                    <p className="font-semibold text-[#ece9f2] mb-1">پیام شما ارسال شد</p>
-                                    <p className="text-sm text-[#a8a3b8] mb-6">به زودی با شما تماس خواهیم گرفت.</p>
+                                    <p className="font-semibold text-[#f0edf7] mb-1">پیام شما ارسال شد</p>
+                                    <p className="text-sm text-[#b4aecb] mb-6">به زودی با شما تماس خواهیم گرفت.</p>
                                     <button
                                         onClick={handleResetForm}
                                         className="text-sm text-[#a78bfa] transition-colors hover:text-[#c4b5fd] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded"
@@ -209,8 +209,8 @@ const ContactSection: React.FC = () => {
                             ) : (
                                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                                     <div className="mb-2">
-                                        <h3 className="text-base font-semibold text-[#ece9f2]">فرم تماس</h3>
-                                        <p className="text-xs text-[#6b6680] mt-1">پیام خود را برای ما ارسال کنید</p>
+                                        <h3 className="text-base font-semibold text-[#f0edf7]">فرم تماس</h3>
+                                        <p className="text-xs text-[#b4aecb] mt-1">پیام خود را برای ما ارسال کنید</p>
                                     </div>
 
                                     {submitError && (
@@ -232,7 +232,7 @@ const ContactSection: React.FC = () => {
 
                                     {/* Standard labeled inputs (no floating labels) */}
                                     <div>
-                                        <label htmlFor="name" className="block text-xs font-medium text-[#a8a3b8] mb-1.5">
+                                        <label htmlFor="name" className="block text-xs font-medium text-[#b4aecb] mb-1.5">
                                             نام
                                         </label>
                                         <input
@@ -244,13 +244,13 @@ const ContactSection: React.FC = () => {
                                             required
                                             minLength={2}
                                             disabled={isSubmitting}
-                                            className="w-full px-3 py-2.5 bg-[#131218] border border-[#262430] rounded-md text-sm text-[#ece9f2] transition-colors placeholder:text-[#6b6680] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full px-3 py-2.5 bg-[#15121f] border border-[#2a2640] rounded-md text-sm text-[#f0edf7] transition-colors placeholder:text-[#7a7396] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                                             placeholder="نام و نام خانوادگی"
                                         />
                                     </div>
 
                                     <div>
-                                        <label htmlFor="email" className="block text-xs font-medium text-[#a8a3b8] mb-1.5">
+                                        <label htmlFor="email" className="block text-xs font-medium text-[#b4aecb] mb-1.5">
                                             ایمیل
                                         </label>
                                         <input
@@ -261,14 +261,14 @@ const ContactSection: React.FC = () => {
                                             onChange={handleChange}
                                             required
                                             disabled={isSubmitting}
-                                            className="w-full px-3 py-2.5 bg-[#131218] border border-[#262430] rounded-md text-sm text-[#ece9f2] transition-colors placeholder:text-[#6b6680] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full px-3 py-2.5 bg-[#15121f] border border-[#2a2640] rounded-md text-sm text-[#f0edf7] transition-colors placeholder:text-[#7a7396] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
                                             placeholder="you@example.com"
                                             dir="ltr"
                                         />
                                     </div>
 
                                     <div>
-                                        <label htmlFor="message" className="block text-xs font-medium text-[#a8a3b8] mb-1.5">
+                                        <label htmlFor="message" className="block text-xs font-medium text-[#b4aecb] mb-1.5">
                                             پیام
                                         </label>
                                         <textarea
@@ -280,7 +280,7 @@ const ContactSection: React.FC = () => {
                                             required
                                             minLength={10}
                                             disabled={isSubmitting}
-                                            className="w-full px-3 py-2.5 bg-[#131218] border border-[#262430] rounded-md text-sm text-[#ece9f2] transition-colors placeholder:text-[#6b6680] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed resize-none"
+                                            className="w-full px-3 py-2.5 bg-[#15121f] border border-[#2a2640] rounded-md text-sm text-[#f0edf7] transition-colors placeholder:text-[#7a7396] focus:border-[#a78bfa] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed resize-none"
                                             placeholder="پیام خود را اینجا بنویسید..."
                                         />
                                     </div>
@@ -288,7 +288,7 @@ const ContactSection: React.FC = () => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#a78bfa] text-[#0b0a0f] text-sm font-semibold rounded-md transition-colors hover:bg-[#c4b5fd] disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78bfa]"
+                                        className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-[#a78bfa] text-[#0c0a14] text-sm font-semibold rounded-md transition-colors hover:bg-[#c4b5fd] disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78bfa]"
                                     >
                                         {isSubmitting ? (
                                             <>

@@ -13,7 +13,7 @@ import { COMPANY_SLOGAN, SITE_URL } from "@/constants";
 
 export const metadata: Metadata = {
   title: COMPANY_SLOGAN,
-  description: `ویرا شبکه آران، فروشگاه آنلاین تجهیزات شبکه و ارائه‌دهنده خدمات تخصصی امنیت شبکه، دیتاسنتر، SD-WAN، مجازی‌سازی و ایمیل سرور. خرید سوئیچ سیسکو، روتر و تجهیزات دیتاسنتر با گارانتی.`,
+  description: `ماهان ارتباطات خردمنده، فروشگاه آنلاین تجهیزات شبکه و ارائه‌دهنده خدمات تخصصی امنیت شبکه، دیتاسنتر، SD-WAN، مجازی‌سازی و ایمیل سرور. خرید سوئیچ سیسکو، روتر و تجهیزات دیتاسنتر با گارانتی.`,
   alternates: { canonical: '/' },
   openGraph: {
     title: COMPANY_SLOGAN,

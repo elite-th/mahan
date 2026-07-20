@@ -1,10 +1,10 @@
 import { NavLink } from './types';
 
-export const COMPANY_NAME = "ویرا";
-export const COMPANY_SLOGAN = "ویرا شبکه آران";
+export const COMPANY_NAME = "ماهان ارتباطات خردمنده";
+export const COMPANY_SLOGAN = "زیرساخت شبکه، با اطمینان ماهان";
 
 /** Canonical production origin — single source of truth for the domain. */
-export const SITE_URL = 'https://vna-co.ir';
+export const SITE_URL = 'https://mahan-ic.ir';
 
 export const NAV_LINKS: NavLink[] = [
   { label: "صفحه اصلی", href: "/#hero" },

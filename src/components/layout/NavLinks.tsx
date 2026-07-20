@@ -55,8 +55,8 @@ const NavLinks: React.FC<NavLinksProps> = ({ mobile = false }) => {
                             href={link.href}
                             className={`border-r-2 py-3 px-4 text-base transition-colors ${
                                 isActive
-                                    ? 'border-[#a78bfa] text-[#ece9f2] bg-[#1b1923]'
-                                    : 'border-transparent text-[#a8a3b8] hover:text-[#ece9f2] hover:bg-[#1b1923]'
+                                    ? 'border-[#a78bfa] text-[#f0edf7] bg-[#1d1a2b]'
+                                    : 'border-transparent text-[#b4aecb] hover:text-[#f0edf7] hover:bg-[#1d1a2b]'
                             }`}
                         >
                             {link.label}
@@ -77,8 +77,8 @@ const NavLinks: React.FC<NavLinksProps> = ({ mobile = false }) => {
                         href={link.href}
                         className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${
                             isActive
-                                ? 'border-[#a78bfa] text-[#ece9f2]'
-                                : 'border-transparent text-[#a8a3b8] hover:text-[#ece9f2]'
+                                ? 'border-[#a78bfa] text-[#f0edf7]'
+                                : 'border-transparent text-[#b4aecb] hover:text-[#f0edf7]'
                         }`}
                     >
                         {link.label}

@@ -64,8 +64,8 @@ const Header: React.FC = () => {
             <header
                 className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-150 ${
                     isScrolled || isMenuOpen
-                        ? 'border-[#262430] bg-[#0b0a0f]'
-                        : 'border-transparent bg-[#0b0a0f]'
+                        ? 'border-[#2a2640] bg-[#0c0a14]'
+                        : 'border-transparent bg-[#0c0a14]'
                 }`}
             >
                 <div className="container mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -96,12 +96,12 @@ const Header: React.FC = () => {
                         {/* Cart — solid icon, solid badge */}
                         <Link
                             href="/cart"
-                            className="relative rounded-md p-2 text-[#a8a3b8] transition-colors hover:bg-[#1b1923] hover:text-[#ece9f2]"
+                            className="relative rounded-md p-2 text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
                             aria-label={`سبد خرید (${displayCartCount} آیتم)`}
                         >
                             <ShoppingCartIcon className="h-5 w-5" />
                             {isHydrated && cartItemCount > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 text-[10px] font-bold leading-none text-[#0b0a0f] bg-[#a78bfa] rounded-full flex items-center justify-center nums">
+                                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 text-[10px] font-bold leading-none text-[#0c0a14] bg-[#a78bfa] rounded-full flex items-center justify-center nums">
                                     {cartItemCount}
                                 </span>
                             )}
@@ -115,13 +115,13 @@ const Header: React.FC = () => {
                                 <div className="hidden lg:flex items-center gap-1">
                                     <Link
                                         href="/login"
-                                        className="rounded-md px-3 py-2 text-sm font-medium text-[#a8a3b8] transition-colors hover:bg-[#1b1923] hover:text-[#ece9f2]"
+                                        className="rounded-md px-3 py-2 text-sm font-medium text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
                                     >
                                         ورود
                                     </Link>
                                     <Link
                                         href="/register"
-                                        className="rounded-md bg-[#a78bfa] px-4 py-2 text-sm font-semibold text-[#0b0a0f] transition-colors hover:bg-[#c4b5fd]"
+                                        className="rounded-md bg-[#a78bfa] px-4 py-2 text-sm font-semibold text-[#0c0a14] transition-colors hover:bg-[#c4b5fd]"
                                     >
                                         ثبت‌نام
                                     </Link>
@@ -132,7 +132,7 @@ const Header: React.FC = () => {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden rounded-md p-2 text-[#a8a3b8] transition-colors hover:bg-[#1b1923] hover:text-[#ece9f2]"
+                            className="lg:hidden rounded-md p-2 text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
                             aria-label={isMenuOpen ? "بستن منو" : "باز کردن منو"}
                             aria-expanded={isMenuOpen}
                         >
@@ -148,18 +148,18 @@ const Header: React.FC = () => {
 
             {/* Mobile Menu Overlay — solid, no blur */}
             <div
-                className={`fixed inset-0 z-[60] bg-[#0b0a0f]/80 lg:hidden transition-opacity duration-200 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+                className={`fixed inset-0 z-[60] bg-[#0c0a14]/80 lg:hidden transition-opacity duration-200 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Mobile Menu Drawer — solid surface */}
             <div
-                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[#262430] bg-[#0b0a0f] transition-transform duration-200 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[#2a2640] bg-[#0c0a14] transition-transform duration-200 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
                 role="dialog"
                 aria-modal="true"
             >
                 <div className="flex h-full flex-col pt-20 pb-6 px-4">
-                    <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[#262430]">
+                    <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[#2a2640]">
                         <Image
                             src="/logo.svg"
                             alt="ماهان ارتباطات خردمنده"
@@ -168,8 +168,8 @@ const Header: React.FC = () => {
                             className="h-8 w-auto"
                         />
                         <div>
-                            <p className="text-sm font-semibold text-[#ece9f2] leading-tight">ماهان ارتباطات خردمنده</p>
-                            <p className="text-[11px] text-[#6b6680]">تجهیزات شبکه و راهکارهای ICT</p>
+                            <p className="text-sm font-semibold text-[#f0edf7] leading-tight">ماهان ارتباطات خردمنده</p>
+                            <p className="text-[11px] text-[#7a7396]">تجهیزات شبکه و راهکارهای ICT</p>
                         </div>
                     </div>
 
@@ -178,16 +178,16 @@ const Header: React.FC = () => {
                     </div>
 
                     {!isLoading && !isLoggedIn && (
-                        <div className="mt-4 space-y-2 pt-4 border-t border-[#262430]">
+                        <div className="mt-4 space-y-2 pt-4 border-t border-[#2a2640]">
                             <Link
                                 href="/register"
-                                className="flex items-center justify-center w-full py-2.5 text-sm font-semibold text-[#0b0a0f] bg-[#a78bfa] rounded-md transition-colors hover:bg-[#c4b5fd]"
+                                className="flex items-center justify-center w-full py-2.5 text-sm font-semibold text-[#0c0a14] bg-[#a78bfa] rounded-md transition-colors hover:bg-[#c4b5fd]"
                             >
                                 ثبت‌نام
                             </Link>
                             <Link
                                 href="/login"
-                                className="flex items-center justify-center w-full py-2.5 text-sm font-medium text-[#ece9f2] border border-[#262430] rounded-md transition-colors hover:bg-[#1b1923]"
+                                className="flex items-center justify-center w-full py-2.5 text-sm font-medium text-[#f0edf7] border border-[#2a2640] rounded-md transition-colors hover:bg-[#1d1a2b]"
                             >
                                 ورود به حساب
                             </Link>

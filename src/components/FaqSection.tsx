@@ -39,17 +39,17 @@ const FaqItem: React.FC<{
     onClick: () => void;
 }> = ({ item, index, isOpen, onClick }) => {
     return (
-        <div className="border-b border-[#262430]">
+        <div className="border-b border-[#2a2640]">
             <button
                 onClick={onClick}
                 className="w-full flex items-center justify-between gap-4 text-right py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa] rounded"
                 aria-expanded={isOpen}
                 aria-controls={`faq-answer-${index}`}
             >
-                <span className="text-sm sm:text-base font-medium text-[#ece9f2] leading-relaxed flex-1">
+                <span className="text-sm sm:text-base font-medium text-[#f0edf7] leading-relaxed flex-1">
                     {item.question}
                 </span>
-                <span className="shrink-0 text-[#a8a3b8]" aria-hidden="true">
+                <span className="shrink-0 text-[#b4aecb]" aria-hidden="true">
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
                 </span>
             </button>
@@ -62,7 +62,7 @@ const FaqItem: React.FC<{
                 style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
                 <div className="overflow-hidden">
-                    <p className="pb-4 text-sm text-[#a8a3b8] leading-7">
+                    <p className="pb-4 text-sm text-[#b4aecb] leading-7">
                         {item.answer}
                     </p>
                 </div>
@@ -79,15 +79,15 @@ const FaqSection: React.FC = () => {
     };
 
     return (
-        <section id="faq" className="border-b border-[#262430] bg-[#0b0a0f] py-20 sm:py-24">
+        <section id="faq" className="border-b border-[#2a2640] bg-[#0c0a14] py-20 sm:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {/* Sidebar: heading + contact link (right in RTL) */}
                     <aside className="lg:col-span-4 lg:sticky lg:top-24 lg:self-start">
-                        <h2 className="text-3xl font-semibold leading-tight text-[#ece9f2] sm:text-4xl">
+                        <h2 className="text-3xl font-semibold leading-tight text-[#f0edf7] sm:text-4xl">
                             سوالات متداول
                         </h2>
-                        <p className="mt-4 text-sm text-[#a8a3b8] leading-7 max-w-md">
+                        <p className="mt-4 text-sm text-[#b4aecb] leading-7 max-w-md">
                             پاسخ به برخی از رایج‌ترین سوالات. اگر پاسخ خود را نیافتید، با ما تماس بگیرید.
                         </p>
                         <a
@@ -100,7 +100,7 @@ const FaqSection: React.FC = () => {
                     </aside>
 
                     {/* Accordion (left in RTL) */}
-                    <div className="lg:col-span-8 border-t border-[#262430]">
+                    <div className="lg:col-span-8 border-t border-[#2a2640]">
                         {faqData.map((item, index) => (
                             <FaqItem
                                 key={index}

@@ -80,7 +80,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0b0a0f',
+  themeColor: '#0c0a14',
   colorScheme: 'dark',
   width: 'device-width',
   initialScale: 1,
@@ -97,7 +97,7 @@ export default async function RootLayout({
 
   return (
     <html lang="fa" dir="rtl" className={`${vazirmatn.variable} ${plex.variable}`} suppressHydrationWarning data-scroll-behavior="smooth" nonce={nonce}>
-      <body className="bg-[#0b0a0f] text-[#ece9f2]">
+      <body className="bg-[#0c0a14] text-[#f0edf7]">
         {/* Organization + LocalBusiness structured data — applied site-wide */}
         <JsonLd data={[organizationSchema, websiteSchema]} />
         {/* FIX: Moved ApolloWrapper to the root layout to wrap all client-side providers. This resolves a component composition error by establishing a clear boundary between Server and Client Components and ensuring the Apollo Client is available to the entire application. */}

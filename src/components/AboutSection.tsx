@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { COMPANY_NAME, COMPANY_SLOGAN } from '../constants';
+import { COMPANY_NAME } from '../constants';
 
 /**
  * AboutSection — anti-slop redesign (v3).
@@ -38,7 +38,7 @@ const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="border-b border-[#262430] bg-[#0b0a0f] py-20 sm:py-24"
+      className="border-b border-[#2a2640] bg-[#0c0a14] py-20 sm:py-24"
       aria-labelledby="about-heading"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,30 +48,29 @@ const AboutSection: React.FC = () => {
           <div className="lg:col-span-7">
             <h2
               id="about-heading"
-              className="text-3xl font-semibold leading-tight text-[#ece9f2] sm:text-4xl"
+              className="text-3xl font-semibold leading-tight text-[#f0edf7] sm:text-4xl"
             >
               درباره {COMPANY_NAME}
             </h2>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[#a8a3b8]">
-              <span className="font-semibold text-[#ece9f2]">{COMPANY_SLOGAN}</span>{' '}
+            <p className="mt-6 max-w-2xl text-base leading-8 text-[#b4aecb]">
+              <span className="font-semibold text-[#f0edf7]">ماهان ارتباطات خردمنده</span>{' '}
               از سال ۱۴۰۰ با تمرکز بر واردات، تأمین و اجرای پروژه‌های تجهیزات
-              شبکه و زیرساخت فناوری اطلاعات فعالیت می‌کند. مجموعه ما با در اختیار
-              داشتن کارت بازرگانی، نماد اعتماد الکترونیک (اینماد) و کد مالیاتی،
-              فرایند خرید را شفاف و قابل اعتماد برای مشتریان سازمانی و دولتی
-              فراهم کرده است.
+              شبکه و زیرساخت فناوری اطلاعات فعالیت می‌کند. ما با کارت بازرگانی،
+              نماد اعتماد الکترونیک (اینماد) و کد مالیاتی، فرایند خرید را شفاف
+              و قابل اعتماد برای مشتریان سازمانی و دولتی فراهم کرده‌ایم.
             </p>
           </div>
 
           {/* Stats list (left in RTL, spans 5/12) */}
           <div className="lg:col-span-5">
-            <dl className="border-t border-[#262430]">
+            <dl className="border-t border-[#2a2640]">
               {STATS.map((stat) => (
                 <div
                   key={stat.label}
-                  className="flex items-baseline justify-between border-b border-[#262430] py-4"
+                  className="flex items-baseline justify-between border-b border-[#2a2640] py-4"
                 >
-                  <dt className="text-sm text-[#a8a3b8]">{stat.label}</dt>
-                  <dd className="text-2xl font-semibold text-[#ece9f2] nums">
+                  <dt className="text-sm text-[#b4aecb]">{stat.label}</dt>
+                  <dd className="text-2xl font-semibold text-[#f0edf7] nums">
                     {stat.value}
                   </dd>
                 </div>

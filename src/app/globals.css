@@ -22,22 +22,27 @@
 }
 
 /* ---- Solid palette (no gradients in the system itself) ---- */
-/* Base surfaces — warm-neutral dark, NOT saturated violet */
+/* Base surfaces — dark with a violet hue shift (purple harmony) */
 :root {
-  --bg:           #0b0a0f;   /* near-black, slight warmth */
-  --surface-1:    #131218;   /* card surface */
-  --surface-2:    #1b1923;   /* elevated / hover surface */
-  --border:       #262430;   /* 1px borders, low-contrast */
-  --border-strong:#34303f;   /* hover / focus border */
+  --bg:           #0c0a14;   /* near-black, violet-leaning */
+  --surface-1:    #15121f;   /* card surface */
+  --surface-2:    #1d1a2b;   /* elevated / hover surface */
+  --border:       #2a2640;   /* 1px borders, low-contrast */
+  --border-strong:#3a3556;   /* hover / focus border */
 
-  --text:         #ece9f2;   /* primary text */
-  --text-muted:   #a8a3b8;   /* secondary text */
-  --text-faint:   #6b6680;   /* tertiary / labels */
+  --text:         #f0edf7;   /* primary text */
+  --text-muted:   #b4aecb;   /* secondary text (WCAG AAA on bg) */
+  --text-faint:   #7a7396;   /* tertiary / labels — large text or icons only */
 
   --accent:       #a78bfa;   /* violet-400 — the ONE accent */
   --accent-hover: #c4b5fd;   /* violet-300 — hover state */
   --accent-press: #8b5cf6;   /* violet-500 — active/pressed */
   --accent-soft:  rgba(167,139,250,0.12); /* tinted background */
+
+  /* Hero-local tokens (no glow / aurora tokens — anti-slop) */
+  --hero-ring:    rgba(167,139,250,0.18); /* static coverage rings */
+  --hero-flow:    rgba(196,181,253,0.85); /* solid flow dots */
+  --hero-line:    rgba(180,174,203,0.25); /* dashed connector lines */
 }
 
 html {
@@ -140,5 +145,32 @@ h1, h2, h3, h4, h5, h6, .font-heading {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* ====================================================================== */
+/*  Hero — Network Core visual (anti-slop)                                */
+/*                                                                        */
+/*  ONE animation only: flow-dot. Dots travel along the connector lines   */
+/*  to communicate "data in motion" (functional — equivalent to a          */
+/*  spinner). Rings are STATIC. Core node has NO glow, NO breathing.       */
+/* ====================================================================== */
+
+/* Flow dot — travels 0% → 100% along an offset-path set inline per dot */
+@keyframes flow-dot {
+  from { offset-distance: 0%; }
+  to   { offset-distance: 100%; }
+}
+
+.hero-flow-dot {
+  offset-path: var(--flow-path);   /* set inline per dot (line direction) */
+  offset-rotate: 0deg;
+  animation: flow-dot 4s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-flow-dot {
+    animation: none;
+    offset-distance: 50%;   /* park dots mid-line when motion is reduced */
   }
 }

@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
   const year = new Date().getFullYear();
 
   const renderLink = (href: string, label: string) => {
-    const className = "text-sm text-[#a8a3b8] transition-colors hover:text-[#ece9f2]";
+    const className = "text-sm text-[#b4aecb] transition-colors hover:text-[#f0edf7]";
     if (href.startsWith('/#') && pathname !== '/') {
       return (
         <a href={href} className={className}>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="mt-auto border-t border-[#262430] bg-[#0b0a0f]">
+    <footer className="mt-auto border-t border-[#2a2640] bg-[#0c0a14]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
 
@@ -59,23 +59,23 @@ const Footer: React.FC = () => {
                 className="h-9 w-auto"
               />
               <div>
-                <p className="text-sm font-semibold text-[#ece9f2] leading-tight">
+                <p className="text-sm font-semibold text-[#f0edf7] leading-tight">
                   {COMPANY_NAME}
                 </p>
-                <p className="text-xs text-[#6b6680] mt-0.5">
+                <p className="text-xs text-[#7a7396] mt-0.5">
                   {COMPANY_SLOGAN}
                 </p>
               </div>
             </div>
-            <p className="text-sm leading-7 text-[#a8a3b8] max-w-xs">
-              واردات و تأمین تخصصی تجهیزات شبکه و زیرساخت فناوری اطلاعات
+            <p className="text-sm leading-7 text-[#b4aecb] max-w-xs">
+              واردات و تأمین تخصصی تجهیزات شبکه و زیرساخت ICT
               برای سازمان‌های دولتی و خصوصی.
             </p>
           </div>
 
           {/* Column 2 — Quick links (middle) */}
           <div className="md:px-4">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#6b6680] mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#b4aecb] mb-4">
               دسترسی سریع
             </h3>
             <ul className="flex flex-col gap-2.5">
@@ -87,54 +87,54 @@ const Footer: React.FC = () => {
 
           {/* Column 3 — Contact (left in RTL) */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#6b6680] mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#b4aecb] mb-4">
               تماس با ما
             </h3>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <a
                   href="tel:02191090702"
-                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
+                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
                 >
-                  <Phone className="h-4 w-4 text-[#6b6680]" />
+                  <Phone className="h-4 w-4 text-[#7a7396]" />
                   <span className="nums">۰۲۱-۹۱۰۹۰۷۰۲</span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09386473626"
-                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
+                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
                 >
-                  <Phone className="h-4 w-4 text-[#6b6680]" />
+                  <Phone className="h-4 w-4 text-[#7a7396]" />
                   <span>
                     <span className="nums">۰۹۳۸-۶۴۷-۳۶۲۶</span>{' '}
-                    <span className="text-[#6b6680] text-xs">(فروش)</span>
+                    <span className="text-[#7a7396] text-xs">(فروش)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09104491267"
-                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2]"
+                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
                 >
-                  <Phone className="h-4 w-4 text-[#6b6680]" />
+                  <Phone className="h-4 w-4 text-[#7a7396]" />
                   <span>
                     <span className="nums">۰۹۱۰-۴۴۹-۱۲۶۷</span>{' '}
-                    <span className="text-[#6b6680] text-xs">(پشتیبانی)</span>
+                    <span className="text-[#7a7396] text-xs">(پشتیبانی)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:info@mahan-ic.ir"
-                  className="inline-flex items-center gap-2 text-[#a8a3b8] transition-colors hover:text-[#ece9f2] break-all"
+                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7] break-all"
                 >
-                  <Mail className="h-4 w-4 text-[#6b6680] shrink-0" />
+                  <Mail className="h-4 w-4 text-[#7a7396] shrink-0" />
                   <span dir="ltr">info@mahan-ic.ir</span>
                 </a>
               </li>
-              <li className="inline-flex items-center gap-2 text-[#a8a3b8] pt-1">
-                <Clock className="h-4 w-4 text-[#6b6680]" />
+              <li className="inline-flex items-center gap-2 text-[#b4aecb] pt-1">
+                <Clock className="h-4 w-4 text-[#7a7396]" />
                 <span>شنبه تا پنجشنبه، ۸ الی ۱۶</span>
               </li>
             </ul>
@@ -142,8 +142,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar — plain, single line */}
-        <div className="mt-10 pt-6 border-t border-[#262430]">
-          <p className="text-center text-xs text-[#6b6680]">
+        <div className="mt-10 pt-6 border-t border-[#2a2640]">
+          <p className="text-center text-xs text-[#7a7396]">
             © {year} {COMPANY_SLOGAN}. تمامی حقوق محفوظ است.
           </p>
         </div>
