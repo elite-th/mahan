@@ -1,85 +1,82 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Phone } from 'lucide-react';
-import NetworkCoreVisual from './NetworkCoreVisual';
+import dynamic from 'next/dynamic';
+import styles from './HeroSection.module.css';
 
-/**
- * HeroSection — "Network Core" redesign (DESIGN-HERO.md §3).
- *
- * Two-column layout on desktop (single column on mobile):
- *  - Right column (RTL = text side): eyebrow, H1, one-sentence subtitle, two CTAs.
- *  - Left  column (RTL = visual side): <NetworkCoreVisual /> engineering diagram.
- *
- * No stats row (removed in pass 2 — stat inflation with AboutSection).
- * Solid surfaces, 1px borders, one accent color. No gradient text, no glow,
- * no backdrop-blur, no hover lift. The only motion in the hero is the flow-dot
- * animation inside NetworkCoreVisual (functional: "data in motion").
- */
+const HeroSketchEngine = dynamic(() => import('@/components/HeroSketchEngine'), { ssr: false });
+
 const HeroSection: React.FC = () => {
   const router = useRouter();
+  const sketchContainerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const buttonVisRef = useRef<HTMLDivElement>(null);
+  const realButtonRef = useRef<HTMLButtonElement>(null);
+
+  const [isLowPerf, setIsLowPerf] = useState(false);
 
   useEffect(() => {
+    // On component mount (e.g., page load/refresh), scroll to the top.
+    // This ensures the hero animation is always in view on initial load.
     window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
+  }, []); // Empty dependency array ensures this runs only once on mount.
 
-  const handleViewProducts = () => {
-    router.push('/products');
-  };
-
+  // ─────────────────────────────────────────────────────────────────────────
+  // DESKTOP HERO — full original experience (canvas + spin layers + SVG filters).
+  // This is now used on ALL viewports (mobile + desktop). The previous mobile
+  // branch was removed per user request — the desktop hero scales down to
+  // mobile via its existing responsive CSS (HeroSection.module.css already
+  // has @media (max-width: 768px) and (max-width: 480px) breakpoints).
+  // ─────────────────────────────────────────────────────────────────────────
   return (
-    <section
-      id="hero"
-      aria-label="ماهان ارتباطات خردمنده"
-      className="relative -mt-16 flex min-h-[80vh] items-center border-b border-[#2a2640] bg-[#0c0a14] px-4 pb-16 pt-24 sm:px-6 lg:px-8"
-    >
-      <div className="mx-auto w-full max-w-6xl grid gap-10 lg:grid-cols-2 lg:gap-12 items-center">
-        {/* Text column — appears on the RIGHT in RTL (first grid child) */}
-        <div className="flex flex-col items-start">
-          {/* Eyebrow — credential line, muted, small */}
-          <p className="mb-6 text-sm text-[#b4aecb]">
-            <span>شرکت تخصصی زیرساخت و شبکه</span>
-            <span className="mx-2 text-[#7a7396]" aria-hidden="true">·</span>
-            <span>واردات رسمی تجهیزات ICT</span>
-          </p>
+    <section id="hero" ref={sectionRef} className={`relative h-screen -mt-20 overflow-hidden bg-[#0c0a14] ${isLowPerf ? styles.lowPerf : ''}`}>
+      <div ref={sketchContainerRef} className={styles.heroContainer}>
+        <div className={styles.heroBackgroundImage} role="img" aria-label="ماهان ارتباطات خردمنده"></div>
+        <div className={styles.heroBackgroundOverlay}></div>
 
-          {/* H1 — solid text color, NO gradient text */}
-          <h1 className="text-4xl font-bold leading-[1.15] tracking-tight text-[#f0edf7] sm:text-5xl lg:text-6xl">
-            زیرساخت شبکه‌ی شما، در دستان متخصصان
-          </h1>
+        {/* The SVG filters are part of the "spins" visual effect, so they should also be conditionally rendered */}
+        {!isLowPerf && (
+          <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+            <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq"><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 0"></feColorMatrix></filter>
+            <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq2"><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.5 0"></feColorMatrix></filter>
+            <filter width="300%" x="-100%" height="300%" y="-100%" id="unopaq3"><feColorMatrix values="1 0 0 0.2 0 0 1 0 0.2 0 0 0 1 0.2 0 0 0 0 2 0"></feColorMatrix></filter>
+          </svg>
+        )}
 
-          {/* Subtitle — ONE focused sentence */}
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#b4aecb] sm:text-lg">
-            واردات، تأمین و اجرای تخصصی تجهیزات شبکه — از روتر و سوئیچ سیسکو تا
-            فایروال و راهکارهای وایرلس سازمانی.
-          </p>
+        <div className={styles.backdrop}></div>
 
-          {/* CTAs */}
-          <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={handleViewProducts}
-              className="inline-flex items-center justify-center gap-2 rounded-md bg-[#a78bfa] px-6 py-3 text-sm font-semibold text-[#0c0a14] transition-colors duration-150 hover:bg-[#c4b5fd] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78bfa]"
-            >
-              مشاهده محصولات
-              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            </button>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 px-1 py-3 text-sm font-medium text-[#f0edf7] underline decoration-[#7a7396] underline-offset-4 transition-colors hover:decoration-[#a78bfa]"
-            >
-              <Phone className="h-4 w-4 text-[#b4aecb]" aria-hidden="true" />
-              درخواست مشاوره فنی
-            </a>
+        <div className={styles.contentCenter}>
+          <div className={styles.titleContainer}>
+            <h1>ماهان ارتباطات خردمنده</h1>
+            <p>پیشگام در صنعت ICT</p>
+          </div>
+
+          <div className={styles.buttonContainer}>
+          <button className={styles.realButton} ref={realButtonRef} onClick={() => router.push('/products')} aria-label="مشاهده محصولات"></button>
+
+          {!isLowPerf && (
+            <>
+              <div className={`${styles.spin} ${styles.spinBlur}`}></div>
+              <div className={`${styles.spin} ${styles.spinIntense}`}></div>
+            </>
+          )}
+
+          <div className={styles.backdrop}></div>
+          <div className={styles.buttonBorder}>
+            {!isLowPerf && <div className={`${styles.spin} ${styles.spinInside}`}></div>}
+            <div className={styles.button} ref={buttonVisRef}>مشاهده محصولات</div>
           </div>
         </div>
-
-        {/* Visual column — appears on the LEFT in RTL (second grid child) */}
-        <div className="w-full">
-          <NetworkCoreVisual />
         </div>
       </div>
+      <HeroSketchEngine
+        sectionRef={sectionRef}
+        sketchContainerRef={sketchContainerRef}
+        buttonVisRef={buttonVisRef}
+        realButtonRef={realButtonRef}
+        onLowPerfChange={setIsLowPerf}
+      />
     </section>
   );
 };

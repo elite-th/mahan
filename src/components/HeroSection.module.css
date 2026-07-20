@@ -1,7 +1,843 @@
-/* HeroSection.module.css
- *
- * Anti-slop redesign (v3): the hero no longer uses any CSS-module classes.
- * All styling is handled via Tailwind utilities directly in HeroSection.tsx.
- * This file is kept (empty) so that any lingering `import styles from ...`
- * references elsewhere do not break the build. Safe to delete once confirmed.
- */
+/* ==========================================================================
+   HeroSection.module.css — purple/violet theme
+   Adapted from the original slate/sky hero. All slate grays → purple-tinted
+   darks; all sky blues → violet/purple accents. Matches the site-wide
+   purple harmony palette in globals.css.
+   ========================================================================== */
+
+.heroContainer {
+  margin: 0;
+  overflow: hidden;
+  background-color: #0c0a14; /* violet-leaning near-black (matches --bg) */
+  font-family: var(--font-vazirmatn);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.heroBackgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: blur(4px) brightness(0.6);
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInBg 1s ease-out 0.5s forwards;
+}
+
+.heroBackgroundOverlay {
+  position: absolute;
+  inset: 0;
+  /* purple-tinted dark overlay (replaces slate radial) */
+  background: radial-gradient(circle, rgba(12, 10, 20, 0.5) 0%, rgba(12, 10, 20, 0.9) 100%);
+  z-index: 2;
+}
+
+.heroContainer canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
+
+@keyframes fadeInBg {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.contentCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+  transform: translateY(-30px);
+}
+
+.titleContainer {
+  text-align: center;
+  color: #E8E4F5; /* purple-tinted off-white */
+  margin-bottom: 3.5rem;
+}
+
+.titleContainer h1 {
+  font-size: 3.2rem;
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+  letter-spacing: 2px;
+  /* purple-tinted shimmer gradient (replaces cool slate shimmer) */
+  background: linear-gradient(90deg, #E8E4F5, #FFFFFF, #C4B5FD, #E8E4F5);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: panGradient 10s ease infinite;
+  /* violet glow text-shadow (replaces light-blue glow) */
+  text-shadow: 0 0 5px rgba(232, 228, 245, 0.2), 0 0 25px rgba(196, 181, 253, 0.15), 0 0 50px rgba(196, 181, 253, 0.1);
+  transition: text-shadow 0.6s ease-out;
+  will-change: background-position;
+}
+
+:global(body.is-active) .titleContainer h1 {
+  text-shadow: 0 0 8px rgba(232, 228, 245, 0.6), 0 0 35px rgba(210, 195, 245, 0.35), 0 0 65px rgba(190, 170, 240, 0.2);
+}
+
+.titleContainer p {
+  font-size: 1.25rem;
+  margin: 0;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  color: #B4AECB; /* purple-muted (matches --text-muted) */
+  text-shadow: 0 0 10px rgba(196, 181, 253, 0.1);
+}
+
+@media (max-width: 768px) {
+  .titleContainer h1 {
+    font-size: 2.5rem;
+  }
+
+  .titleContainer p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroContainer {
+    padding: 1rem;
+  }
+
+  .contentCenter {
+    transform: translateY(-20px);
+  }
+
+  .titleContainer {
+    margin-bottom: 2.5rem;
+  }
+
+  .titleContainer h1 {
+    font-size: 2.2rem;
+  }
+
+  .titleContainer p {
+    font-size: 0.9rem;
+  }
+}
+
+.buttonContainer {
+  position: relative;
+  margin: 0 2em;
+}
+
+.buttonBorder {
+  padding: 2px;
+  inset: 0;
+  background: transparent;
+  border-radius: 30px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 28px;
+  width: 180px;
+  height: 60px;
+  background: #15121f; /* purple-tinted dark surface (matches --surface-1) */
+  flex-direction: column;
+  text-align: center;
+  font-size: 1.15em;
+  font-weight: 600;
+  color: #E8E4F5;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 0 8px rgba(232, 228, 245, 0.3);
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: -100%;
+  width: 75%;
+  height: 120%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(-30deg);
+  transition: left 0s;
+}
+
+:global(body.is-active) .button::after {
+  left: 125%;
+  transition: left 0.7s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.realButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 60px;
+  z-index: 15;
+  outline: none;
+  border: none;
+  border-radius: 28px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.backdrop {
+  position: absolute;
+  inset: -9900%;
+  /* violet-leaning dark backdrop radial (replaces slate) */
+  background: radial-gradient(circle, transparent 25%, #0c0a14 85%);
+  z-index: -1;
+}
+
+.spin {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.3;
+  overflow: hidden;
+  transition: opacity 0.4s ease-in-out;
+  transform: translateZ(0);
+  will-change: opacity;
+}
+
+:global(body.is-active) .spin {
+  opacity: 0.7;
+}
+
+.spinBlur {
+  filter: blur(1.5em) url(#unopaq);
+  transform: translateZ(0);
+}
+
+@media (max-width: 768px) {
+  .spinBlur {
+    filter: blur(0.8em) url(#unopaq);
+  }
+}
+
+.spinIntense {
+  inset: -0.125em;
+  filter: blur(0.2em) url(#unopaq2);
+  border-radius: 28px;
+}
+
+.spinInside {
+  inset: -2px;
+  border-radius: inherit;
+  filter: blur(2px) url(#unopaq3);
+  z-index: 0;
+}
+
+.spin::before {
+  content: "";
+  position: absolute;
+  inset: -150%;
+  animation: speen 8s cubic-bezier(0.4, 0.1, 0.6, 0.9) infinite, woah 4s ease-in-out infinite;
+  animation-play-state: paused;
+  transition: animation-play-state 0.4s;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+:global(body.is-active) .spin::before {
+  animation-play-state: running;
+}
+
+/* Spin layer backgrounds — purple-tinted whites + violet accents
+   (replaces the original cool slate/silver shimmers) */
+.spinBlur::before {
+  background: linear-gradient(90deg, #E8E4F5 25%, #0000 50%, #C4B5FD 75%);
+}
+
+.spinIntense::before {
+  background: linear-gradient(90deg, #F0EDF7 20%, #0000 45% 55%, #F0EDF7 80%);
+}
+
+.spinInside::before {
+  background: linear-gradient(90deg, #F0EDF7 30%, #0000 45% 55%, #E8E4F5 70%);
+}
+
+@keyframes speen {
+  0% {
+    rotate: 10deg;
+  }
+
+  50% {
+    rotate: 190deg;
+  }
+
+  to {
+    rotate: 370deg;
+  }
+}
+
+@keyframes woah {
+
+  0%,
+  to {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+
+  50% {
+    transform: scale(0.97);
+    opacity: 1;
+  }
+}
+
+.lowPerf .heroBackgroundImage {
+  filter: none;
+  animation: none;
+  opacity: 0.4;
+  background-size: cover;
+  background-position: center;
+}
+
+.lowPerf .spin,
+.lowPerf .spinBlur,
+.lowPerf .spinIntense,
+.lowPerf .spinInside {
+  display: none !important;
+}
+
+.lowPerf canvas {
+  opacity: 0.7;
+  /* Simplify canvas rendering by letting the JS config handle it, just reduce global opacity slightly for blend */
+}
+
+.lowPerf .titleContainer h1 {
+  animation: none;
+  background: none;
+  -webkit-text-fill-color: #E8E4F5;
+  text-shadow: none;
+}
+
+.lowPerf .button {
+  border: 1px solid rgba(232, 228, 245, 0.3);
+}
+
+/* Respect prefers-reduced-motion system setting */
+@media (prefers-reduced-motion: reduce) {
+  .heroBackgroundImage {
+    filter: brightness(0.6);
+    animation: none;
+    opacity: 0.4;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .spin,
+  .spinBlur,
+  .spinIntense,
+  .spinInside {
+    display: none !important;
+  }
+
+  .titleContainer h1 {
+    animation: none;
+  }
+
+  .button::after {
+    display: none;
+  }
+}
+
+/* ========================================================================== */
+/* MOBILE-ONLY HERO V2 (≤768px)                                               */
+/* Rendered via the isMobile branch in HeroSection.tsx.                       */
+/*                                                                            */
+/* V2 CHANGES vs V1 (which was rejected as "AI slop" + "too simple"):         */
+/*  • REMOVES titleGlowPulse (V1's ::before infinite halo on title).          */
+/*  • REMOVES ctaBreathe (V1's infinite scale pulse on the CTA button).       */
+/*  • REMOVES the small "SVG network behind CTA" (V1 lines 519–579).          */
+/*  • REMOVES the drifting dot grid (V1 lines 410–429).                       */
+/*  • ADDS a full-bleed network-topology SVG background (.heroMobileTopology) */
+/*    with 2 ambient opacity-only infinite animations (node pulse + 2 active  */
+/*    link pulses) — reads as "live network", not "AI breathing".             */
+/*  • ADDS a 3rd trust badge (تحویل سریع) with truck icon.                    */
+/*  • ADDS a stats strip (+5 years / +10 orgs / +100 products) for instant    */
+/*    B2B credibility.                                                        */
+/*  • ADDS a subtle left-pointing arrow icon to the CTA that slides in once.  */
+/*                                                                            */
+/* Infinite animation count: 2 (both opacity-only, both background SVG).      */
+/* One-time entrance animations: 30 instances, all complete by T=2.3s.        */
+/* All desktop classes above remain UNCHANGED.                                */
+/* ========================================================================== */
+
+.heroMobile {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* mobile browser-chrome aware (iOS 15.4+, Chrome 108+) */
+  /* Slide under the fixed mobile Header (90px scrolled / 110px at top). */
+  margin-top: -90px;
+  padding: 1.5rem;
+  padding-top: 110px; /* clears the fixed mobile Header at its tallest state */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0c0a14; /* violet-leaning near-black — identical to desktop */
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: var(--font-vazirmatn);
+}
+
+/* Layer 0: static sky tint at top (NOT mesh, NOT animated). */
+.heroMobileBg {
+  position: absolute;
+  inset: 0;
+  /* violet-400 @ 10% radial (replaces sky-500) */
+  background: radial-gradient(
+    ellipse at 50% 20%,
+    rgba(167, 139, 250, 0.10),
+    transparent 60%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Layer 1: full-bleed network-topology SVG.
+   viewBox 0 0 375 812 ≈ iPhone X+ portrait aspect. slice ensures the SVG
+   always fills the section regardless of actual viewport dimensions — excess
+   is cropped, never stretched (preserves the 90° PCB-trace aesthetic). */
+.heroMobileTopology {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* --- Traces (PCB-style orthogonal paths) --------------------------------- */
+/* One-time draw via stroke-dashoffset. pathLength={100} normalizes the dash
+   math so all traces draw at the same rate regardless of actual length.
+   stroke-dashoffset is paint-only but bounded to a single 0.7s draw per
+   trace (V1 precedent accepted this trade-off for one-time entrance paint).
+   Draw delay is set via inline `style={{ animationDelay: '...' }}` on each
+   <path>. */
+.topoTrace {
+  fill: none;
+  /* violet-300 @ 25% (replaces sky-300 @ 25%) */
+  stroke: rgba(196, 181, 253, 0.25);
+  stroke-width: 1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: topoTraceDraw 0.7s ease-out forwards;
+  will-change: stroke-dashoffset;
+}
+
+/* Shorter vertical traces — snappier duration for proportional feel. */
+.topoTraceV {
+  animation-duration: 0.5s;
+}
+
+@keyframes topoTraceDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* "Active link" variant — combined with .topoTrace on 2 of the traces (T1+T2,
+   the top horizontal route). Adds a slow infinite stroke-opacity pulse
+   suggesting "live traffic on this link". Opacity-only = GPU-friendly.
+   The 2 active links use different inline pulse-delay values (3.5s and 5.5s)
+   so they desync — when T1 is at peak, T2 is at trough, and vice versa.
+   animationDelay inline value is comma-separated: '<draw-delay>, <pulse-delay>'. */
+.topoLinkActive {
+  animation:
+    topoTraceDraw 0.7s ease-out forwards,
+    topoLinkPulse 4s ease-in-out infinite;
+}
+
+@keyframes topoLinkPulse {
+  0%, 100% { stroke-opacity: 0.25; }
+  50%      { stroke-opacity: 0.55; }
+}
+
+/* --- Nodes ---------------------------------------------------------------- */
+/* One-time pop-in (opacity + scale). Then ambient staggered opacity pulse
+   suggests "network activity indicators".
+   transform-box: fill-box is essential for transform-origin: center to work
+   on SVG <circle> (otherwise origin defaults to SVG viewport top-left).
+   animationDelay inline value is comma-separated: '<pop-delay>, <pulse-delay>'.
+   Pulse-delay is set ≥ pop-delay + 0.5s so the pulse starts AFTER the pop
+   completes (avoids an abrupt opacity jump from 1 → 0.5 when pulse kicks in). */
+.topoNode {
+  /* violet-300 @ 55% (replaces sky-300 @ 55%) */
+  fill: rgba(196, 181, 253, 0.55);
+  opacity: 0;
+  transform: scale(0);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation:
+    topoNodePop 0.35s ease-out forwards,
+    topoNodePulse 3s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes topoNodePop {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes topoNodePulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* --- Content layer -------------------------------------------------------- */
+.heroMobileContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 24rem;
+  width: 100%;
+}
+
+/* --- Title ---------------------------------------------------------------- */
+/* Solid violet-50 color (NO gradient text). One-time fade + scale entrance.
+   NO infinite glow pulse (V1 had titleGlowPulse ::before halo — flagged as
+   AI slop, REMOVED in V2).
+   Static text-shadow is legibility-only (separates title from the busy SVG
+   background) — NOT animated. */
+.heroMobileTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #f5f3ff; /* violet-50 — ~17:1 on #0c0a14 (AAA) */
+  margin: 0;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); /* legibility only, NOT animated */
+  opacity: 0;
+  transform: scale(0.96);
+  animation: titleEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes titleEnter {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Subtitle ------------------------------------------------------------- */
+.heroMobileSubtitle {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #b4aecb; /* purple-muted — ~8.5:1 on #0c0a14 (AAA) */
+  margin: 0.5rem 0 0;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: subtitleEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes subtitleEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- CTA button ----------------------------------------------------------- */
+/* Solid violet-500, white text. One-time fade + rise entrance. NO breathing, NO
+   pulsing, NO border-draw (V1's ctaBreathe infinite scale was flagged as AI
+   slop — REMOVED in V2). Hover/active states provide tactile feedback via
+   background-color transition only (WCAG 2.3.3 permits interaction
+   affordances under reduced-motion). */
+.heroMobileCta {
+  -webkit-appearance: none;
+  appearance: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 18rem;
+  min-height: 52px; /* ≥48px touch target, accommodates 1.1rem font + padding */
+  margin-top: 1.5rem;
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  background-color: #8b5cf6; /* violet-500 — per purple theme */
+  color: #ffffff; /* white on violet-500 — AA for large text (≥18.66px bold) */
+  font-family: inherit;
+  font-size: 1.1rem; /* 17.6px — close to large-text threshold */
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation; /* eliminates 300ms tap delay */
+  transition: background-color 0.15s ease;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: ctaEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  will-change: opacity, transform;
+}
+
+.heroMobileCta:hover,
+.heroMobileCta:focus-visible {
+  background-color: #7c3aed; /* violet-600 — darker, tactile */
+}
+
+.heroMobileCta:focus-visible {
+  outline: 3px solid #c4b5fd; /* violet-300 — visible focus ring */
+  outline-offset: 2px;
+}
+
+.heroMobileCta:active {
+  background-color: #6d28d9; /* violet-700 — pressed */
+}
+
+@keyframes ctaEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CTA arrow icon — slides in once after the CTA fades in. Points LEFT
+   (forward direction in RTL Persian UI). In RTL flex-direction:row, the
+   <svg> (second child) sits on the LEFT side of the <span> text — natural
+   "go forward" affordance for Persian readers. One-time, NO infinite. */
+.heroMobileCtaArrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: translateX(-6px);
+  animation: arrowSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  will-change: opacity, transform;
+}
+
+@keyframes arrowSlide {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* --- Trust badges (3 items, EXPANDED from V1's 2) ------------------------- */
+/* Semantic <ul> for screen readers. 3 items (V1 had 2 — added "تحویل سریع"
+   with truck icon per user spec). Each item has an inline SVG icon (V1 used
+   a "✓" text character). Staggered one-time fade-in, then STATIC. */
+.heroMobileTrust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  width: 100%;
+}
+
+.trustItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #d4cee8; /* purple-light — high contrast on #0c0a14 (AAA) */
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: trustEnter 0.4s ease-out forwards;
+  will-change: opacity, transform;
+}
+
+.trustItem:nth-child(1) { animation-delay: 1.10s; }
+.trustItem:nth-child(2) { animation-delay: 1.25s; }
+.trustItem:nth-child(3) { animation-delay: 1.40s; }
+
+.trustItem svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #a78bfa; /* violet-400 — accent for icons */
+}
+
+@keyframes trustEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Stats strip (NEW — adds B2B credibility) ----------------------------- */
+/* Thin tinted card with 3 mini-stats separated by 2 vertical dividers.
+   DOM order: stat(1) divider(2) stat(3) divider(4) stat(5) — so :nth-child
+   selectors 1/3/5 target stats and 2/4 target dividers.
+   Subtle bg tint + 1px border differentiate it from the hero above without
+   competing with the CTA. Staggered one-time fade-in, then STATIC. */
+.heroMobileStats {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  max-width: 22rem;
+  margin-top: 1rem;
+  padding: 0.75rem 0.5rem;
+  /* purple surface-2 @ 40% (replaces slate-800) */
+  background-color: rgba(29, 26, 43, 0.40);
+  /* purple border @ 50% (replaces slate-700) */
+  border: 1px solid rgba(42, 38, 64, 0.50);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  opacity: 0;
+  transform: translateY(6px);
+  animation: statEnter 0.4s ease-out forwards;
+  will-change: opacity, transform;
+}
+
+.statItem:nth-child(1) { animation-delay: 1.60s; }
+.statItem:nth-child(3) { animation-delay: 1.75s; }
+.statItem:nth-child(5) { animation-delay: 1.90s; }
+
+.statValue {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #c4b5fd; /* violet-300 — high contrast on #0c0a14 (AAA) */
+  line-height: 1.2;
+  font-feature-settings: "tnum"; /* tabular-nums — stable digit width */
+}
+
+.statLabel {
+  font-size: 0.7rem; /* 11.2px — small but legible */
+  font-weight: 400;
+  color: #b4aecb; /* purple-muted — ~8.5:1 on #0c0a14 (AAA) */
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.statDivider {
+  width: 1px;
+  align-self: center;
+  height: 24px;
+  /* purple border-strong @ 60% (replaces slate-600) */
+  background-color: rgba(58, 53, 86, 0.60);
+  opacity: 0;
+  animation: statEnter 0.4s ease-out forwards;
+}
+
+.statDivider:nth-child(2) { animation-delay: 1.70s; }
+.statDivider:nth-child(4) { animation-delay: 1.85s; }
+
+@keyframes statEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================================================== */
+/* Accessibility — prefers-reduced-motion                                     */
+/* Disable ALL animations; show content in final state.                      */
+/* SVG topology hidden entirely (purely decorative ambient motion).           */
+/* CTA background-color transition RETAINED (WCAG 2.3.3 permits interaction  */
+/* affordances).                                                              */
+/* ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .heroMobileTopology {
+    display: none !important;
+  }
+
+  .heroMobileTitle,
+  .heroMobileSubtitle,
+  .heroMobileCta,
+  .heroMobileCtaArrow,
+  .trustItem,
+  .statItem,
+  .statDivider {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .heroMobileCta {
+    transition: background-color 0.15s ease; /* retained — interaction affordance */
+  }
+}
+
+/* Honor viewport scaling — keep content readable on very narrow phones. */
+@media (max-width: 360px) {
+  .heroMobileTitle {
+    font-size: 2.0rem;
+  }
+
+  .heroMobileSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .heroMobileCta {
+    font-size: 1rem;
+    padding: 12px 24px;
+  }
+
+  .trustItem {
+    font-size: 0.75rem;
+  }
+
+  .statValue {
+    font-size: 0.9rem;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+  }
+}
