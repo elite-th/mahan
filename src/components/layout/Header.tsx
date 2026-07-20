@@ -11,21 +11,17 @@ import UserMenu from './UserMenu';
 import NavLinks from './NavLinks';
 
 /**
- * Header — anti-slop redesign (v3).
+ * Header — refined version.
  *
- * Removed (AI slop):
- *  - `.glass` backdrop-blur on scroll → replaced with solid `bg` + 1px border
- *  - Colored shadow `shadow-[#9333ea]/35`
- *  - Gradient cart badge `from-violet to-orchid` + glow shadow
- *  - Gradient register button `from-violet to-orchid` + colored hover shadow
- *  - `hover:-translate-y-0.5` lift on register button
- *  - `hover:scale-105` on logo
- *  - `group-hover:scale-110` on cart icon
- *  - `.glass` on mobile drawer
- *  - `text-gradient` on the brand name in the drawer
- *  - "Ver 1.0.2" version string (template leftover)
+ * Subtle visual polish over the previous solid-border header:
+ *  - When scrolled, the bar uses the elevated surface color (one step lighter
+ *    than bg) so it reads as a distinct floating bar without any blur/glass.
+ *  - A 1px divider separates the logo from the nav on desktop (cleaner grouping).
+ *  - Cart + auth buttons share consistent sizing (h-9) for a tidy action cluster.
+ *  - The register button gets a hair-thin ring on focus for keyboard users.
  *
- * Kept: all hooks, all behavior, all accessibility, the mobile drawer pattern.
+ * No glassmorphism, no gradients, no glow, no lift-on-hover. The refinement is
+ * in the spacing and the scrolled-surface contrast, not in decoration.
  */
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -62,15 +58,15 @@ const Header: React.FC = () => {
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-150 ${
+                className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-200 ${
                     isScrolled || isMenuOpen
-                        ? 'border-[#2a2640] bg-[#0c0a14]'
-                        : 'border-transparent bg-[#0c0a14]'
+                        ? 'border-[var(--border)] bg-[var(--surface-1)]'
+                        : 'border-transparent bg-[var(--bg)]'
                 }`}
             >
                 <div className="container mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
                     {/* Logo + Desktop Nav (grouped on the right in RTL) */}
-                    <div className="flex items-center gap-8">
+                    <div className="flex items-center gap-6">
                         <Link
                             href="/"
                             className="shrink-0"
@@ -86,22 +82,25 @@ const Header: React.FC = () => {
                             />
                         </Link>
 
+                        {/* Hair-thin divider between logo and nav (desktop only) */}
+                        <div className="hidden lg:block h-6 w-px bg-[var(--border)]" aria-hidden="true" />
+
                         <nav className="hidden lg:flex items-center">
                             <NavLinks />
                         </nav>
                     </div>
 
                     {/* Actions — far left in RTL */}
-                    <div className="flex items-center gap-1 sm:gap-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                         {/* Cart — solid icon, solid badge */}
                         <Link
                             href="/cart"
-                            className="relative rounded-md p-2 text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
+                            className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
                             aria-label={`سبد خرید (${displayCartCount} آیتم)`}
                         >
                             <ShoppingCartIcon className="h-5 w-5" />
                             {isHydrated && cartItemCount > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 text-[10px] font-bold leading-none text-[#0c0a14] bg-[#a78bfa] rounded-full flex items-center justify-center nums">
+                                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 text-[10px] font-bold leading-none text-[var(--bg)] bg-[var(--accent)] rounded-full flex items-center justify-center nums">
                                     {cartItemCount}
                                 </span>
                             )}
@@ -112,16 +111,16 @@ const Header: React.FC = () => {
                             isLoggedIn ? (
                                 <UserMenu />
                             ) : (
-                                <div className="hidden lg:flex items-center gap-1">
+                                <div className="hidden lg:flex items-center gap-1.5">
                                     <Link
                                         href="/login"
-                                        className="rounded-md px-3 py-2 text-sm font-medium text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
+                                        className="inline-flex h-9 items-center rounded-lg px-3.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
                                     >
                                         ورود
                                     </Link>
                                     <Link
                                         href="/register"
-                                        className="rounded-md bg-[#a78bfa] px-4 py-2 text-sm font-semibold text-[#0c0a14] transition-colors hover:bg-[#c4b5fd]"
+                                        className="inline-flex h-9 items-center rounded-lg bg-[var(--accent)] px-4 text-sm font-semibold text-[var(--bg)] transition-colors hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
                                     >
                                         ثبت‌نام
                                     </Link>
@@ -132,7 +131,7 @@ const Header: React.FC = () => {
                         {/* Mobile Menu Button */}
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden rounded-md p-2 text-[#b4aecb] transition-colors hover:bg-[#1d1a2b] hover:text-[#f0edf7]"
+                            className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
                             aria-label={isMenuOpen ? "بستن منو" : "باز کردن منو"}
                             aria-expanded={isMenuOpen}
                         >
@@ -148,18 +147,18 @@ const Header: React.FC = () => {
 
             {/* Mobile Menu Overlay — solid, no blur */}
             <div
-                className={`fixed inset-0 z-[60] bg-[#0c0a14]/80 lg:hidden transition-opacity duration-200 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+                className={`fixed inset-0 z-[60] bg-[var(--bg)]/80 lg:hidden transition-opacity duration-200 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Mobile Menu Drawer — solid surface */}
             <div
-                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[#2a2640] bg-[#0c0a14] transition-transform duration-200 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[var(--border)] bg-[var(--surface-1)] transition-transform duration-200 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
                 role="dialog"
                 aria-modal="true"
             >
                 <div className="flex h-full flex-col pt-20 pb-6 px-4">
-                    <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[#2a2640]">
+                    <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[var(--border)]">
                         <Image
                             src="/logo.svg"
                             alt="ماهان ارتباطات خردمنده"
@@ -168,8 +167,8 @@ const Header: React.FC = () => {
                             className="h-8 w-auto"
                         />
                         <div>
-                            <p className="text-sm font-semibold text-[#f0edf7] leading-tight">ماهان ارتباطات خردمنده</p>
-                            <p className="text-[11px] text-[#7a7396]">تجهیزات شبکه و راهکارهای ICT</p>
+                            <p className="text-sm font-semibold text-[var(--text)] leading-tight">ماهان ارتباطات خردمنده</p>
+                            <p className="text-[11px] text-[var(--text-faint)]">تجهیزات شبکه و راهکارهای ICT</p>
                         </div>
                     </div>
 
@@ -178,16 +177,16 @@ const Header: React.FC = () => {
                     </div>
 
                     {!isLoading && !isLoggedIn && (
-                        <div className="mt-4 space-y-2 pt-4 border-t border-[#2a2640]">
+                        <div className="mt-4 space-y-2 pt-4 border-t border-[var(--border)]">
                             <Link
                                 href="/register"
-                                className="flex items-center justify-center w-full py-2.5 text-sm font-semibold text-[#0c0a14] bg-[#a78bfa] rounded-md transition-colors hover:bg-[#c4b5fd]"
+                                className="flex items-center justify-center w-full h-11 text-sm font-semibold text-[var(--bg)] bg-[var(--accent)] rounded-lg transition-colors hover:bg-[var(--accent-hover)]"
                             >
                                 ثبت‌نام
                             </Link>
                             <Link
                                 href="/login"
-                                className="flex items-center justify-center w-full py-2.5 text-sm font-medium text-[#f0edf7] border border-[#2a2640] rounded-md transition-colors hover:bg-[#1d1a2b]"
+                                className="flex items-center justify-center w-full h-11 text-sm font-medium text-[var(--text)] border border-[var(--border)] rounded-lg transition-colors hover:bg-[var(--surface-2)]"
                             >
                                 ورود به حساب
                             </Link>

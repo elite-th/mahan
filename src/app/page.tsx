@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import HeroSection from "@/components/HeroSection";
 import OurClientsSection from "@/components/OurClientsSection";
 import FaqSection from "@/components/FaqSection";
-import ContactSection from "@/components/ContactSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import AboutSection from "@/components/AboutSection";
 import JsonLd from "@/components/JsonLd";
@@ -31,7 +30,6 @@ export default function HomePage() {
       <AboutSection />
       <OurClientsSection />
       <FaqSection />
-      <ContactSection />
     </>
   );
 }

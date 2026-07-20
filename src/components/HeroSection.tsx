@@ -30,7 +30,7 @@ const HeroSection: React.FC = () => {
   // has @media (max-width: 768px) and (max-width: 480px) breakpoints).
   // ─────────────────────────────────────────────────────────────────────────
   return (
-    <section id="hero" ref={sectionRef} className={`relative h-screen -mt-20 overflow-hidden bg-[#0c0a14] ${isLowPerf ? styles.lowPerf : ''}`}>
+    <section id="hero" ref={sectionRef} className={`relative h-screen -mt-20 overflow-hidden bg-[#1a1625] ${isLowPerf ? styles.lowPerf : ''}`}>
       <div ref={sketchContainerRef} className={styles.heroContainer}>
         <div className={styles.heroBackgroundImage} role="img" aria-label="ماهان ارتباطات خردمنده"></div>
         <div className={styles.heroBackgroundOverlay}></div>

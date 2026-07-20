@@ -13,5 +13,4 @@ export const NAV_LINKS: NavLink[] = [
   { label: "درباره ما", href: "/#about" },
   { label: "مشتریان ما", href: "/#clients" },
   { label: "سوالات متداول", href: "/#faq" },
-  { label: "تماس با ما", href: "/#contact" },
 ];

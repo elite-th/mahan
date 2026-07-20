@@ -20,7 +20,7 @@ const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
   const inner = (
     <div className="flex h-28 items-center justify-center p-6">
       {imgError ? (
-        <span className="text-xs text-center text-[#7a7396] leading-snug">
+        <span className="text-xs text-center text-[#948cae] leading-snug">
           {client.name}
         </span>
       ) : (

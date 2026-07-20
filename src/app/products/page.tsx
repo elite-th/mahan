@@ -29,10 +29,10 @@ export default function ProductsPage() {
     <section className="py-12 sm:py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
-          <h1 className="text-3xl font-semibold text-[#f0edf7] sm:text-4xl">
+          <h1 className="text-3xl font-semibold text-[#f4f1fb] sm:text-4xl">
             کاتالوگ محصولات
           </h1>
-          <p className="mt-3 text-sm text-[#b4aecb] max-w-2xl">
+          <p className="mt-3 text-sm text-[#c5bede] max-w-2xl">
             جدیدترین تجهیزات شبکه و راهکارهای فناوری اطلاعات را اینجا بیابید.
           </p>
         </div>

@@ -8,7 +8,7 @@
 .heroContainer {
   margin: 0;
   overflow: hidden;
-  background-color: #0c0a14; /* violet-leaning near-black (matches --bg) */
+  background-color: #1a1625; /* violet-leaning near-black (matches --bg) */
   font-family: var(--font-vazirmatn);
   display: flex;
   flex-direction: column;
@@ -33,10 +33,8 @@
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  /* Lighter filter — the purple image is already theme-coherent and has
-     glowing threads/nodes we want to preserve. Reduced blur keeps the
-     structure visible while still sitting behind content. */
-  filter: blur(2px) brightness(0.85);
+  /* No filter — the user's purple image is shown as-is. The overlay below
+     handles text legibility. */
   z-index: 1;
   opacity: 0;
   animation: fadeInBg 1s ease-out 0.5s forwards;
@@ -45,9 +43,10 @@
 .heroBackgroundOverlay {
   position: absolute;
   inset: 0;
-  /* Soft purple-tinted overlay — darkens edges for text legibility while
-     preserving the violet glow of the background image in the center. */
-  background: radial-gradient(circle, rgba(12, 10, 20, 0.25) 0%, rgba(12, 10, 20, 0.85) 100%);
+  /* Purple-tinted overlay using the new bg color (#1a1625) — darker at the
+     edges for text legibility, lighter in the center so the violet glow of
+     the background image remains visible. */
+  background: radial-gradient(circle, rgba(26, 22, 37, 0.35) 0%, rgba(26, 22, 37, 0.82) 100%);
   z-index: 2;
 }
 
@@ -124,7 +123,7 @@
   margin: 0;
   font-weight: 400;
   letter-spacing: 1.5px;
-  color: #B4AECB; /* purple-muted (matches --text-muted) */
+  color: #c5bede; /* purple-muted (matches --text-muted) */
   text-shadow: 0 0 10px rgba(196, 181, 253, 0.1);
 }
 
@@ -180,7 +179,7 @@
   border-radius: 28px;
   width: 180px;
   height: 60px;
-  background: #15121f; /* purple-tinted dark surface (matches --surface-1) */
+  background: #221d31; /* purple-tinted dark surface (matches --surface-1) */
   flex-direction: column;
   text-align: center;
   font-size: 1.15em;
@@ -227,7 +226,7 @@
   position: absolute;
   inset: -9900%;
   /* violet-leaning dark backdrop radial (replaces slate) */
-  background: radial-gradient(circle, transparent 25%, #0c0a14 85%);
+  background: radial-gradient(circle, transparent 25%, #1a1625 85%);
   z-index: -1;
 }
 
@@ -293,11 +292,11 @@
 }
 
 .spinIntense::before {
-  background: linear-gradient(90deg, #F0EDF7 20%, #0000 45% 55%, #F0EDF7 80%);
+  background: linear-gradient(90deg, #f4f1fb 20%, #0000 45% 55%, #f4f1fb 80%);
 }
 
 .spinInside::before {
-  background: linear-gradient(90deg, #F0EDF7 30%, #0000 45% 55%, #E8E4F5 70%);
+  background: linear-gradient(90deg, #f4f1fb 30%, #0000 45% 55%, #E8E4F5 70%);
 }
 
 @keyframes speen {
@@ -329,9 +328,9 @@
 }
 
 .lowPerf .heroBackgroundImage {
-  filter: brightness(0.85);
+  filter: none;
   animation: none;
-  opacity: 0.5;
+  opacity: 0.6;
   background-size: cover;
   background-position: center;
 }
@@ -362,9 +361,9 @@
 /* Respect prefers-reduced-motion system setting */
 @media (prefers-reduced-motion: reduce) {
   .heroBackgroundImage {
-    filter: blur(2px) brightness(0.85);
+    filter: none;
     animation: none;
-    opacity: 0.6;
+    opacity: 0.7;
     background-size: cover;
     background-position: center;
   }
@@ -418,7 +417,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0c0a14; /* violet-leaning near-black — identical to desktop */
+  background-color: #1a1625; /* violet-leaning near-black — identical to desktop */
   overflow: hidden;
   box-sizing: border-box;
   font-family: var(--font-vazirmatn);
@@ -552,7 +551,7 @@
 .heroMobileTitle {
   font-size: 2.4rem;
   font-weight: 700;
-  color: #f5f3ff; /* violet-50 — ~17:1 on #0c0a14 (AAA) */
+  color: #f5f3ff; /* violet-50 — ~17:1 on #1a1625 (AAA) */
   margin: 0;
   letter-spacing: 0.5px;
   line-height: 1.15;
@@ -574,7 +573,7 @@
 .heroMobileSubtitle {
   font-size: 1rem;
   font-weight: 400;
-  color: #b4aecb; /* purple-muted — ~8.5:1 on #0c0a14 (AAA) */
+  color: #c5bede; /* purple-muted — ~8.5:1 on #1a1625 (AAA) */
   margin: 0.5rem 0 0;
   letter-spacing: 0.5px;
   opacity: 0;
@@ -687,7 +686,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: #d4cee8; /* purple-light — high contrast on #0c0a14 (AAA) */
+  color: #d4cee8; /* purple-light — high contrast on #1a1625 (AAA) */
   font-size: 0.8rem;
   font-weight: 500;
   white-space: nowrap;
@@ -756,7 +755,7 @@
 .statValue {
   font-size: 1rem;
   font-weight: 700;
-  color: #c4b5fd; /* violet-300 — high contrast on #0c0a14 (AAA) */
+  color: #c4b5fd; /* violet-300 — high contrast on #1a1625 (AAA) */
   line-height: 1.2;
   font-feature-settings: "tnum"; /* tabular-nums — stable digit width */
 }
@@ -764,7 +763,7 @@
 .statLabel {
   font-size: 0.7rem; /* 11.2px — small but legible */
   font-weight: 400;
-  color: #b4aecb; /* purple-muted — ~8.5:1 on #0c0a14 (AAA) */
+  color: #c5bede; /* purple-muted — ~8.5:1 on #1a1625 (AAA) */
   line-height: 1.2;
   white-space: nowrap;
 }

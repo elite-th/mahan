@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
   const year = new Date().getFullYear();
 
   const renderLink = (href: string, label: string) => {
-    const className = "text-sm text-[#b4aecb] transition-colors hover:text-[#f0edf7]";
+    const className = "text-sm text-[#c5bede] transition-colors hover:text-[#f4f1fb]";
     if (href.startsWith('/#') && pathname !== '/') {
       return (
         <a href={href} className={className}>
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="mt-auto border-t border-[#2a2640] bg-[#0c0a14]">
+    <footer className="mt-auto border-t border-[#383150] bg-[#1a1625]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
 
@@ -59,15 +59,15 @@ const Footer: React.FC = () => {
                 className="h-9 w-auto"
               />
               <div>
-                <p className="text-sm font-semibold text-[#f0edf7] leading-tight">
+                <p className="text-sm font-semibold text-[#f4f1fb] leading-tight">
                   {COMPANY_NAME}
                 </p>
-                <p className="text-xs text-[#7a7396] mt-0.5">
+                <p className="text-xs text-[#948cae] mt-0.5">
                   {COMPANY_SLOGAN}
                 </p>
               </div>
             </div>
-            <p className="text-sm leading-7 text-[#b4aecb] max-w-xs">
+            <p className="text-sm leading-7 text-[#c5bede] max-w-xs">
               واردات و تأمین تخصصی تجهیزات شبکه و زیرساخت ICT
               برای سازمان‌های دولتی و خصوصی.
             </p>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
 
           {/* Column 2 — Quick links (middle) */}
           <div className="md:px-4">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#b4aecb] mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c5bede] mb-4">
               دسترسی سریع
             </h3>
             <ul className="flex flex-col gap-2.5">
@@ -87,54 +87,54 @@ const Footer: React.FC = () => {
 
           {/* Column 3 — Contact (left in RTL) */}
           <div>
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#b4aecb] mb-4">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#c5bede] mb-4">
               تماس با ما
             </h3>
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <a
                   href="tel:02191090702"
-                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
+                  className="inline-flex items-center gap-2 text-[#c5bede] transition-colors hover:text-[#f4f1fb]"
                 >
-                  <Phone className="h-4 w-4 text-[#7a7396]" />
+                  <Phone className="h-4 w-4 text-[#948cae]" />
                   <span className="nums">۰۲۱-۹۱۰۹۰۷۰۲</span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09386473626"
-                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
+                  className="inline-flex items-center gap-2 text-[#c5bede] transition-colors hover:text-[#f4f1fb]"
                 >
-                  <Phone className="h-4 w-4 text-[#7a7396]" />
+                  <Phone className="h-4 w-4 text-[#948cae]" />
                   <span>
                     <span className="nums">۰۹۳۸-۶۴۷-۳۶۲۶</span>{' '}
-                    <span className="text-[#7a7396] text-xs">(فروش)</span>
+                    <span className="text-[#948cae] text-xs">(فروش)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="tel:09104491267"
-                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7]"
+                  className="inline-flex items-center gap-2 text-[#c5bede] transition-colors hover:text-[#f4f1fb]"
                 >
-                  <Phone className="h-4 w-4 text-[#7a7396]" />
+                  <Phone className="h-4 w-4 text-[#948cae]" />
                   <span>
                     <span className="nums">۰۹۱۰-۴۴۹-۱۲۶۷</span>{' '}
-                    <span className="text-[#7a7396] text-xs">(پشتیبانی)</span>
+                    <span className="text-[#948cae] text-xs">(پشتیبانی)</span>
                   </span>
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:info@mahan-ic.ir"
-                  className="inline-flex items-center gap-2 text-[#b4aecb] transition-colors hover:text-[#f0edf7] break-all"
+                  className="inline-flex items-center gap-2 text-[#c5bede] transition-colors hover:text-[#f4f1fb] break-all"
                 >
-                  <Mail className="h-4 w-4 text-[#7a7396] shrink-0" />
+                  <Mail className="h-4 w-4 text-[#948cae] shrink-0" />
                   <span dir="ltr">info@mahan-ic.ir</span>
                 </a>
               </li>
-              <li className="inline-flex items-center gap-2 text-[#b4aecb] pt-1">
-                <Clock className="h-4 w-4 text-[#7a7396]" />
+              <li className="inline-flex items-center gap-2 text-[#c5bede] pt-1">
+                <Clock className="h-4 w-4 text-[#948cae]" />
                 <span>شنبه تا پنجشنبه، ۸ الی ۱۶</span>
               </li>
             </ul>
@@ -142,8 +142,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom bar — plain, single line */}
-        <div className="mt-10 pt-6 border-t border-[#2a2640]">
-          <p className="text-center text-xs text-[#7a7396]">
+        <div className="mt-10 pt-6 border-t border-[#383150]">
+          <p className="text-center text-xs text-[#948cae]">
             © {year} {COMPANY_SLOGAN}. تمامی حقوق محفوظ است.
           </p>
         </div>

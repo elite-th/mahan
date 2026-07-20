@@ -67,10 +67,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
   };
 
   return (
-    <div className="group relative flex flex-col h-full overflow-hidden rounded-lg border border-[#2a2640] bg-[#15121f] transition-colors duration-150 hover:border-[#3a3556]">
+    <div className="group relative flex flex-col h-full overflow-hidden rounded-lg border border-[#383150] bg-[#221d31] transition-colors duration-150 hover:border-[#463e63]">
       <Link href={navigateTo} aria-label={product.name} className="block relative h-full">
         {/* Image */}
-        <div className="relative overflow-hidden aspect-[4/3] bg-[#1d1a2b]">
+        <div className="relative overflow-hidden aspect-[4/3] bg-[#2b2540]">
           {product.image?.sourceUrl ? (
             <Image
               src={product.image.sourceUrl}
@@ -81,14 +81,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[#7a7396] text-sm">
+            <div className="w-full h-full flex items-center justify-center text-[#948cae] text-sm">
               تصویر در دسترس نیست
             </div>
           )}
 
           {isOutOfStock && (
-            <div className="absolute inset-0 flex items-center justify-center bg-[#0c0a14]/80">
-              <span className="text-sm font-semibold text-[#b4aecb]">ناموجود</span>
+            <div className="absolute inset-0 flex items-center justify-center bg-[#1a1625]/80">
+              <span className="text-sm font-semibold text-[#c5bede]">ناموجود</span>
             </div>
           )}
 
@@ -101,25 +101,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
 
         {/* Info */}
         <div className="p-4 flex flex-col flex-grow">
-          <h3 className="text-sm font-medium text-[#f0edf7] line-clamp-2 h-10 mb-3 leading-5">
+          <h3 className="text-sm font-medium text-[#f4f1fb] line-clamp-2 h-10 mb-3 leading-5">
             {product.name}
           </h3>
 
           <div className="mt-auto flex items-end justify-between gap-2">
             <div className="flex flex-col">
-              <span className="text-[11px] text-[#b4aecb] mb-1">قیمت نهایی</span>
+              <span className="text-[11px] text-[#c5bede] mb-1">قیمت نهایی</span>
               <span
-                className="text-lg font-semibold text-[#f0edf7] nums leading-none"
+                className="text-lg font-semibold text-[#f4f1fb] nums leading-none"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }}
               />
               {usdPrice ? (
-                <span className="text-[11px] text-[#b4aecb] mt-1 nums">
+                <span className="text-[11px] text-[#c5bede] mt-1 nums">
                   ({formatUsdPrice(usdPrice)})
                 </span>
               ) : null}
             </div>
 
-            <ArrowLeftIcon className="w-4 h-4 text-[#7a7396] transition-colors group-hover:text-[#a78bfa]" />
+            <ArrowLeftIcon className="w-4 h-4 text-[#948cae] transition-colors group-hover:text-[#a78bfa]" />
           </div>
         </div>
       </Link>
@@ -130,7 +130,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
           type="button"
           onClick={handleAddToCart}
           aria-label="افزودن به سبد خرید"
-          className="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-md bg-[#0c0a14]/90 border border-[#2a2640] text-[#a78bfa] opacity-0 transition-opacity duration-150 group-hover:opacity-100 hover:border-[#a78bfa] hover:text-[#c4b5fd]"
+          className="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-md bg-[#1a1625]/90 border border-[#383150] text-[#a78bfa] opacity-0 transition-opacity duration-150 group-hover:opacity-100 hover:border-[#a78bfa] hover:text-[#c4b5fd]"
         >
           <ShoppingCartIcon className="w-4 h-4" />
         </button>
