@@ -21,27 +21,28 @@
   --font-numeric: var(--font-plex), var(--font-vazirmatn), system-ui, sans-serif;
 }
 
-/* ---- Solid palette (no gradients in the system itself) ---- */
-/* Purple harmony — light-purple-tending-dark theme.
- * Hue family: violet (~265°). All neutrals carry the same violet hue so
- * the whole site reads as one coherent purple, not "dark mode + purple accent".
- * Lightness ramps up evenly (L* 9 → 16 → 22 → 30) for perceptual uniformity.
- * Chroma is held low on neutrals (sat ~12%) so the accent stays the star. */
+/* ---- Solid palette (logo-derived purple harmony) ----
+ * Palette sourced from the ماهان logo:
+ *  - Neutrals derive from the darkest logo tone (Deep Aubergine Void family)
+ *  - Text derives from the logo accent (heavily lightened → Ultra Violet White)
+ *  - Accent is the logo's core violet exactly (#8E3BFF)
+ * Hue family held at ~272° across all tokens for a single, coherent purple.
+ */
 :root {
-  --bg:           #1a1625;   /* base — light-purple-tending-dark (L*9, violet-neutral) */
-  --surface-1:    #221d31;   /* card surface — one step lighter (L*13) */
-  --surface-2:    #2b2540;   /* elevated / hover surface (L*17) */
-  --border:       #383150;   /* 1px borders — low-contrast violet-grey (L*24) */
-  --border-strong:#463e63;   /* hover / focus border (L*30) */
+  --bg:           #110E18;   /* Deep Aubergine Void — main background */
+  --surface-1:    #1E192B;   /* Layer 1 — cards & panels (one tone lighter than bg) */
+  --surface-2:    #2D253E;   /* Hover state — interactive elements */
+  --border:       #3A3150;   /* Dividers — muted purple */
+  --border-strong:#4A4068;   /* Hover/focus borders (derived: +1 tone from --border) */
 
-  --text:         #f4f1fb;   /* primary text — near-white, violet-tinted (L*96) */
-  --text-muted:   #c5bede;   /* secondary text — WCAG AAA on bg (L*76) */
-  --text-faint:   #948cae;   /* tertiary / labels — large text or icons only (L*58) */
+  --text:         #FBF7FE;   /* Ultra Violet White — primary text */
+  --text-muted:   #CFC6E0;   /* Muted Iris — secondary text (WCAG AAA on bg) */
+  --text-faint:   #9D94B5;   /* tertiary / labels — large text or icons only (derived: darker muted) */
 
-  --accent:       #a78bfa;   /* violet-400 — the ONE accent (unchanged, the harmony anchor) */
-  --accent-hover: #c4b5fd;   /* violet-300 — hover state */
-  --accent-press: #8b5cf6;   /* violet-500 — active/pressed */
-  --accent-soft:  rgba(167,139,250,0.14); /* tinted background */
+  --accent:       #8E3BFF;   /* Core Violet — logo's accent purple (the soul of the UI) */
+  --accent-hover: #A56BFF;   /* hover state (derived: lightened accent) */
+  --accent-press: #7A2EE0;   /* active/pressed (derived: deepened accent) */
+  --accent-soft:  rgba(142,59,255,0.14); /* tinted background */
 }
 
 html {

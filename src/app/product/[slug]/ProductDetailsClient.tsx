@@ -43,22 +43,22 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
     };
 
     return (
-        <div className="min-h-screen bg-[#1a1625] text-[#f4f1fb] pb-20">
+        <div className="min-h-screen bg-[#110E18] text-[#FBF7FE] pb-20">
             <div className="container mx-auto px-4 py-10">
                 {/* Breadcrumbs */}
                 <nav aria-label="Breadcrumb" className="mb-8 text-sm">
-                    <ol className="flex items-center flex-wrap gap-2 text-[#948cae]">
-                        <li><Link href="/" className="transition-colors hover:text-[#f4f1fb]">خانه</Link></li>
+                    <ol className="flex items-center flex-wrap gap-2 text-[#9D94B5]">
+                        <li><Link href="/" className="transition-colors hover:text-[#FBF7FE]">خانه</Link></li>
                         <li>/</li>
-                        <li><Link href="/products" className="transition-colors hover:text-[#f4f1fb]">محصولات</Link></li>
+                        <li><Link href="/products" className="transition-colors hover:text-[#FBF7FE]">محصولات</Link></li>
                         {category && (
                             <>
                                 <li>/</li>
-                                <li><Link href={`/products?category=${category.slug}`} className="transition-colors hover:text-[#f4f1fb]">{category.name}</Link></li>
+                                <li><Link href={`/products?category=${category.slug}`} className="transition-colors hover:text-[#FBF7FE]">{category.name}</Link></li>
                             </>
                         )}
                         <li>/</li>
-                        <li className="text-[#c5bede] font-medium truncate max-w-[150px] sm:max-w-none">{product.name}</li>
+                        <li className="text-[#CFC6E0] font-medium truncate max-w-[150px] sm:max-w-none">{product.name}</li>
                     </ol>
                 </nav>
 
@@ -66,7 +66,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                     {/* Image Section */}
                     <div className="lg:col-span-6 xl:col-span-7">
                         <div className="lg:sticky lg:top-24 space-y-4">
-                            <div className="bg-[#221d31] p-4 rounded-lg border border-[#383150]">
+                            <div className="bg-[#1E192B] p-4 rounded-lg border border-[#3A3150]">
                                 <div className="aspect-[4/3] w-full overflow-hidden rounded relative">
                                     {selectedImage ? (
                                         <Image
@@ -79,7 +79,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                             priority
                                         />
                                     ) : (
-                                        <div className="w-full h-full flex items-center justify-center text-[#948cae] text-sm">تصویری موجود نیست</div>
+                                        <div className="w-full h-full flex items-center justify-center text-[#9D94B5] text-sm">تصویری موجود نیست</div>
                                     )}
                                 </div>
                             </div>
@@ -90,10 +90,10 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                         <button
                                             key={index}
                                             onClick={() => setSelectedImage(img)}
-                                            className={`relative w-20 h-20 rounded overflow-hidden flex-shrink-0 border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a78bfa]
+                                            className={`relative w-20 h-20 rounded overflow-hidden flex-shrink-0 border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8E3BFF]
                                                 ${selectedImage?.sourceUrl === img.sourceUrl
-                                                    ? 'border-[#a78bfa]'
-                                                    : 'border-[#383150] opacity-60 hover:opacity-100'}`}
+                                                    ? 'border-[#8E3BFF]'
+                                                    : 'border-[#3A3150] opacity-60 hover:opacity-100'}`}
                                         >
                                             <Image src={img.sourceUrl} alt={img.altText || `${product.name} - تصویر ${index + 1}`} width={80} height={80} unoptimized className="object-cover" />
                                         </button>
@@ -110,27 +110,27 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                 <div className="flex items-center gap-3 mb-4">
                                     {renderStockStatus(product.stockStatus)}
                                     {category && (
-                                        <Link href={`/products?category=${category.slug}`} className="text-xs font-medium text-[#a78bfa] border border-[#463e63] px-3 py-1 rounded transition-colors hover:border-[#a78bfa]">
+                                        <Link href={`/products?category=${category.slug}`} className="text-xs font-medium text-[#8E3BFF] border border-[#4A4068] px-3 py-1 rounded transition-colors hover:border-[#8E3BFF]">
                                             {category.name}
                                         </Link>
                                     )}
                                 </div>
-                                <h1 className="text-2xl sm:text-3xl font-semibold leading-tight mb-6 text-[#f4f1fb]">
+                                <h1 className="text-2xl sm:text-3xl font-semibold leading-tight mb-6 text-[#FBF7FE]">
                                     {product.name}
                                 </h1>
 
                                 <div className="flex items-baseline gap-4 mb-2">
-                                    <span className="text-3xl sm:text-4xl font-semibold text-[#f4f1fb] tracking-tight nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }} />
+                                    <span className="text-3xl sm:text-4xl font-semibold text-[#FBF7FE] tracking-tight nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }} />
                                 </div>
 
                                 {usdPrice ? (
-                                    <p className="text-sm text-[#948cae] mb-2 nums">
+                                    <p className="text-sm text-[#9D94B5] mb-2 nums">
                                         معادل: {formatUsdPrice(usdPrice)}
                                     </p>
                                 ) : null}
 
                                 {product.sku && (
-                                    <p className="text-xs text-[#948cae] tracking-widest mt-2 nums">SKU: {product.sku}</p>
+                                    <p className="text-xs text-[#9D94B5] tracking-widest mt-2 nums">SKU: {product.sku}</p>
                                 )}
                             </div>
 
@@ -145,7 +145,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                     });
                                 }}
                                 disabled={product.stockStatus === 'OUT_OF_STOCK' || parseWooCommercePrice(product.price || product.displayPrice) <= 0}
-                                className="flex items-center justify-center gap-2 h-12 bg-[#a78bfa] rounded-md px-6 text-[#1a1625] font-semibold text-base hover:bg-[#c4b5fd] transition-colors w-full disabled:opacity-40 disabled:cursor-not-allowed"
+                                className="flex items-center justify-center gap-2 h-12 bg-[#8E3BFF] rounded-md px-6 text-[#110E18] font-semibold text-base hover:bg-[#A56BFF] transition-colors w-full disabled:opacity-40 disabled:cursor-not-allowed"
                             >
                                 <ShoppingCartIcon className="w-5 h-5" />
                                 {product.stockStatus === 'OUT_OF_STOCK' ? 'ناموجود' : 'افزودن به سبد خرید'}
@@ -153,7 +153,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
 
                             <div className="grid grid-cols-2 gap-3">
                                 <button
-                                    className="flex items-center justify-center gap-2 py-2.5 px-4 border border-[#383150] hover:border-[#463e63] hover:bg-[#2b2540] transition-colors rounded-md text-sm font-medium text-[#c5bede]"
+                                    className="flex items-center justify-center gap-2 py-2.5 px-4 border border-[#3A3150] hover:border-[#4A4068] hover:bg-[#2D253E] transition-colors rounded-md text-sm font-medium text-[#CFC6E0]"
                                     onClick={() => {
                                         navigator.clipboard.writeText(window.location.href).then(() => {
                                             showToast('لینک محصول کپی شد', 'success');
@@ -165,16 +165,16 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                 </button>
                                 <a
                                     href="tel:09386473626"
-                                    className="flex items-center justify-center gap-2 py-2.5 px-4 border border-[#383150] hover:border-[#463e63] hover:bg-[#2b2540] transition-colors rounded-md text-sm font-medium text-[#c5bede]"
+                                    className="flex items-center justify-center gap-2 py-2.5 px-4 border border-[#3A3150] hover:border-[#4A4068] hover:bg-[#2D253E] transition-colors rounded-md text-sm font-medium text-[#CFC6E0]"
                                 >
                                     مشاوره رایگان
                                 </a>
                             </div>
 
                             {/* Summary description */}
-                            <div className="pt-6 border-t border-[#383150]">
-                                <h3 className="text-sm font-semibold text-[#f4f1fb] mb-3">معرفی</h3>
-                                <div className="prose prose-invert prose-sm text-[#c5bede] leading-relaxed"
+                            <div className="pt-6 border-t border-[#3A3150]">
+                                <h3 className="text-sm font-semibold text-[#FBF7FE] mb-3">معرفی</h3>
+                                <div className="prose prose-invert prose-sm text-[#CFC6E0] leading-relaxed"
                                     dangerouslySetInnerHTML={{ __html: sanitizeHtml(product.description || 'توضیحاتی برای این محصول ثبت نشده است.') }}
                                 />
                             </div>
@@ -185,12 +185,12 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                 {/* Main Details Section */}
                 {product.description && (
                     <div className="mt-16">
-                        <div className="bg-[#221d31] rounded-lg p-6 sm:p-10 border border-[#383150]">
-                            <h2 className="text-xl sm:text-2xl font-semibold text-[#f4f1fb] mb-6">
+                        <div className="bg-[#1E192B] rounded-lg p-6 sm:p-10 border border-[#3A3150]">
+                            <h2 className="text-xl sm:text-2xl font-semibold text-[#FBF7FE] mb-6">
                                 توضیحات تکمیلی
                             </h2>
-                            <article className="prose prose-invert prose-lg max-w-none text-[#c5bede] leading-relaxed
-                                prose-headings:text-[#f4f1fb] prose-a:text-[#a78bfa] prose-strong:text-[#f4f1fb]"
+                            <article className="prose prose-invert prose-lg max-w-none text-[#CFC6E0] leading-relaxed
+                                prose-headings:text-[#FBF7FE] prose-a:text-[#8E3BFF] prose-strong:text-[#FBF7FE]"
                                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(product.description) }}
                             />
                         </div>

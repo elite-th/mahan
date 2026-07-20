@@ -66,7 +66,7 @@ export const useHeroSketch = (
                     loopDuration: 8000,
                     // Purple-tinted particle palette (matches the site purple harmony).
                     // Replaces the original cool slate/silver palette.
-                    colorPalette: ['#f4f1fb', '#E8E4F5', '#C4B5FD'],
+                    colorPalette: ['#FBF7FE', '#E0D9EF', '#A56BFF'],
                     mouseEffectRadius: 250,
                     mouseEffectRadiusSq: 250 * 250,
                     activatedLoopDuration: 2000,
@@ -144,7 +144,7 @@ export const useHeroSketch = (
                         if (!finalPos) return;
 
                         const pulse = p.sin(particleProgress * p.PI);
-                        const currentColor = p.lerpColor(this.baseColor, p.color('#f4f1fb'), 1 - pulse);
+                        const currentColor = p.lerpColor(this.baseColor, p.color('#FBF7FE'), 1 - pulse);
                         const baseAlpha = pulse * 200, baseSize = this.baseSize * pulse;
                         const activatedAlpha = pulse * 255, activatedSize = this.baseSize * 2.5 * pulse;
                         let alpha = p.lerp(baseAlpha, activatedAlpha, activationLevel), size = p.lerp(baseSize, activatedSize, activationLevel);
