@@ -29,11 +29,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/hero-bg.jpg');
+  background-image: url('/images/hero-bg.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  filter: blur(4px) brightness(0.6);
+  /* Lighter filter — the purple image is already theme-coherent and has
+     glowing threads/nodes we want to preserve. Reduced blur keeps the
+     structure visible while still sitting behind content. */
+  filter: blur(2px) brightness(0.85);
   z-index: 1;
   opacity: 0;
   animation: fadeInBg 1s ease-out 0.5s forwards;
@@ -42,8 +45,9 @@
 .heroBackgroundOverlay {
   position: absolute;
   inset: 0;
-  /* purple-tinted dark overlay (replaces slate radial) */
-  background: radial-gradient(circle, rgba(12, 10, 20, 0.5) 0%, rgba(12, 10, 20, 0.9) 100%);
+  /* Soft purple-tinted overlay — darkens edges for text legibility while
+     preserving the violet glow of the background image in the center. */
+  background: radial-gradient(circle, rgba(12, 10, 20, 0.25) 0%, rgba(12, 10, 20, 0.85) 100%);
   z-index: 2;
 }
 
@@ -325,9 +329,9 @@
 }
 
 .lowPerf .heroBackgroundImage {
-  filter: none;
+  filter: brightness(0.85);
   animation: none;
-  opacity: 0.4;
+  opacity: 0.5;
   background-size: cover;
   background-position: center;
 }
@@ -358,9 +362,9 @@
 /* Respect prefers-reduced-motion system setting */
 @media (prefers-reduced-motion: reduce) {
   .heroBackgroundImage {
-    filter: brightness(0.6);
+    filter: blur(2px) brightness(0.85);
     animation: none;
-    opacity: 0.4;
+    opacity: 0.6;
     background-size: cover;
     background-position: center;
   }
