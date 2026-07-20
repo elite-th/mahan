@@ -62,33 +62,34 @@ export const useHeroSketch = (
                 const isTouchDevice = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
 
                 const config = {
-                    particleCount: 350,
+                    particleCount: 450,
                     loopDuration: 8000,
-                    // Purple-tinted particle palette (matches the site purple harmony).
-                    // Replaces the original cool slate/silver palette.
-                    colorPalette: ['#FBF7FE', '#E0D9EF', '#A56BFF'],
+                    // Vivid purple palette — core accent #8E3BFF (logo violet) is the
+                    // star, with bright whites and muted iris for variety. Brighter
+                    // than before so particles read as points of light, not dust.
+                    colorPalette: ['#FBF7FE', '#CFC6E0', '#8E3BFF', '#A56BFF', '#8E3BFF'],
                     mouseEffectRadius: 250,
                     mouseEffectRadiusSq: 250 * 250,
                     activatedLoopDuration: 2000,
-                    baseParticleSize: { min: 1.5, max: 4 },
+                    baseParticleSize: { min: 2.5, max: 6 },
                     targetFPS: 60
                 };
 
                 const updateConfigForScreenSize = () => {
                     if (isLowPerf) {
-                        config.particleCount = p.width < 768 ? 60 : 100;
+                        config.particleCount = p.width < 768 ? 120 : 180;
                         config.mouseEffectRadius = 0; // Disable mouse interaction entirely
-                        config.baseParticleSize = { min: 1, max: 2 };
-                        config.targetFPS = 30; // Lowest acceptable FPS to look "moving"
+                        config.baseParticleSize = { min: 2, max: 4 };
+                        config.targetFPS = 30;
                     } else if (p.width < 768) {
-                        config.particleCount = 160;
+                        config.particleCount = 220;
                         config.mouseEffectRadius = 150;
-                        config.baseParticleSize = { min: 1, max: 2.5 };
+                        config.baseParticleSize = { min: 2, max: 4 };
                         config.targetFPS = 45; // Throttle FPS on mobile
                     } else {
-                        config.particleCount = 350;
+                        config.particleCount = 450;
                         config.mouseEffectRadius = 250;
-                        config.baseParticleSize = { min: 1.5, max: 4 };
+                        config.baseParticleSize = { min: 2.5, max: 6 };
                         config.targetFPS = 60;
                     }
                     config.mouseEffectRadiusSq = config.mouseEffectRadius * config.mouseEffectRadius;
@@ -97,7 +98,6 @@ export const useHeroSketch = (
                 let particles: Particle[] = [];
                 let buttonEl: HTMLElement | null;
                 let buttonRect: DOMRect;
-                let pathPoints: { x: number, y: number }[] = [], pathSegmentLengths: number[] = [], totalPathLength = 0;
                 let isActivated = false;
                 let activationLevel = 0;
                 let currentLoopDuration: number;
@@ -107,6 +107,7 @@ export const useHeroSketch = (
                     baseSize: number;
                     baseColor: p5.Color;
                     phaseOffset: number;
+                    laneY: number;  // each particle's own Y lane across full screen
                     laneOffset: number;
 
                     constructor() {
@@ -114,26 +115,21 @@ export const useHeroSketch = (
                         this.baseSize = p.random(config.baseParticleSize.min, config.baseParticleSize.max);
                         this.baseColor = p.color(p.random(config.colorPalette));
                         this.phaseOffset = p.random(1.0);
-                        this.laneOffset = p.random(-0.4, 0.4);
+                        // Spread particles across the FULL screen height (not just button midY)
+                        this.laneY = p.random(0, p.height);
+                        this.laneOffset = p.random(-30, 30);  // small vertical jitter for organic feel
                     }
 
                     getPointOnPath(progress: number) {
-                        if (totalPathLength === 0 || !pathPoints || pathPoints.length === 0) return null;
-                        let distanceToTravel = progress * totalPathLength;
-                        for (let i = 0; i < pathSegmentLengths.length; i++) {
-                            if (distanceToTravel <= pathSegmentLengths[i] && pathSegmentLengths[i] > 0) {
-                                const segmentProgress = distanceToTravel / pathSegmentLengths[i];
-                                const startPoint = pathPoints[i];
-                                const endPoint = pathPoints[i + 1];
-                                const currentX = p.lerp(startPoint.x, endPoint.x, segmentProgress);
-                                let currentY = p.lerp(startPoint.y, endPoint.y, segmentProgress);
-                                const funnelFactor = 4 * (segmentProgress - 0.5) ** 2;
-                                currentY += this.laneOffset * p.height * funnelFactor;
-                                return { x: currentX, y: currentY };
-                            }
-                            distanceToTravel -= pathSegmentLengths[i];
-                        }
-                        return pathPoints[pathPoints.length - 1];
+                        // Horizontal path: x goes from -50 to width+50
+                        const x = p.lerp(-50, p.width + 50, progress);
+                        // Funnel effect: particles converge toward the button center
+                        // at progress=0.5, and spread to their own laneY at the edges.
+                        // funnelFactor: 0 at center, 1 at edges
+                        const funnelFactor = 4 * (progress - 0.5) ** 2;
+                        const buttonMidY = buttonRect.top + buttonRect.height / 2;
+                        const y = p.lerp(buttonMidY, this.laneY + this.laneOffset, funnelFactor);
+                        return { x, y };
                     }
 
                     updateAndDisplay() {
@@ -145,8 +141,9 @@ export const useHeroSketch = (
 
                         const pulse = p.sin(particleProgress * p.PI);
                         const currentColor = p.lerpColor(this.baseColor, p.color('#FBF7FE'), 1 - pulse);
-                        const baseAlpha = pulse * 200, baseSize = this.baseSize * pulse;
-                        const activatedAlpha = pulse * 255, activatedSize = this.baseSize * 2.5 * pulse;
+                        // Full alpha (255) at peak pulse — particles are bright points of light
+                        const baseAlpha = pulse * 255, baseSize = this.baseSize * pulse;
+                        const activatedAlpha = pulse * 255, activatedSize = this.baseSize * 3 * pulse;
                         let alpha = p.lerp(baseAlpha, activatedAlpha, activationLevel), size = p.lerp(baseSize, activatedSize, activationLevel);
 
                         if (!isTouchDevice) {
@@ -162,9 +159,19 @@ export const useHeroSketch = (
                             const finalColor = p.color(currentColor);
                             finalColor.setAlpha(alpha);
 
+                            // Glow effect — makes particles luminous ("points of light")
+                            // Enabled in ALL modes (including lowPerf) with a smaller blur
+                            // in lowPerf to avoid performance issues.
+                            const blurSize = isLowPerf ? size * 1.5 : size * 2.5;
+                            p.drawingContext.shadowBlur = blurSize;
+                            p.drawingContext.shadowColor = currentColor.toString();
+
                             p.fill(finalColor);
                             p.noStroke();
                             p.ellipse(finalPos.x, finalPos.y, size, size);
+
+                            // Reset shadow after each particle
+                            p.drawingContext.shadowBlur = 0;
                         }
                     }
                 }
@@ -172,16 +179,9 @@ export const useHeroSketch = (
                 const createParticles = () => { particles = []; for (let i = 0; i < config.particleCount; i++) particles.push(new Particle()); };
                 const calculatePaths = () => {
                     if (!buttonEl) return;
+                    // Only need the button rect for the funnel effect — particles
+                    // now spread across the full screen via their own laneY.
                     buttonRect = buttonEl.getBoundingClientRect();
-                    pathPoints = []; pathSegmentLengths = []; totalPathLength = 0;
-                    const midY = buttonRect.top + buttonRect.height / 2;
-                    pathPoints.push({ x: -50, y: midY });
-                    pathPoints.push({ x: p.width + 50, y: midY });
-                    for (let i = 0; i < pathPoints.length - 1; i++) {
-                        const segmentLength = p.dist(pathPoints[i].x, pathPoints[i].y, pathPoints[i + 1].x, pathPoints[i + 1].y);
-                        pathSegmentLengths.push(segmentLength);
-                        totalPathLength += segmentLength;
-                    }
                 };
 
                 p.setup = () => {

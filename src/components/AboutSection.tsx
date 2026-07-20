@@ -112,10 +112,24 @@ const AboutSection: React.FC = () => {
   return (
     <section
       id="about"
-      className="border-b py-20 sm:py-24"
+      className="relative overflow-hidden border-b py-20 sm:py-24"
       aria-labelledby="about-heading"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background image — purple abstract art (curved light band) */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/about-bg.png')" }}
+        aria-hidden="true"
+      />
+      {/* Overlay — bg color at partial opacity for text legibility while
+          preserving the violet glow of the background image */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ background: 'radial-gradient(circle, rgba(17,14,24,0.72) 0%, rgba(17,14,24,0.88) 100%)' }}
+        aria-hidden="true"
+      />
+      {/* Content — sits above the background layers */}
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl grid gap-10 lg:grid-cols-12 lg:gap-12">
 
           {/* Text block (right in RTL, spans 7/12) */}
