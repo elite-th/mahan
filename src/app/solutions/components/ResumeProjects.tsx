@@ -53,7 +53,7 @@ export default function ResumeProjects({ color }: ResumeProjectsProps) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' as const }}
-        className="text-xl font-bold text-white mb-5 flex items-center gap-2"
+        className="text-xl font-bold text-[var(--text)] mb-5 flex items-center gap-2"
       >
         <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
         نمونه پروژه‌ها
@@ -66,10 +66,10 @@ export default function ResumeProjects({ color }: ResumeProjectsProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: pIdx * 0.12, ease: 'easeOut' as const }}
-          className="bg-slate-800 border border-slate-700 rounded-xl p-6"
+          className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-6"
         >
           {/* Project title */}
-          <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+          <h4 className="text-[var(--text)] font-bold text-lg mb-4 flex items-center gap-2">
             <Briefcase className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />
             {project.title}
           </h4>
@@ -77,7 +77,7 @@ export default function ResumeProjects({ color }: ResumeProjectsProps) {
           {/* Client badges (if any) */}
           {project.clients && project.clients.length > 0 && (
             <div className="mb-4">
-              <span className="text-gray-400 text-sm ml-2">کارفرمایان:</span>
+              <span className="text-[var(--text-muted)] text-sm ml-2">کارفرمایان:</span>
               <div className="inline-flex flex-wrap gap-2 mt-1">
                 {project.clients.map((client, cIdx) => (
                   <span
@@ -106,7 +106,7 @@ export default function ResumeProjects({ color }: ResumeProjectsProps) {
                   className={`mt-1.5 shrink-0 w-1 h-1 rounded-full ${textToBg(color.primary)}`}
                   aria-hidden="true"
                 />
-                <span className="text-gray-300 text-sm leading-relaxed">{service}</span>
+                <span className="text-[var(--text-muted)] text-sm leading-relaxed">{service}</span>
               </motion.li>
             ))}
           </ul>

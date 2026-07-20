@@ -74,7 +74,7 @@ export default function ResumeSection({ color: colorProp }: ResumeSectionProps) 
             transition={{ duration: 0.4, ease: 'easeOut' as const }}
             className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-3"
           >
-            <span className="text-sky-400">
+            <span className="text-[var(--accent)]">
               رزومه توانمندی‌ها و سوابق اجرایی
             </span>
           </motion.h2>
@@ -82,7 +82,7 @@ export default function ResumeSection({ color: colorProp }: ResumeSectionProps) 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.15, ease: 'easeOut' as const }}
-            className="text-gray-400 text-sm md:text-base"
+            className="text-[var(--text-muted)] text-sm md:text-base"
           >
             شرکت ویرا شبکه آران (VNA)
           </motion.p>

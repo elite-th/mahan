@@ -79,7 +79,7 @@ const FaqSection: React.FC = () => {
     };
 
     return (
-        <section id="faq" className="border-b border-[#3A3150] bg-[#110E18] py-20 sm:py-24">
+        <section id="faq" className="border-b border-[#3A3150] bg-[#1E192B] py-20 sm:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
                     {/* Sidebar: heading + contact link (right in RTL) */}

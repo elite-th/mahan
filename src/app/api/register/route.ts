@@ -3,9 +3,8 @@ import { withRateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limiter';
 import { fetchWithTimeout } from '@/lib/fetch-with-timeout';
 import { logger } from '@/lib/logger';
 import { extractUserIdFromTokenAsString } from '@/lib/jwt-utils';
-import { verifyHcaptchaToken, getClientIp } from '@/lib/hcaptcha';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 const WP_APP_USERNAME = process.env.WP_APP_USERNAME;
 const WP_APP_PASSWORD = process.env.WP_APP_PASSWORD;
 
@@ -15,7 +14,7 @@ const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 export const POST = withRateLimit(
     async (request: NextRequest) => {
     try {
-        const { username, email, password, website, hcaptchaToken } = await request.json();
+        const { username, email, password, website } = await request.json();
 
         // --- Layer 1: Honeypot bot protection (cheap, first line) ---
         // The 'website' field is hidden from real users. Bots fill it →
@@ -69,24 +68,6 @@ export const POST = withRateLimit(
             return NextResponse.json(
                 { success: false, error: 'رمز عبور باید شامل حداقل یک عدد باشد.' },
                 { status: 400 }
-            );
-        }
-
-        // --- Layer 2: hCaptcha verification (second line of defense) ---
-        // Fail-closed: if HCAPTCHA_SECRET_KEY is missing or verification
-        // fails, registration is rejected. This catches sophisticated
-        // bots that bypass the honeypot.
-        if (!hcaptchaToken) {
-            return NextResponse.json(
-                { success: false, error: 'تأیید کپچا الزامی است.' },
-                { status: 400 }
-            );
-        }
-        const hcaptchaOk = await verifyHcaptchaToken(hcaptchaToken, getClientIp(request));
-        if (!hcaptchaOk) {
-            return NextResponse.json(
-                { success: false, error: 'تأیید کپچا ناموفق بود. لطفاً دوباره تلاش کنید.' },
-                { status: 403 }
             );
         }
 

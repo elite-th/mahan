@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
@@ -11,17 +10,14 @@ import UserMenu from './UserMenu';
 import NavLinks from './NavLinks';
 
 /**
- * Header — refined version.
+ * Header — refined with smooth transitions.
  *
- * Subtle visual polish over the previous solid-border header:
- *  - When scrolled, the bar uses the elevated surface color (one step lighter
- *    than bg) so it reads as a distinct floating bar without any blur/glass.
- *  - A 1px divider separates the logo from the nav on desktop (cleaner grouping).
- *  - Cart + auth buttons share consistent sizing (h-9) for a tidy action cluster.
- *  - The register button gets a hair-thin ring on focus for keyboard users.
+ * The scrolled/unscrolled transition now uses a single base background
+ * (surface-1) with an opacity ramp, so the color shifts smoothly instead
+ * of jumping between two discrete colors. The border fades in on scroll.
+ * No glassmorphism / backdrop-blur — just solid color with smooth opacity.
  *
- * No glassmorphism, no gradients, no glow, no lift-on-hover. The refinement is
- * in the spacing and the scrolled-surface contrast, not in decoration.
+ * Logo replaced with a text wordmark (the "M" monogram + company name).
  */
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -36,7 +32,7 @@ const Header: React.FC = () => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
         };
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -58,28 +54,31 @@ const Header: React.FC = () => {
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-colors duration-200 ${
+                className={`fixed top-0 left-0 right-0 z-50 h-16 border-b transition-all duration-300 ease-out ${
                     isScrolled || isMenuOpen
-                        ? 'border-[var(--border)] bg-[var(--surface-1)]'
+                        ? 'border-[var(--border)] bg-[var(--surface-1)] shadow-[0_4px_24px_-12px_rgba(0,0,0,0.5)]'
                         : 'border-transparent bg-[var(--bg)]'
                 }`}
             >
                 <div className="container mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
-                    {/* Logo + Desktop Nav (grouped on the right in RTL) */}
+                    {/* Logo wordmark + Desktop Nav (grouped on the right in RTL) */}
                     <div className="flex items-center gap-6">
                         <Link
                             href="/"
-                            className="shrink-0"
+                            className="shrink-0 flex items-center gap-2.5"
                             aria-label="ماهان ارتباطات خردمنده - خانه"
                         >
-                            <Image
-                                src="/logo.svg"
-                                alt="ماهان ارتباطات خردمنده"
-                                width={36}
-                                height={36}
-                                className="h-9 w-auto"
-                                priority
-                            />
+                            {/* "M" monogram — a styled letter mark instead of an image logo */}
+                            <span
+                                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--bg)] font-bold text-lg leading-none"
+                                aria-hidden="true"
+                            >
+                                م
+                            </span>
+                            <span className="hidden sm:inline-flex flex-col leading-tight">
+                                <span className="text-sm font-semibold text-[var(--text)]">ماهان ارتباطات</span>
+                                <span className="text-[10px] text-[var(--text-faint)]">زیرساخت شبکه و ICT</span>
+                            </span>
                         </Link>
 
                         {/* Hair-thin divider between logo and nav (desktop only) */}
@@ -136,9 +135,9 @@ const Header: React.FC = () => {
                             aria-expanded={isMenuOpen}
                         >
                             <div className="flex h-5 w-5 flex-col items-center justify-center gap-[5px]">
-                                <span className={`block h-0.5 w-5 bg-current transition-transform duration-150 ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
-                                <span className={`block h-0.5 w-5 bg-current transition-opacity duration-150 ${isMenuOpen ? 'opacity-0' : ''}`} />
-                                <span className={`block h-0.5 w-5 bg-current transition-transform duration-150 ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
+                                <span className={`block h-0.5 w-5 bg-current transition-transform duration-200 ease-out ${isMenuOpen ? 'translate-y-[7px] rotate-45' : ''}`} />
+                                <span className={`block h-0.5 w-5 bg-current transition-opacity duration-200 ${isMenuOpen ? 'opacity-0' : ''}`} />
+                                <span className={`block h-0.5 w-5 bg-current transition-transform duration-200 ease-out ${isMenuOpen ? '-translate-y-[7px] -rotate-45' : ''}`} />
                             </div>
                         </button>
                     </div>
@@ -147,25 +146,24 @@ const Header: React.FC = () => {
 
             {/* Mobile Menu Overlay — solid, no blur */}
             <div
-                className={`fixed inset-0 z-[60] bg-[var(--bg)]/80 lg:hidden transition-opacity duration-200 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
+                className={`fixed inset-0 z-[60] bg-[var(--bg)]/85 lg:hidden transition-opacity duration-300 ${isMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}
                 onClick={() => setIsMenuOpen(false)}
             />
 
             {/* Mobile Menu Drawer — solid surface */}
             <div
-                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[var(--border)] bg-[var(--surface-1)] transition-transform duration-200 ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
+                className={`lg:hidden fixed top-0 right-0 bottom-0 z-[70] w-[85%] max-w-sm border-l border-[var(--border)] bg-[var(--surface-1)] transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
                 role="dialog"
                 aria-modal="true"
             >
                 <div className="flex h-full flex-col pt-20 pb-6 px-4">
                     <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[var(--border)]">
-                        <Image
-                            src="/logo.svg"
-                            alt="ماهان ارتباطات خردمنده"
-                            width={32}
-                            height={32}
-                            className="h-8 w-auto"
-                        />
+                        <span
+                            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[var(--accent)] text-[var(--bg)] font-bold text-base leading-none"
+                            aria-hidden="true"
+                        >
+                            م
+                        </span>
                         <div>
                             <p className="text-sm font-semibold text-[var(--text)] leading-tight">ماهان ارتباطات خردمنده</p>
                             <p className="text-[11px] text-[var(--text-faint)]">تجهیزات شبکه و راهکارهای ICT</p>

@@ -17,7 +17,7 @@ import { fetchProductImagesFromRest, enrichProductsWithImages } from '@/lib/prod
 
 const TOROB_API_VERSION = 'torob_api_v3';
 const PRODUCTS_PER_PAGE = 100;
-const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'https://wordpress.vna-co.ir/graphql';
+const GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'http://localhost:8080/graphql';
 
 // ---------------------------------------------------------------------------
 // GraphQL query — fetches all published products via direct fetch (not Apollo

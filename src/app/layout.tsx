@@ -66,10 +66,6 @@ export const metadata: Metadata = {
     description: `خرید آنلاین تجهیزات شبکه؛ سوئیچ سیسکو، روتر و راهکارهای تخصصی ICT.`,
     images: [],
   },
-  icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: '/favicon.svg',
-  },
   manifest: '/manifest.webmanifest',
   other: {
     'geo.region': 'IR-07',

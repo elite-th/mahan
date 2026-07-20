@@ -45,7 +45,7 @@ export default function ResumeServices({ color }: ResumeServicesProps) {
         transition={{ duration: 0.4, ease: 'easeOut' as const }}
       >
         {/* Section title with colored bar accent */}
-        <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-[var(--text)] mb-5 flex items-center gap-2">
           <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
           <Package className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />
           خدمات اصلی
@@ -66,7 +66,7 @@ export default function ResumeServices({ color }: ResumeServicesProps) {
                 className={`mt-1.5 shrink-0 w-1 h-1 rounded-full ${textToBg(color.primary)}`}
                 aria-hidden="true"
               />
-              <span className="text-gray-300 text-sm leading-relaxed">{service}</span>
+              <span className="text-[var(--text-muted)] text-sm leading-relaxed">{service}</span>
             </motion.li>
           ))}
         </ul>
@@ -79,7 +79,7 @@ export default function ResumeServices({ color }: ResumeServicesProps) {
         transition={{ duration: 0.4, delay: 0.15, ease: 'easeOut' as const }}
       >
         {/* Section title with colored bar accent */}
-        <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-[var(--text)] mb-5 flex items-center gap-2">
           <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
           <Cable className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />
           خدمات آران
@@ -100,7 +100,7 @@ export default function ResumeServices({ color }: ResumeServicesProps) {
                 className={`mt-1.5 shrink-0 w-1 h-1 rounded-full ${textToBg(color.primary)}`}
                 aria-hidden="true"
               />
-              <span className="text-gray-300 text-sm leading-relaxed">{service}</span>
+              <span className="text-[var(--text-muted)] text-sm leading-relaxed">{service}</span>
             </motion.li>
           ))}
         </ul>

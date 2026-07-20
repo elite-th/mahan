@@ -95,40 +95,40 @@ export default function ProfileContent() {
   // Use a deterministic gradient based on the letter
   const gradientIndex = avatarLetter.charCodeAt(0) % 6;
   const gradients = [
-    'from-sky-500 to-blue-600',
+    'from-[var(--accent-hover)] to-[var(--accent)]',
     'from-emerald-500 to-teal-600',
     'from-amber-500 to-orange-600',
     'from-rose-500 to-pink-600',
     'from-violet-500 to-purple-600',
-    'from-cyan-500 to-sky-600',
+    'from-[var(--accent-hover)] to-[var(--accent)]',
   ];
   const avatarGradient = gradients[gradientIndex] || gradients[0];
 
   return (
     <section className="space-y-6">
-      <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-100">پروفایل کاربری</h1>
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)]">پروفایل کاربری</h1>
 
-      <div className="bg-slate-800 rounded-xl shadow-lg max-w-2xl overflow-hidden">
+      <div className="bg-[var(--surface-1)] rounded-xl shadow-lg max-w-2xl overflow-hidden">
           {/* Profile Header */}
-          <div className="p-6 sm:p-8 border-b border-slate-700">
+          <div className="p-6 sm:p-8 border-b border-[var(--border)]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 {/* Avatar circle */}
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-white text-2xl font-bold shadow-lg flex-shrink-0`}>
+                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${avatarGradient} flex items-center justify-center text-[var(--text)] text-2xl font-bold shadow-lg flex-shrink-0`}>
                   {avatarLetter}
                 </div>
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-sky-300">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[var(--accent-hover)]">
                     {user?.displayName || 'کاربر'}
                   </h2>
-                  <p className="text-gray-400 text-sm mt-0.5">{user?.email}</p>
+                  <p className="text-[var(--text-muted)] text-sm mt-0.5">{user?.email}</p>
                 </div>
               </div>
 
               {!isEditing && (
                 <button
                   onClick={startEditing}
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-sky-400 hover:text-sky-300 bg-sky-500/10 hover:bg-sky-500/20 rounded-lg transition-colors duration-200"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[var(--accent)] hover:text-[var(--accent-hover)] bg-[var(--accent-hover)]/10 hover:bg-[var(--accent-hover)]/20 rounded-lg transition-colors duration-200"
                   aria-label="ویرایش پروفایل"
                 >
                   <Pencil className="w-4 h-4" />
@@ -144,24 +144,24 @@ export default function ProfileContent() {
               /* Display Mode */
               <dl className="space-y-6">
                 <div className="flex items-start gap-3">
-                  <User className="w-5 h-5 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <User className="w-5 h-5 text-[var(--text-faint)] mt-0.5 flex-shrink-0" />
                   <div>
-                    <dt className="text-sm font-medium text-gray-400">نام نمایشی</dt>
-                    <dd className="mt-0.5 text-lg text-gray-200">{user?.displayName || '-'}</dd>
+                    <dt className="text-sm font-medium text-[var(--text-muted)]">نام نمایشی</dt>
+                    <dd className="mt-0.5 text-lg text-[var(--text)]">{user?.displayName || '-'}</dd>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-[var(--text-faint)] mt-0.5 flex-shrink-0" />
                   <div>
-                    <dt className="text-sm font-medium text-gray-400">آدرس ایمیل</dt>
-                    <dd className="mt-0.5 text-lg text-gray-200" dir="ltr">{user?.email || '-'}</dd>
+                    <dt className="text-sm font-medium text-[var(--text-muted)]">آدرس ایمیل</dt>
+                    <dd className="mt-0.5 text-lg text-[var(--text)]" dir="ltr">{user?.email || '-'}</dd>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <AtSign className="w-5 h-5 text-gray-500 mt-0.5 flex-shrink-0" />
+                  <AtSign className="w-5 h-5 text-[var(--text-faint)] mt-0.5 flex-shrink-0" />
                   <div>
-                    <dt className="text-sm font-medium text-gray-400">نام کاربری</dt>
-                    <dd className="mt-0.5 text-lg text-gray-200">{user?.nicename || '-'}</dd>
+                    <dt className="text-sm font-medium text-[var(--text-muted)]">نام کاربری</dt>
+                    <dd className="mt-0.5 text-lg text-[var(--text)]">{user?.nicename || '-'}</dd>
                   </div>
                 </div>
               </dl>
@@ -170,7 +170,7 @@ export default function ProfileContent() {
               <div className="space-y-5">
                 {/* Display Name */}
                 <div>
-                  <label htmlFor="displayName" className="block text-sm font-medium text-gray-400 mb-1.5">
+                  <label htmlFor="displayName" className="block text-sm font-medium text-[var(--text-muted)] mb-1.5">
                     نام نمایشی
                   </label>
                   <input
@@ -178,7 +178,7 @@ export default function ProfileContent() {
                     type="text"
                     value={formData.displayName}
                     onChange={(e) => setFormData(prev => ({ ...prev, displayName: e.target.value }))}
-                    className="w-full px-4 py-2.5 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] placeholder-[var(--text-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] transition-colors"
                     placeholder="نام نمایشی خود را وارد کنید"
                     disabled={isSaving}
                   />
@@ -186,7 +186,7 @@ export default function ProfileContent() {
 
                 {/* First Name */}
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-400 mb-1.5">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-[var(--text-muted)] mb-1.5">
                     نام
                   </label>
                   <input
@@ -194,7 +194,7 @@ export default function ProfileContent() {
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
-                    className="w-full px-4 py-2.5 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] placeholder-[var(--text-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] transition-colors"
                     placeholder="نام خود را وارد کنید"
                     disabled={isSaving}
                   />
@@ -202,7 +202,7 @@ export default function ProfileContent() {
 
                 {/* Last Name */}
                 <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-400 mb-1.5">
+                  <label htmlFor="lastName" className="block text-sm font-medium text-[var(--text-muted)] mb-1.5">
                     نام خانوادگی
                   </label>
                   <input
@@ -210,7 +210,7 @@ export default function ProfileContent() {
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
-                    className="w-full px-4 py-2.5 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] placeholder-[var(--text-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] transition-colors"
                     placeholder="نام خانوادگی خود را وارد کنید"
                     disabled={isSaving}
                   />
@@ -218,7 +218,7 @@ export default function ProfileContent() {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-1.5">
+                  <label htmlFor="email" className="block text-sm font-medium text-[var(--text-muted)] mb-1.5">
                     ایمیل
                   </label>
                   <input
@@ -226,7 +226,7 @@ export default function ProfileContent() {
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                    className="w-full px-4 py-2.5 bg-slate-700/50 border border-slate-600 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500/50 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-2.5 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] placeholder-[var(--text-faint)] focus:outline-none focus:ring-2 focus:ring-[var(--accent)]/50 focus:border-[var(--accent)] transition-colors"
                     placeholder="ایمیل خود را وارد کنید"
                     dir="ltr"
                     disabled={isSaving}
@@ -234,11 +234,11 @@ export default function ProfileContent() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-700">
+                <div className="flex items-center gap-3 pt-4 border-t border-[var(--border)]">
                   <button
                     onClick={handleSave}
                     disabled={isSaving}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-sky-600 hover:bg-sky-700 disabled:bg-sky-600/50 disabled:cursor-not-allowed text-white font-medium rounded-lg transition-colors duration-200 shadow-md"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-press)] disabled:bg-[var(--accent)]/50 disabled:cursor-not-allowed text-[var(--bg)] font-medium rounded-lg transition-colors duration-200 shadow-md"
                   >
                     {isSaving ? (
                       <>
@@ -255,7 +255,7 @@ export default function ProfileContent() {
                   <button
                     onClick={cancelEditing}
                     disabled={isSaving}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 disabled:cursor-not-allowed text-gray-300 font-medium rounded-lg transition-colors duration-200"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-[var(--surface-2)] hover:bg-[var(--surface-2)] disabled:opacity-50 disabled:cursor-not-allowed text-[var(--text-muted)] font-medium rounded-lg transition-colors duration-200"
                   >
                     <X className="w-4 h-4" />
                     انصراف

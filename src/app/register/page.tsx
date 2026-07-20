@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <Suspense fallback={
-      <section className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-slate-900">
-        <div className="w-6 h-6 border-2 border-dashed rounded-full animate-spin border-sky-400"></div>
+      <section className="flex items-center justify-center min-h-[calc(100vh-10rem)] bg-[var(--bg)]">
+        <div className="w-6 h-6 border-2 border-dashed rounded-full animate-spin border-[var(--accent)]"></div>
       </section>
     }>
       <RegisterForm />

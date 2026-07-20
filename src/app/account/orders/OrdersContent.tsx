@@ -41,9 +41,9 @@ const getStatusClass = (status: OrderStatus): string => {
     case "ON_HOLD": return "bg-yellow-500/20 text-yellow-300";
     case "PENDING": return "bg-yellow-500/20 text-yellow-300";
     case "CANCELLED": return "bg-red-500/20 text-red-300";
-    case "REFUNDED": return "bg-gray-500/20 text-gray-400";
+    case "REFUNDED": return "bg-[var(--surface-2)] text-[var(--text-muted)]";
     case "FAILED": return "bg-red-700/30 text-red-400";
-    default: return "bg-gray-600/20 text-gray-300";
+    default: return "bg-[var(--surface-2)] text-[var(--text-muted)]";
   }
 };
 
@@ -59,11 +59,11 @@ export default function OrdersContent() {
     <section className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-100">سفارش‌های من</h1>
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)]">سفارش‌های من</h1>
         {!loading && orders.length > 0 && (
           <div className="flex items-center gap-4 text-sm">
-            <span className="text-gray-400">
-              مجموع: <span className="text-gray-200 font-semibold nums">{totalOrders}</span>
+            <span className="text-[var(--text-muted)]">
+              مجموع: <span className="text-[var(--text)] font-semibold nums">{totalOrders}</span>
             </span>
             {activeOrders > 0 && (
               <span className="flex items-center gap-1 text-yellow-400">
@@ -83,12 +83,12 @@ export default function OrdersContent() {
 
       {/* Empty state */}
       {!loading && !error && orders.length === 0 && (
-        <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-8 text-center">
-          <Package className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-400 text-lg">هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
+        <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-8 text-center">
+          <Package className="w-12 h-12 text-[var(--text-faint)] mx-auto mb-3" />
+          <p className="text-[var(--text-muted)] text-lg">هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
           <Link
             href="/products"
-            className="mt-4 inline-block px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-300"
+            className="mt-4 inline-block px-6 py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] font-semibold rounded-lg shadow-md transition-colors duration-300"
           >
             شروع خرید
           </Link>
@@ -97,26 +97,26 @@ export default function OrdersContent() {
 
       {/* Orders table */}
       {!loading && !error && orders.length > 0 && (
-        <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl overflow-x-auto">
+        <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl overflow-x-auto">
           <table className="w-full min-w-[600px] text-right">
-            <thead className="border-b border-slate-700/60">
+            <thead className="border-b border-[var(--border)]">
               <tr>
-                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-sky-300">شماره سفارش</th>
-                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-sky-300">تاریخ</th>
-                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-sky-300">مبلغ کل</th>
-                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-sky-300">وضعیت</th>
+                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-[var(--accent-hover)]">شماره سفارش</th>
+                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-[var(--accent-hover)]">تاریخ</th>
+                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-[var(--accent-hover)]">مبلغ کل</th>
+                <th className="py-4 px-4 sm:px-6 text-sm font-semibold text-[var(--accent-hover)]">وضعیت</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-700/40">
+            <tbody className="divide-y divide-[var(--border)]">
               {orders.map((order) => (
-                <tr key={order.id} className="hover:bg-slate-700/30 transition-colors duration-150">
-                  <td className="py-4 px-4 sm:px-6 text-gray-200 font-medium nums">
+                <tr key={order.id} className="hover:bg-[var(--surface-2)] transition-colors duration-150">
+                  <td className="py-4 px-4 sm:px-6 text-[var(--text)] font-medium nums">
                     #{order.databaseId}
                   </td>
-                  <td className="py-4 px-4 sm:px-6 text-gray-300 nums" dir="ltr">
+                  <td className="py-4 px-4 sm:px-6 text-[var(--text-muted)] nums" dir="ltr">
                     {new Date(order.date).toLocaleDateString('fa-IR')}
                   </td>
-                  <td className="py-4 px-4 sm:px-6 text-gray-300 nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(order.total || '') }} />
+                  <td className="py-4 px-4 sm:px-6 text-[var(--text-muted)] nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(order.total || '') }} />
                   <td className="py-4 px-4 sm:px-6">
                     <span className={`px-2.5 py-1 text-[11px] font-semibold rounded-full ${getStatusClass(order.status)}`}>
                       {translateStatus(order.status)}

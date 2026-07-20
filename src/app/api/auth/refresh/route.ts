@@ -15,7 +15,7 @@ import { logger } from '@/lib/logger';
  * If the token is expired, the user must re-login.
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 

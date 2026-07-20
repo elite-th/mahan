@@ -26,7 +26,7 @@ export default function AdvantageList({ advantages, color }: AdvantageListProps)
       transition={{ duration: 0.4, ease: 'easeOut' as const }}
     >
       {/* Section title */}
-      <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+      <h3 className="text-xl font-bold text-[var(--text)] mb-5 flex items-center gap-2">
         <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
         چرا ویرا شبکه آران
       </h3>
@@ -36,7 +36,7 @@ export default function AdvantageList({ advantages, color }: AdvantageListProps)
         {advantages.map((advantage, i) => (
           <li key={i} className="flex items-center gap-2.5 py-1.5">
             <Check className={`w-4 h-4 shrink-0 ${color.primary}`} />
-            <span className="text-gray-300 text-sm leading-relaxed">{advantage}</span>
+            <span className="text-[var(--text-muted)] text-sm leading-relaxed">{advantage}</span>
           </li>
         ))}
       </ul>

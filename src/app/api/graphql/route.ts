@@ -4,7 +4,7 @@ import { withRateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limiter';
 import { fetchWithTimeout } from '@/lib/fetch-with-timeout';
 import { logger } from '@/lib/logger';
 
-const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'https://wordpress.vna-co.ir/graphql';
+const GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'http://localhost:8080/graphql';
 
 export const POST = withRateLimit(
     async (request: Request) => {

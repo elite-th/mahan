@@ -3,7 +3,7 @@ import { withRateLimit, RATE_LIMIT_PRESETS } from '@/lib/rate-limiter';
 import { fetchWithTimeout } from '@/lib/fetch-with-timeout';
 import { logger } from '@/lib/logger';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+const API_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';

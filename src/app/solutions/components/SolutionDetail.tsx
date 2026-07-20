@@ -40,7 +40,7 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
           {/* Left column: Image + Description + Details (NO card for details) */}
           <div className="lg:col-span-2 space-y-6">
             {/* Hero Image */}
-            <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-800">
+            <div className="relative rounded-xl overflow-hidden aspect-video bg-[var(--surface-1)]">
               <Image
                 src={solution.heroImage}
                 alt={solution.title}
@@ -49,25 +49,25 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
                 sizes="(max-width: 1024px) 100vw, 40vw"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)] to-transparent" />
               {/* Title badge overlay — removed backdrop-blur-md */}
               <div className="absolute bottom-4 right-4 left-4">
                 <div
                   className={`inline-flex items-center gap-2 ${color.bg} border ${color.border} rounded-xl px-4 py-2`}
                 >
                   <span className={color.primary}>{solution.icon}</span>
-                  <span className="text-white font-bold text-sm md:text-base">{solution.title}</span>
+                  <span className="text-[var(--text)] font-bold text-sm md:text-base">{solution.title}</span>
                 </div>
               </div>
             </div>
 
             {/* Description */}
             <div className="space-y-4">
-              <h2 className={`text-2xl md:text-3xl font-bold text-white flex items-center gap-3 ${color.primary}`}>
+              <h2 className={`text-2xl md:text-3xl font-bold text-[var(--text)] flex items-center gap-3 ${color.primary}`}>
                 {solution.icon}
                 <span>{solution.title}</span>
               </h2>
-              <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+              <p className="text-[var(--text-muted)] leading-relaxed text-sm md:text-base">
                 {solution.description}
               </p>
             </div>
@@ -75,7 +75,7 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
             {/* Details — simple border-r accent paragraph, no card wrapper */}
             {solution.details && (
               <p
-                className="text-gray-500 leading-relaxed text-sm border-r-2 pr-4"
+                className="text-[var(--text-faint)] leading-relaxed text-sm border-r-2 pr-4"
                 style={{ borderColor: 'var(--detail-accent, rgba(100,116,139,0.3))' }}
               >
                 {solution.details}
@@ -87,7 +87,7 @@ export default function SolutionDetail({ solution }: SolutionDetailProps) {
           <div className="lg:col-span-3 space-y-10">
             {/* Features section — just heading + list */}
             <div>
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[var(--text)] mb-4 flex items-center gap-2">
                 <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
                 {solution.featureSectionTitle || 'خدمات ارائه‌شده'}
               </h3>

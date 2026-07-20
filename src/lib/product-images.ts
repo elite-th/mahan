@@ -19,7 +19,7 @@ export async function fetchProductImagesFromRest(): Promise<Map<number, { source
   }
 
   const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
-  const apiUrl = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+  const apiUrl = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 
   const imageMap = new Map<number, { sourceUrl: string; altText: string }>();
   let page = 1;

@@ -67,7 +67,7 @@ export default function SolutionsHero() {
       aria-label="خدمات ویرا شبکه آران"
     >
       {/* Layer 1: Base gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[var(--bg)] via-[var(--surface-1)] to-[var(--bg)]" />
 
       {/* Layer 2: REMOVED — mesh gradient blobs were heavy blurred color spots
           that drift on infinite loops (AI-slop pattern). Cut for performance. */}
@@ -116,7 +116,7 @@ export default function SolutionsHero() {
       />
 
       {/* Layer 6: Bottom fade to match next section */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--bg)]" />
 
       {/* Layer 7: REMOVED — floating icon orbs with glow halos + infinite
           float animation + backdrop-blur. Cut as AI-slop / GPU-heavy. */}
@@ -134,9 +134,9 @@ export default function SolutionsHero() {
           variants={itemVariants}
           className="flex items-center justify-center gap-3 mb-6"
         >
-          <span className="block w-8 h-px bg-gradient-to-r from-transparent to-sky-400/60" />
-          <span className="block w-1.5 h-1.5 rounded-full bg-sky-400/60" />
-          <span className="block w-8 h-px bg-gradient-to-l from-transparent to-sky-400/60" />
+          <span className="block w-8 h-px bg-gradient-to-r from-transparent to-[var(--accent)]/60" />
+          <span className="block w-1.5 h-1.5 rounded-full bg-[var(--accent-hover)]/60" />
+          <span className="block w-8 h-px bg-gradient-to-l from-transparent to-[var(--accent)]/60" />
         </motion.div>
 
         <motion.h1
@@ -144,18 +144,18 @@ export default function SolutionsHero() {
           className="text-4xl md:text-5xl lg:text-6xl font-black mb-6"
         >
           {/* Solid color headings (gradient text removed for clarity + B2B trust) */}
-          <span className="text-sky-300">
+          <span className="text-[var(--accent-hover)]">
             خدمات ویرا شبکه آران
           </span>
           <br />
-          <span className="text-white text-3xl md:text-4xl lg:text-5xl">
+          <span className="text-[var(--text)] text-3xl md:text-4xl lg:text-5xl">
             برای شما
           </span>
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
-          className="text-lg md:text-xl text-gray-300/80 max-w-2xl mx-auto leading-relaxed"
+          className="text-lg md:text-xl text-[var(--text-muted)] max-w-2xl mx-auto leading-relaxed"
         >
           با بهره‌گیری از تجربه و تخصص روز، خدمات نوآورانه و قابل اعتماد را
           برای نیازهای ICT سازمان شما ارائه می‌نماید.
@@ -166,9 +166,9 @@ export default function SolutionsHero() {
           variants={itemVariants}
           className="flex items-center justify-center gap-3 mt-6"
         >
-          <span className="block w-12 h-px bg-gradient-to-r from-transparent to-sky-400/40" />
-          <span className="block w-2 h-2 rounded-full bg-sky-400/30" />
-          <span className="block w-12 h-px bg-gradient-to-l from-transparent to-sky-400/40" />
+          <span className="block w-12 h-px bg-gradient-to-r from-transparent to-[var(--accent)]/40" />
+          <span className="block w-2 h-2 rounded-full bg-[var(--accent-hover)]/30" />
+          <span className="block w-12 h-px bg-gradient-to-l from-transparent to-[var(--accent)]/40" />
         </motion.div>
       </motion.div>
     </section>

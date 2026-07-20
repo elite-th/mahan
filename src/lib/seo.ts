@@ -96,13 +96,6 @@ export const organizationSchema = {
   name: COMPANY_SLOGAN,
   alternateName: COMPANY_NAME,
   url: SITE_URL,
-  logo: {
-    '@type': 'ImageObject',
-    url: `${SITE_URL}/logo.svg`,
-    width: 400,
-    height: 160,
-  },
-  image: `${SITE_URL}/logo.svg`,
   email: CONTACT.email,
   telephone: [CONTACT.phoneSales, CONTACT.phoneSupport],
   address: {

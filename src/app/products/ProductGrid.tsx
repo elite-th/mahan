@@ -157,7 +157,7 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
       <div className="lg:hidden mb-6">
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
-          className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-800 text-sky-400 font-semibold rounded-lg shadow-md"
+          className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[var(--surface-1)] text-[var(--accent)] font-semibold rounded-lg shadow-md"
           aria-controls="filter-sidebar"
           aria-expanded={isFilterOpen}
         >
@@ -186,14 +186,14 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
         />
       </div>
       <main className="lg:col-span-3">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 p-4 bg-slate-800/60 rounded-lg gap-4">
-          <p className="text-sm text-gray-400">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6 p-4 bg-[var(--surface-1)] rounded-lg gap-4">
+          <p className="text-sm text-[var(--text-muted)]">
             نمایش {Math.min(displayedCount, filteredAndSortedProducts.length)} از {areAnyFiltersActive ? `${filteredAndSortedProducts.length} (از ${allProducts.length})` : allProducts.length} محصول
           </p>
           <select
             value={sortBy}
             onChange={e => setSortBy(e.target.value)}
-            className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors text-sm"
+            className="px-4 py-2 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors text-sm"
           >
             <option value="default">پیشنهاد ما</option>
             <option value="price-asc">قیمت: ارزان به گران</option>
@@ -204,8 +204,8 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
         {areAnyFiltersActive && (
           <div className="mb-4 flex flex-wrap items-center gap-2 min-h-[2.25rem]">
             {debouncedSearchQuery.trim() && (
-              <span className="inline-flex items-center gap-x-2 bg-sky-900/70 text-sky-300 text-sm font-medium pl-3 pr-2 py-1 rounded-full">
-                <button onClick={() => setSearchQuery('')} className="text-sky-400 hover:text-white rounded-full hover:bg-sky-700 p-0.5 transition-colors" aria-label="Remove search filter">
+              <span className="inline-flex items-center gap-x-2 bg-[var(--accent-press)]/70 text-[var(--accent-hover)] text-sm font-medium pl-3 pr-2 py-1 rounded-full">
+                <button onClick={() => setSearchQuery('')} className="text-[var(--accent)] hover:text-[var(--bg)] rounded-full hover:bg-[var(--accent-press)] p-0.5 transition-colors" aria-label="Remove search filter">
                   <XMarkIcon className="h-4 w-4" />
                 </button>
                 <span>جستجو: {debouncedSearchQuery}</span>
@@ -214,8 +214,8 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
             {selectedCategories.map(slug => {
               const category = availableCategories.find(c => c.slug === slug);
               return category ? (
-                <span key={slug} className="inline-flex items-center gap-x-2 bg-sky-900/70 text-sky-300 text-sm font-medium pl-3 pr-2 py-1 rounded-full">
-                  <button onClick={() => handleCategoryChange(slug)} className="text-sky-400 hover:text-white rounded-full hover:bg-sky-700 p-0.5 transition-colors" aria-label={`Remove ${category.name} filter`}>
+                <span key={slug} className="inline-flex items-center gap-x-2 bg-[var(--accent-press)]/70 text-[var(--accent-hover)] text-sm font-medium pl-3 pr-2 py-1 rounded-full">
+                  <button onClick={() => handleCategoryChange(slug)} className="text-[var(--accent)] hover:text-[var(--bg)] rounded-full hover:bg-[var(--accent-press)] p-0.5 transition-colors" aria-label={`Remove ${category.name} filter`}>
                     <XMarkIcon className="h-4 w-4" />
                   </button>
                   <span>{category.name}</span>
@@ -223,16 +223,16 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
               ) : null;
             })}
             {selectedBrands.map(brand => (
-              <span key={brand} className="inline-flex items-center gap-x-2 bg-sky-900/70 text-sky-300 text-sm font-medium pl-3 pr-2 py-1 rounded-full">
-                <button onClick={() => handleBrandChange(brand)} className="text-sky-400 hover:text-white rounded-full hover:bg-sky-700 p-0.5 transition-colors" aria-label={`Remove ${brand} filter`}>
+              <span key={brand} className="inline-flex items-center gap-x-2 bg-[var(--accent-press)]/70 text-[var(--accent-hover)] text-sm font-medium pl-3 pr-2 py-1 rounded-full">
+                <button onClick={() => handleBrandChange(brand)} className="text-[var(--accent)] hover:text-[var(--bg)] rounded-full hover:bg-[var(--accent-press)] p-0.5 transition-colors" aria-label={`Remove ${brand} filter`}>
                   <XMarkIcon className="h-4 w-4" />
                 </button>
                 <span>{brand}</span>
               </span>
             ))}
             {isPriceFilterActive && (
-              <span className="inline-flex items-center gap-x-2 bg-sky-900/70 text-sky-300 text-sm font-medium pl-3 pr-2 py-1 rounded-full">
-                <button onClick={resetPriceFilter} className="text-sky-400 hover:text-white rounded-full hover:bg-sky-700 p-0.5 transition-colors" aria-label="Remove price filter">
+              <span className="inline-flex items-center gap-x-2 bg-[var(--accent-press)]/70 text-[var(--accent-hover)] text-sm font-medium pl-3 pr-2 py-1 rounded-full">
+                <button onClick={resetPriceFilter} className="text-[var(--accent)] hover:text-[var(--bg)] rounded-full hover:bg-[var(--accent-press)] p-0.5 transition-colors" aria-label="Remove price filter">
                   <XMarkIcon className="h-4 w-4" />
                 </button>
                 <span>
@@ -256,7 +256,7 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
               <div className="text-center mt-12">
                 <button
                   onClick={() => setDisplayedCount(prev => prev + PRODUCTS_PER_PAGE)}
-                  className="px-8 py-3 bg-slate-700 hover:bg-slate-600 text-sky-300 font-semibold rounded-lg shadow-md transition-colors duration-300"
+                  className="px-8 py-3 bg-[var(--surface-2)] hover:bg-[var(--surface-2)] text-[var(--accent-hover)] font-semibold rounded-lg shadow-md transition-colors duration-300"
                 >
                   نمایش بیشتر
                 </button>
@@ -264,8 +264,8 @@ export default function ProductGrid({ allProducts }: { allProducts: ProductNode[
             )}
           </>
         ) : (
-          <div className="text-center py-16 bg-slate-800/50 rounded-xl">
-            <p className="text-xl text-gray-400">محصولی با فیلترهای انتخابی یافت نشد.</p>
+          <div className="text-center py-16 bg-[var(--surface-1)] rounded-xl">
+            <p className="text-xl text-[var(--text-muted)]">محصولی با فیلترهای انتخابی یافت نشد.</p>
           </div>
         )}
       </main>

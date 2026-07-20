@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
     // lets us preserve the trailing slash in a single hop, avoiding a 3-step
     // redirect chain that triggers Torob's "TooManyRedirects" error.
     //
-    // Single-hop:  www.vna-co.ir/product/slug/ → vna-co.ir/product/slug/ → 200
+    // Single-hop:  www.example.com/product/slug/ → example.com/product/slug/ → 200
     if (host.startsWith('www.')) {
         const newHost = host.slice(4); // strip "www."
         const url = new URL(request.url);
@@ -79,12 +79,12 @@ export function middleware(request: NextRequest) {
     //            can keep a strict CSP.
     const cspHeader = `
       default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.hcaptcha.com;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: https://wordpress.vna-co.ir https://new.vna-co.ir https://vna-co.ir https://trustseal.enamad.ir;
+      img-src 'self' data: https://trustseal.enamad.ir;
       font-src 'self' https://fonts.gstatic.com;
-      connect-src 'self' https://wordpress.vna-co.ir https://gateway.zibal.ir https://sandbox.zibal.ir https://vna-co.ir https://api.hcaptcha.com;
-      frame-src https://gateway.zibal.ir https://sandbox.zibal.ir https://trustseal.enamad.ir https://newassets.hcaptcha.com;
+      connect-src 'self' https://gateway.zibal.ir https://sandbox.zibal.ir;
+      frame-src https://gateway.zibal.ir https://sandbox.zibal.ir https://trustseal.enamad.ir;
       frame-ancestors 'none';
     `.replace(/\s{2,}/g, ' ').trim();
 
@@ -110,7 +110,7 @@ export function middleware(request: NextRequest) {
     // Isolation headers — limit cross-origin window access and resource loading.
     // COOP isolates the browsing context group (defends against side-channel / tabnabbing);
     // CORP 'cross-origin' allows the document's resources to be embedded cross-origin
-    // (needed because product images are served from wordpress.vna-co.ir) while still
+    // (needed because product images may be served from a separate host) while still
     // providing a documented policy. The HTML document itself is protected by COOP.
     response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
     response.headers.set('Cross-Origin-Resource-Policy', 'cross-origin');

@@ -21,7 +21,7 @@ import path from 'path';
 
 // --- Configuration ---
 
-const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 const CF7_FORM_ID = process.env.CONTACT_FORM_7_ID || process.env.NEXT_PUBLIC_CF7_FORM_ID;
 const WP_APP_USERNAME = process.env.WP_APP_USERNAME;
 const WP_APP_PASSWORD = process.env.WP_APP_PASSWORD;

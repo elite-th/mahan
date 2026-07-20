@@ -67,11 +67,11 @@ const getStatusClass = (status: OrderStatus): string => {
     case "CANCELLED":
       return "bg-red-500/20 text-red-300";
     case "REFUNDED":
-      return "bg-gray-500/20 text-gray-400";
+      return "bg-[var(--surface-2)] text-[var(--text-muted)]";
     case "FAILED":
       return "bg-red-700/30 text-red-400";
     default:
-      return "bg-gray-600/20 text-gray-300";
+      return "bg-[var(--surface-2)] text-[var(--text-muted)]";
   }
 };
 
@@ -102,40 +102,40 @@ export default function AccountContent() {
   return (
     <section className="space-y-8">
       {/* ===== Welcome Banner ===== */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-l from-sky-600/20 via-slate-800 to-slate-800 border border-sky-500/20 p-6 sm:p-8">
+      <div className="relative overflow-hidden rounded-xl bg-gradient-to-l from-[var(--accent)]/20 via-[var(--surface-1)] to-[var(--surface-1)] border border-[var(--accent)]/20 p-6 sm:p-8">
         <div className="relative z-10 flex flex-col sm:flex-row items-center gap-5">
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-sky-500/25 border-2 border-sky-400 flex items-center justify-center text-sky-300 text-3xl sm:text-4xl font-bold select-none shrink-0">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[var(--accent-hover)]/25 border-2 border-[var(--accent)] flex items-center justify-center text-[var(--accent-hover)] text-3xl sm:text-4xl font-bold select-none shrink-0">
             {avatarLetter}
           </div>
           <div className="text-center sm:text-right">
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-100">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--text)]">
               خوش آمدید،{" "}
-              <span className="text-sky-400">
+              <span className="text-[var(--accent)]">
                 {user?.displayName || "کاربر عزیز"}
               </span>
             </h1>
-            <p className="mt-1 text-gray-400 text-sm sm:text-base">
+            <p className="mt-1 text-[var(--text-muted)] text-sm sm:text-base">
               از داشبورد کاربری خود مدیریت کنید و آخرین سفارش‌هایتان را پیگیری
               کنید.
             </p>
           </div>
         </div>
         {/* Decorative circle */}
-        <div className="absolute -top-10 -left-10 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-[var(--accent-hover)]/10 rounded-full blur-3xl pointer-events-none" />
       </div>
 
       {/* ===== Quick Stats Row ===== */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {/* Total Orders */}
-        <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-lg bg-sky-500/15 flex items-center justify-center shrink-0">
-            <ShoppingBag className="w-6 h-6 text-sky-400" />
+        <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-5 flex items-center gap-4">
+          <div className="w-12 h-12 rounded-lg bg-[var(--accent-hover)]/15 flex items-center justify-center shrink-0">
+            <ShoppingBag className="w-6 h-6 text-[var(--accent)]" />
           </div>
           <div>
-            <p className="text-sm text-gray-400">تعداد سفارش‌ها</p>
-            <p className="text-2xl font-bold text-gray-100">
+            <p className="text-sm text-[var(--text-muted)]">تعداد سفارش‌ها</p>
+            <p className="text-2xl font-bold text-[var(--text)]">
               {loading ? (
-                <span className="inline-block w-8 h-7 bg-slate-700 animate-pulse rounded" />
+                <span className="inline-block w-8 h-7 bg-[var(--surface-2)] animate-pulse rounded" />
               ) : (
                 totalOrders
               )}
@@ -144,15 +144,15 @@ export default function AccountContent() {
         </div>
 
         {/* Active Orders */}
-        <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5 flex items-center gap-4">
+        <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-5 flex items-center gap-4">
           <div className="w-12 h-12 rounded-lg bg-yellow-500/15 flex items-center justify-center shrink-0">
             <Clock className="w-6 h-6 text-yellow-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-400">سفارش‌های فعال</p>
-            <p className="text-2xl font-bold text-gray-100">
+            <p className="text-sm text-[var(--text-muted)]">سفارش‌های فعال</p>
+            <p className="text-2xl font-bold text-[var(--text)]">
               {loading ? (
-                <span className="inline-block w-8 h-7 bg-slate-700 animate-pulse rounded" />
+                <span className="inline-block w-8 h-7 bg-[var(--surface-2)] animate-pulse rounded" />
               ) : (
                 activeOrders
               )}
@@ -161,15 +161,15 @@ export default function AccountContent() {
         </div>
 
         {/* Completed Orders */}
-        <div className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5 flex items-center gap-4">
+        <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-5 flex items-center gap-4">
           <div className="w-12 h-12 rounded-lg bg-green-500/15 flex items-center justify-center shrink-0">
             <ClipboardCheck className="w-6 h-6 text-green-400" />
           </div>
           <div>
-            <p className="text-sm text-gray-400">سفارش‌های تکمیل‌شده</p>
-            <p className="text-2xl font-bold text-gray-100">
+            <p className="text-sm text-[var(--text-muted)]">سفارش‌های تکمیل‌شده</p>
+            <p className="text-2xl font-bold text-[var(--text)]">
               {loading ? (
-                <span className="inline-block w-8 h-7 bg-slate-700 animate-pulse rounded" />
+                <span className="inline-block w-8 h-7 bg-[var(--surface-2)] animate-pulse rounded" />
               ) : (
                 completedOrders
               )}
@@ -181,13 +181,13 @@ export default function AccountContent() {
       {/* ===== Recent Orders ===== */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg sm:text-xl font-bold text-gray-100">
+          <h2 className="text-lg sm:text-xl font-bold text-[var(--text)]">
             آخرین سفارش‌ها
           </h2>
           {orders.length > 3 && (
             <Link
               href="/account/orders"
-              className="text-sm text-sky-400 hover:text-sky-300 transition-colors flex items-center gap-1"
+              className="text-sm text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors flex items-center gap-1"
             >
               مشاهده همه
               <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
@@ -204,12 +204,12 @@ export default function AccountContent() {
         )}
 
         {!loading && !error && orders.length === 0 && (
-          <div className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-8 text-center">
-            <Package className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-400 text-lg">هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
+          <div className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-8 text-center">
+            <Package className="w-12 h-12 text-[var(--text-faint)] mx-auto mb-3" />
+            <p className="text-[var(--text-muted)] text-lg">هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
             <Link
               href="/products"
-              className="mt-4 inline-block px-6 py-2.5 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold rounded-lg shadow-md transition-colors duration-300"
+              className="mt-4 inline-block px-6 py-2.5 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] text-sm font-semibold rounded-lg shadow-md transition-colors duration-300"
             >
               شروع خرید
             </Link>
@@ -221,10 +221,10 @@ export default function AccountContent() {
             {recentOrders.map((order) => (
               <div
                 key={order.id}
-                className="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5 hover:border-slate-600/60 transition-colors duration-200"
+                className="bg-[var(--surface-1)] border border-[var(--border)] rounded-xl p-5 hover:border-[var(--border)] transition-colors duration-200"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-semibold text-sky-300">
+                  <span className="text-sm font-semibold text-[var(--accent-hover)]">
                     #{order.databaseId}
                   </span>
                   <span
@@ -237,15 +237,15 @@ export default function AccountContent() {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">تاریخ</span>
-                    <span className="text-gray-300" dir="ltr">
+                    <span className="text-[var(--text-faint)]">تاریخ</span>
+                    <span className="text-[var(--text-muted)]" dir="ltr">
                       {new Date(order.date).toLocaleDateString("fa-IR")}
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-gray-500">مبلغ کل</span>
+                    <span className="text-[var(--text-faint)]">مبلغ کل</span>
                     <span
-                      className="text-gray-200 font-medium"
+                      className="text-[var(--text)] font-medium"
                       dangerouslySetInnerHTML={{
                         __html: sanitizeHtml(order.total || ""),
                       }}
@@ -262,14 +262,14 @@ export default function AccountContent() {
       <div className="flex flex-col sm:flex-row gap-4">
         <Link
           href="/products"
-          className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl shadow-md transition-colors duration-300 text-sm sm:text-base"
+          className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] font-semibold rounded-xl shadow-md transition-colors duration-300 text-sm sm:text-base"
         >
           <ShoppingBag className="w-5 h-5" />
           شروع خرید
         </Link>
         <Link
           href="/account/orders"
-          className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-slate-700/70 hover:bg-slate-700 text-gray-200 font-semibold rounded-xl border border-slate-600/50 transition-colors duration-300 text-sm sm:text-base"
+          className="flex-1 flex items-center justify-center gap-2 px-6 py-3.5 bg-[var(--surface-2)] hover:bg-[var(--surface-2)] text-[var(--text)] font-semibold rounded-xl border border-[var(--border)] transition-colors duration-300 text-sm sm:text-base"
         >
           <Package className="w-5 h-5" />
           مشاهده همه سفارش‌ها

@@ -21,7 +21,7 @@ import { apiSuccess, apiError } from '@/lib/api-response';
 
 const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL
     ? process.env.NEXT_PUBLIC_WP_API_URL.replace(/\/wp-json$/, '')
-    : 'https://wordpress.vna-co.ir';
+    : 'http://localhost:8080';
 
 const validateEmail = (email: string): boolean => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

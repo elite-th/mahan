@@ -39,13 +39,13 @@ export default function ResumeMethodology({ color }: ResumeMethodologyProps) {
       transition={{ duration: 0.4, ease: 'easeOut' as const }}
     >
       {/* Section title */}
-      <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
+      <h3 className="text-xl font-bold text-[var(--text)] mb-2 flex items-center gap-2">
         <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
         روش کار
       </h3>
 
       {/* Subtitle */}
-      <p className="text-gray-400 text-sm leading-relaxed mb-5">
+      <p className="text-[var(--text-muted)] text-sm leading-relaxed mb-5">
         شرکت ویرا شبکه آران با بهره‌گیری از تیمی متخصص و باتجربه در حوزه‌های:
       </p>
 
@@ -68,13 +68,13 @@ export default function ResumeMethodology({ color }: ResumeMethodologyProps) {
             <span className={color.primary} aria-hidden="true">
               {item.icon}
             </span>
-            <span className="text-white text-sm font-medium">{item.label}</span>
+            <span className="text-[var(--text)] text-sm font-medium">{item.label}</span>
           </motion.div>
         ))}
       </div>
 
       {/* Footer text */}
-      <p className="text-gray-300 text-sm leading-relaxed">
+      <p className="text-[var(--text-muted)] text-sm leading-relaxed">
         خدمات خود را با استفاده از جدیدترین روش‌ها و استانداردهای روز ارائه می‌دهد. همکاری با تأمین‌کنندگان داخلی و خارجی باعث شده این شرکت بتواند تجهیزات موردنیاز پروژه‌های بزرگ را حتی در شرایط دشوار تأمین نماید.
       </p>
     </motion.div>

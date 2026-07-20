@@ -39,7 +39,7 @@ export async function GET() {
 
   // Check 2: WordPress REST API connectivity
   // Uses /wp/v2/posts (public endpoint) instead of /wp/v2/system-status (admin-only, may not exist)
-  const wpBaseUrl = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+  const wpBaseUrl = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
   try {
     const start = Date.now();
     const response = await fetch(`${wpBaseUrl}/wp/v2/posts?per_page=1`, {
@@ -59,7 +59,7 @@ export async function GET() {
   }
 
   // Check 3: WordPress GraphQL connectivity
-  const graphqlUri = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'https://wordpress.vna-co.ir/graphql';
+  const graphqlUri = process.env.NEXT_PUBLIC_GRAPHQL_URI || 'http://localhost:8080/graphql';
   try {
     const start = Date.now();
     const response = await fetch(graphqlUri, {

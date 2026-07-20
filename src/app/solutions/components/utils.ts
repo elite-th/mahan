@@ -21,7 +21,7 @@ const BG_TO_RGBA: Record<string, { r: number; g: number; b: number }> = {
   'bg-violet-500/10':  { r: 139, g: 92,  b: 246 },
   'bg-cyan-500/10':    { r: 6,   g: 182, b: 212 },
   'bg-teal-500/10':    { r: 20,  g: 184, b: 166 },
-  'bg-sky-500/10':     { r: 14,  g: 165, b: 233 },
+  'bg-[var(--accent-hover)]/10':     { r: 14,  g: 165, b: 233 },
   'bg-orange-500/10':  { r: 249, g: 115, b: 22  },
 };
 

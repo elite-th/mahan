@@ -45,7 +45,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "واردات تجهیزات شبکه و سرور",
     shortTitle: "واردات",
     icon: <Package className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/heavy-haulage-slider-1200-1024x576-1-700x500.jpg",
+    heroImage: "",
     featureSectionTitle: "مراحل واردات تجهیزات",
     description:
       "ویرا شبکه آران با تجربه‌ای طولانی در واردات تمامی تجهیزات سرور و شبکه، کالای مورد نظر شما را در کمترین زمان ممکن از گمرک ترخیص می‌نماید. از اخذ کارت بازرگانی تا ترخیص کالا، همه مراحل را به صورت حرفه‌ای و تخصصی انجام می‌دهیم.",
@@ -73,7 +73,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "امنیت شبکه",
     shortTitle: "امنیت",
     icon: <Shield className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/How-to-conduct-a-security-risk-assessment.webp",
+    heroImage: "",
     featureSectionTitle: "خدمات امنیت شبکه",
     description:
       "امروزه سیستم‌های مدیریت اطلاعات تحت شبکه، امکان دسترسی سریع به اطلاعات را فراهم می‌کنند. هر چه استفاده از این سیستم‌ها گسترش یابد، ضرورت توجه به سلامت و امنیت آنها نیز اهمیت بیشتری می‌یابد. گروه امنیت اطلاعات ویرا شبکه آران با ارائه راهکارهای مناسب و سریع، ضعف‌های امنیتی شبکه‌های کامپیوتری را برطرف ساخته و اطمینان مدیران را به سیستم‌های اطلاعاتی افزایش می‌دهد.",
@@ -117,7 +117,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "دیتاسنتر",
     shortTitle: "دیتاسنتر",
     icon: <Server className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/data-center-2.jpg",
+    heroImage: "",
     featureSectionTitle: "خدمات مرکز داده",
     description:
       "پیاده‌سازی راهکارهای مبتنی بر دیتاسنتر در داخل و خارج کشور. شرکت آران به واسطه تسلط به فناوری‌های روز جهانی و بهره‌گیری از سال‌ها تجربه ارزشمند در زمینه مشاوره، طراحی، راه‌اندازی، بهره‌برداری و پایش مراکز داده، آماده ارائه خدمات فنی و مهندسی منطبق بر استانداردهای TIA942، ANSI/BICSI 002-201، ISO20000 و CISCO SAFE می‌باشد.",
@@ -145,7 +145,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "SD-WAN",
     shortTitle: "SD-WAN",
     icon: <Network className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/cisco-sd-wan-07.jpg",
+    heroImage: "",
     featureSectionTitle: "قابلیت‌های SD-WAN",
     description:
       "SD-WAN یا شبکۀ گسترده بر مبنای نرم‌افزار، یک شبکۀ گستردۀ مجازی است که به سازمان‌ها اجازه می‌دهد تا برای اتصال کاربران به برنامه‌های کاربردی، از هر ترکیب دلخواهی از سرویس‌های انتقال داده (MPLS, LTE, اینترنت) استفاده نمایند. ویرا شبکه آران با تجربه‌ای کامل در زمینه راه‌اندازی، پیاده‌سازی و پشتیبانی SD-WAN به همراه ارائه لایسنس‌های معتبر، می‌تواند شما را در این مسیر همراهی کند.",
@@ -174,7 +174,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "مجازی‌سازی",
     shortTitle: "مجازی‌سازی",
     icon: <Cloud className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/HPE-CTO-SERVERs_600x.webp",
+    heroImage: "",
     featureSectionTitle: "راهکارهای مجازی‌سازی",
     description:
       "به‌روزترین راهکارهای مجازی‌سازی. در سال‌های اخیر، فناوری‌های مجازی‌سازی به عنوان یکی از روندهای پیشرو در حوزه فناوری اطلاعات مطرح گردیده و فرصت‌های جدیدی نظیر رایانش ابری را فراهم نموده است. شرکت آران دارای تجربه غنی در ارائه مشاوره، طراحی، پیاده‌سازی و پشتیبانی زیرساخت مجازی در سازمان‌های مختلف می‌باشد.",
@@ -191,10 +191,10 @@ const SOLUTIONS: SolutionData[] = [
       "High Availability، Failover Cluster و Load Balancing",
     ],
     color: {
-      primary: "text-sky-400",
-      light: "text-sky-300",
-      bg: "bg-sky-500/10",
-      border: "border-sky-500/30",
+      primary: "text-[var(--accent)]",
+      light: "text-[var(--accent-hover)]",
+      bg: "bg-[var(--accent-hover)]/10",
+      border: "border-[var(--accent)]/30",
       glow: "shadow-lg",
     },
   },
@@ -203,7 +203,7 @@ const SOLUTIONS: SolutionData[] = [
     title: "ایمیل سرور Exchange",
     shortTitle: "ایمیل سرور",
     icon: <Mail className="w-5 h-5" />,
-    heroImage: "https://vna-co.ir/wp-content/uploads/2023/09/Integrated-Security-Systems-Blog-Image.png",
+    heroImage: "",
     featureSectionTitle: "امکانات ایمیل سرور",
     description:
       "راه‌اندازی میل سرور Exchange یکی از روش‌های نرم‌افزاری است که به منظور ارسال نامه‌های الکترونیکی استفاده می‌شود. میل سرور Exchange پلتفرم ایمیل، تقویم، تماس، برنامه‌ریزی و همکاری مایکروسافت است که برای استفاده تجاری بر روی سیستم عامل ویندوز سرور مستقر شده است.",
@@ -238,7 +238,7 @@ export default function SolutionsContent() {
   const active = SOLUTIONS.find((s) => s.id === activeId) ?? SOLUTIONS[0];
 
   return (
-    <div className="min-h-screen bg-slate-900 text-gray-200">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
       <SolutionsHero />
       <SolutionsTabBar
         solutions={SOLUTIONS}

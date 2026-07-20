@@ -30,7 +30,7 @@ const getOrigin = (request: Request) => {
     // If the API call comes from localhost (local dev), Zibal must redirect
     // back to localhost — not the production URL.
     // CRITICAL: x-forwarded-host may contain multiple comma-separated values
-    // (e.g., "vna-co.ir, vna-co.ir") — take only the first.
+    // (e.g., "example.com, example.com") — take only the first.
     const rawHost = request.headers.get('x-forwarded-host') || request.headers.get('host') || '';
     const host = rawHost.split(',')[0].trim();
 

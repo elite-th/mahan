@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Phone, Mail, Clock } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import { NAV_LINKS, COMPANY_NAME, COMPANY_SLOGAN } from '../constants';
@@ -51,13 +50,13 @@ const Footer: React.FC = () => {
           {/* Column 1 — Brand (right in RTL) */}
           <div className="flex flex-col items-start gap-4">
             <div className="flex items-center gap-3">
-              <Image
-                src="/logo.svg"
-                alt="ماهان ارتباطات خردمنده"
-                width={36}
-                height={36}
-                className="h-9 w-auto"
-              />
+              {/* "M" monogram — text wordmark instead of image logo */}
+              <span
+                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[#8E3BFF] text-[#110E18] font-bold text-lg leading-none"
+                aria-hidden="true"
+              >
+                م
+              </span>
               <div>
                 <p className="text-sm font-semibold text-[#FBF7FE] leading-tight">
                   {COMPANY_NAME}

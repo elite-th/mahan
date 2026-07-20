@@ -53,8 +53,8 @@ export default function ForgotPasswordForm() {
   };
 
   return (
-    <section className="flex items-center justify-center py-12 sm:py-16 bg-slate-900 text-gray-100 min-h-[calc(100vh-10rem)]">
-      <div className="w-full max-w-md p-8 space-y-8 bg-slate-800 rounded-xl shadow-lg">
+    <section className="flex items-center justify-center py-12 sm:py-16 bg-[var(--bg)] text-[var(--text)] min-h-[calc(100vh-10rem)]">
+      <div className="w-full max-w-md p-8 space-y-8 bg-[var(--surface-1)] rounded-xl shadow-lg">
         {isSuccess ? (
           /* Success state */
           <div className="text-center space-y-6">
@@ -66,14 +66,14 @@ export default function ForgotPasswordForm() {
             <h1 className="text-2xl font-extrabold text-emerald-300">
               لینک بازیابی ارسال شد
             </h1>
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-[var(--text-muted)] leading-relaxed">
               لینک بازیابی رمز عبور به ایمیل شما ارسال شد.
               <br />
               لطفاً صندوق ورودی و پوشه اسپم ایمیل خود را بررسی کنید.
             </p>
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] font-semibold rounded-lg shadow-md transition-colors duration-300"
             >
               <ArrowRight className="w-4 h-4" />
               بازگشت به صفحه ورود
@@ -83,16 +83,16 @@ export default function ForgotPasswordForm() {
           /* Form state */
           <>
             <div className="text-center">
-              <h1 className="text-3xl font-extrabold text-sky-400">
+              <h1 className="text-3xl font-extrabold text-[var(--accent)]">
                 بازیابی رمز عبور
               </h1>
-              <p className="mt-2 text-gray-400">
+              <p className="mt-2 text-[var(--text-muted)]">
                 آدرس ایمیل خود را وارد کنید تا لینک بازیابی برایتان ارسال شود.
               </p>
             </div>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-[var(--text-muted)] mb-1">
                   آدرس ایمیل
                 </label>
                 <div className="relative">
@@ -106,12 +106,12 @@ export default function ForgotPasswordForm() {
                       if (errorMessage) setErrorMessage('');
                     }}
                     required
-                    className="w-full px-4 py-3 pr-11 bg-gray-700/80 border border-gray-600 rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors"
+                    className="w-full px-4 py-3 pr-11 bg-[var(--surface-2)] border border-[var(--border)] rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors"
                     placeholder="example@domain.com"
                     autoComplete="email"
                     dir="ltr"
                   />
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--text-muted)]" />
                 </div>
               </div>
 
@@ -125,7 +125,7 @@ export default function ForgotPasswordForm() {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full flex justify-center items-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-300 disabled:bg-sky-800 disabled:cursor-not-allowed"
+                  className="w-full flex justify-center items-center px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] font-semibold rounded-lg shadow-md transition-colors duration-300 disabled:bg-[var(--accent-press)] disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <div className="w-6 h-6 border-2 border-dashed rounded-full animate-spin border-white" />
@@ -135,9 +135,9 @@ export default function ForgotPasswordForm() {
                 </button>
               </div>
             </form>
-            <p className="text-sm text-center text-gray-400">
+            <p className="text-sm text-center text-[var(--text-muted)]">
               رمز عبور خود را به یاد آوردید؟{' '}
-              <Link href="/login" className="font-medium text-sky-400 hover:text-sky-300">
+              <Link href="/login" className="font-medium text-[var(--accent)] hover:text-[var(--accent-hover)]">
                 وارد شوید
               </Link>
             </p>

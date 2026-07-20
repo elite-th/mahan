@@ -34,14 +34,14 @@ export default function ResumeContact({ color }: ResumeContactProps) {
     {
       icon: <Mail className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />,
       label: "ایمیل",
-      value: "info@vna-co.ir",
-      href: "mailto:info@vna-co.ir",
+      value: "info@example.com",
+      href: "mailto:info@example.com",
     },
     {
       icon: <Globe className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />,
       label: "وب‌سایت",
-      value: "vna-co.ir",
-      href: "https://vna-co.ir",
+      value: "example.com",
+      href: "https://example.com",
     },
   ];
 
@@ -57,8 +57,8 @@ export default function ResumeContact({ color }: ResumeContactProps) {
       }}
       dir="rtl"
     >
-      <div className="bg-slate-800/60 rounded-xl p-6">
-        <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+      <div className="bg-[var(--surface-1)] rounded-xl p-6">
+        <h3 className="text-[var(--text)] font-bold text-lg mb-4 flex items-center gap-2">
           <Phone className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />
           اطلاعات تماس
         </h3>
@@ -76,15 +76,15 @@ export default function ResumeContact({ color }: ResumeContactProps) {
                 {item.icon}
               </div>
               <div className="flex items-center gap-2 flex-1">
-                <span className="text-gray-400 text-sm">{item.label}:</span>
+                <span className="text-[var(--text-muted)] text-sm">{item.label}:</span>
                 <a
                   href={item.href}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className={`
-                    text-white text-sm font-medium hover:underline
+                    text-[var(--text)] text-sm font-medium hover:underline
                     transition-colors duration-200
-                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400
+                    focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]
                   `}
                   aria-label={`${item.label}: ${item.value}`}
                 >

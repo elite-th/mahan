@@ -22,12 +22,12 @@ const Toast: React.FC<{ message: string; type: 'success' | 'info' | 'error'; onD
     };
   }, [onDismiss]);
   
-  const baseClasses = "fixed bottom-5 right-5 z-[100] flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-200 bg-slate-800/80 backdrop-blur-md divide-x rtl:divide-x-reverse divide-gray-600 rounded-lg shadow-lg transition-all duration-300";
+  const baseClasses = "fixed bottom-5 right-5 z-[100] flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse text-[var(--text)] bg-[var(--surface-1)] backdrop-blur-md divide-x rtl:divide-x-reverse divide-[var(--border)] rounded-lg shadow-lg transition-all duration-300";
   const visibilityClasses = isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5';
   
   const typeStyles = {
     success: { icon: <CheckCircleIcon className="w-6 h-6 text-green-400" />, accentClass: 'border-green-500' },
-    info: { icon: <InfoCircleIcon className="w-6 h-6 text-sky-400" />, accentClass: 'border-sky-500' },
+    info: { icon: <InfoCircleIcon className="w-6 h-6 text-[var(--accent)]" />, accentClass: 'border-[var(--accent)]' },
     error: { icon: <InfoCircleIcon className="w-6 h-6 text-red-400" />, accentClass: 'border-red-500' },
   };
 

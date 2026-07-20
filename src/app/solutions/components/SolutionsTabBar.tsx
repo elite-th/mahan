@@ -28,18 +28,18 @@ export default function SolutionsTabBar({ solutions, activeId, onSelect }: Solut
                 className={`
                   relative flex items-center gap-2.5 px-4 py-3 rounded-xl text-sm md:text-base font-semibold
                   transition-all duration-300 border whitespace-nowrap flex-shrink-0
-                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400
+                  focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--accent)]
                   ${
                     isActive
                       ? `${s.color.bg} ${s.color.primary} ${s.color.border} shadow-lg ${s.color.glow} scale-105`
-                      : 'bg-slate-800/50 text-gray-400 border-slate-700/30 hover:border-slate-600 hover:text-gray-200 hover:bg-slate-800/70'
+                      : 'bg-[var(--surface-1)] text-[var(--text-muted)] border-[var(--border)] hover:border-[var(--border)] hover:text-[var(--text)] hover:bg-[var(--surface-1)]'
                   }
                 `}
               >
                 {/* Color dot indicator */}
                 <span
                   className={`w-2 h-2 rounded-full flex-shrink-0 transition-colors duration-300 ${
-                    isActive ? s.color.primary.replace('text-', 'bg-') : 'bg-gray-600'
+                    isActive ? s.color.primary.replace('text-', 'bg-') : 'bg-[var(--surface-2)]'
                   }`}
                 />
                 <span className="w-5 h-5 flex items-center justify-center flex-shrink-0">

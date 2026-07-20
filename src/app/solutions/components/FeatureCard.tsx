@@ -31,7 +31,7 @@ export default function FeatureCard({ text, color, index }: FeatureCardProps) {
         className={`mt-1.5 shrink-0 w-1 h-1 rounded-full ${textToBg(color.primary)}`}
         aria-hidden="true"
       />
-      <span className="text-gray-300 text-sm leading-relaxed">{text}</span>
+      <span className="text-[var(--text-muted)] text-sm leading-relaxed">{text}</span>
     </motion.li>
   );
 }

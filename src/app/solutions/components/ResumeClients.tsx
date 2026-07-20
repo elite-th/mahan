@@ -34,7 +34,7 @@ export default function ResumeClients({ color }: ResumeClientsProps) {
       dir="rtl"
     >
       {/* Section title */}
-      <h3 className="text-xl font-bold text-white mb-5 flex items-center gap-2">
+      <h3 className="text-xl font-bold text-[var(--text)] mb-5 flex items-center gap-2">
         <span className={`w-1 h-5 rounded-full ${textToBg(color.primary)}`} />
         <Building className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />
         برخی مشتریان
@@ -53,8 +53,8 @@ export default function ResumeClients({ color }: ResumeClientsProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: i * 0.06, ease: 'easeOut' as const }}
             className={`
-              bg-slate-800 border border-slate-700 rounded-xl px-4 py-3
-              text-center text-gray-300 text-sm font-medium
+              bg-[var(--surface-1)] border border-[var(--border)] rounded-xl px-4 py-3
+              text-center text-[var(--text-muted)] text-sm font-medium
               transition-all duration-200
               hover:border-[color:var(--hover-border)] hover:bg-white/[0.05]
             `}

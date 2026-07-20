@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { useToast } from '@/context/ToastContext';
 import { EyeIcon, EyeSlashIcon } from '@/components/ui/icons';
-import HCaptcha from '@/components/HCaptcha';
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -24,20 +23,10 @@ export default function RegisterForm() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // hCaptcha token — populated when the user solves the widget.
-  const [hcaptchaToken, setHcaptchaToken] = useState<string>('');
   const { isLoggedIn } = useAuth();
   const { showToast } = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  // Stable callbacks for hCaptcha — these NEVER change between renders.
-  const handleHcaptchaToken = useCallback((token: string) => {
-    setHcaptchaToken(token);
-  }, []);
-  const handleHcaptchaExpire = useCallback(() => {
-    setHcaptchaToken('');
-  }, []);
 
   // Redirect authenticated users away from the register page
   useEffect(() => {
@@ -150,12 +139,6 @@ export default function RegisterForm() {
       return;
     }
 
-    // Require hCaptcha token before submitting
-    if (!hcaptchaToken) {
-      showToast('لطفاً تأیید کپچا را کامل کنید.', 'error');
-      return;
-    }
-
     setIsLoading(true);
     try {
       const response = await fetch('/api/register', {
@@ -166,7 +149,6 @@ export default function RegisterForm() {
           email: formData.email,
           password: formData.password,
           website: formData.website, // honeypot — should be empty
-          hcaptchaToken,
         }),
       });
 
@@ -199,17 +181,17 @@ export default function RegisterForm() {
   };
 
   return (
-    <section className="flex items-center justify-center py-12 sm:py-16 bg-slate-900 text-gray-100 min-h-[calc(100vh-10rem)]">
-      <div className="w-full max-w-md p-8 space-y-8 bg-slate-800 rounded-xl shadow-lg">
+    <section className="flex items-center justify-center py-12 sm:py-16 bg-[var(--bg)] text-[var(--text)] min-h-[calc(100vh-10rem)]">
+      <div className="w-full max-w-md p-8 space-y-8 bg-[var(--surface-1)] rounded-xl shadow-lg">
         <div className="text-center">
-          <h1 className="text-3xl font-extrabold text-sky-400">
+          <h1 className="text-3xl font-extrabold text-[var(--accent)]">
             ایجاد حساب کاربری
           </h1>
-          <p className="mt-2 text-gray-400">برای عضویت در سایت فرم زیر را تکمیل کنید.</p>
+          <p className="mt-2 text-[var(--text-muted)]">برای عضویت در سایت فرم زیر را تکمیل کنید.</p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="username" className="block text-sm font-medium text-[var(--text-muted)] mb-1">
               نام کاربری <span className="text-red-400">*</span>
             </label>
             <input
@@ -219,7 +201,7 @@ export default function RegisterForm() {
               value={formData.username}
               onChange={handleChange}
               required
-              className={`w-full px-4 py-3 bg-gray-700/80 border rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors ${errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-600'
+              className={`w-full px-4 py-3 bg-[var(--surface-2)] border rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors ${errors.username ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-[var(--border)]'
                 }`}
               autoComplete="username"
               placeholder="حداقل ۳ کاراکتر"
@@ -233,7 +215,7 @@ export default function RegisterForm() {
             )}
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-[var(--text-muted)] mb-1">
               ایمیل <span className="text-red-400">*</span>
             </label>
             <input
@@ -243,7 +225,7 @@ export default function RegisterForm() {
               value={formData.email}
               onChange={handleChange}
               required
-              className={`w-full px-4 py-3 bg-gray-700/80 border rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-600'
+              className={`w-full px-4 py-3 bg-[var(--surface-2)] border rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors ${errors.email ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-[var(--border)]'
                 }`}
               autoComplete="email"
               placeholder="example@domain.com"
@@ -257,7 +239,7 @@ export default function RegisterForm() {
             )}
           </div>
           <div className="relative">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-[var(--text-muted)] mb-1">
               رمز عبور <span className="text-red-400">*</span>
             </label>
             <input
@@ -267,7 +249,7 @@ export default function RegisterForm() {
               value={formData.password}
               onChange={handleChange}
               required
-              className={`w-full px-4 py-3 bg-gray-700/80 border rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-600'
+              className={`w-full px-4 py-3 bg-[var(--surface-2)] border rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors ${errors.password ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-[var(--border)]'
                 }`}
               autoComplete="new-password"
               placeholder="حداقل ۸ کاراکتر، شامل حرف و عدد"
@@ -277,7 +259,7 @@ export default function RegisterForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute left-3 bottom-3.5 text-gray-400 hover:text-gray-200"
+              className="absolute left-3 bottom-3.5 text-[var(--text-muted)] hover:text-[var(--text)]"
               aria-label={showPassword ? 'پنهان کردن رمز' : 'نمایش رمز'}
             >
               {showPassword ? <EyeSlashIcon className="w-5 h-5" /> : <EyeIcon className="w-5 h-5" />}
@@ -289,7 +271,7 @@ export default function RegisterForm() {
             )}
           </div>
           <div className="relative">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-300 mb-1">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-[var(--text-muted)] mb-1">
               تکرار رمز عبور <span className="text-red-400">*</span>
             </label>
             <input
@@ -299,7 +281,7 @@ export default function RegisterForm() {
               value={formData.confirmPassword}
               onChange={handleChange}
               required
-              className={`w-full px-4 py-3 bg-gray-700/80 border rounded-lg text-gray-200 focus:ring-sky-500 focus:border-sky-500 transition-colors ${errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-600'
+              className={`w-full px-4 py-3 bg-[var(--surface-2)] border rounded-lg text-[var(--text)] focus:ring-[var(--accent)] focus:border-[var(--accent)] transition-colors ${errors.confirmPassword ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-[var(--border)]'
                 }`}
               autoComplete="new-password"
               placeholder="رمز عبور را دوباره وارد کنید"
@@ -330,24 +312,18 @@ export default function RegisterForm() {
             />
           </div>
           <div>
-            <HCaptcha
-              onToken={handleHcaptchaToken}
-              onExpire={handleHcaptchaExpire}
-            />
-          </div>
-          <div>
             <button
               type="submit"
-              disabled={isLoading || !hcaptchaToken}
-              className="w-full flex justify-center items-center px-6 py-3 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-lg shadow-md transition-colors duration-300 disabled:bg-sky-800 disabled:cursor-not-allowed"
+              disabled={isLoading}
+              className="w-full flex justify-center items-center px-6 py-3 bg-[var(--accent)] hover:bg-[var(--accent-press)] text-[var(--bg)] font-semibold rounded-lg shadow-md transition-colors duration-300 disabled:bg-[var(--accent-press)] disabled:cursor-not-allowed"
             >
               {isLoading ? (<div className="w-6 h-6 border-2 border-dashed rounded-full animate-spin border-white"></div>) : ('ثبت نام')}
             </button>
           </div>
         </form>
-        <p className="text-sm text-center text-gray-400">
+        <p className="text-sm text-center text-[var(--text-muted)]">
           حساب کاربری دارید؟{' '}
-          <Link href="/login" className="font-medium text-sky-400 hover:text-sky-300">
+          <Link href="/login" className="font-medium text-[var(--accent)] hover:text-[var(--accent-hover)]">
             وارد شوید
           </Link>
         </p>

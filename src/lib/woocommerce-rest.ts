@@ -20,7 +20,7 @@ import type {
     WCRestResponse,
 } from '@/types';
 
-const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'https://wordpress.vna-co.ir/wp-json';
+const WP_BASE_URL = process.env.NEXT_PUBLIC_WP_API_URL || 'http://localhost:8080/wp-json';
 const WC_API_BASE = `${WP_BASE_URL.replace(/\/wp-json$/, '')}/wp-json/wc/v3`;
 
 const CONSUMER_KEY = process.env.WOOCOMMERCE_CONSUMER_KEY;
