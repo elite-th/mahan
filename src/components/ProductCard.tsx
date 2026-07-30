@@ -3,11 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useCart } from '../context/CartContext';
 import { ProductNode } from '../types';
-import { parseWooCommercePrice, extractUsdPrice, formatUsdPrice } from '../utils/formatting';
+import { extractUsdPrice, formatUsdPrice } from '../utils/formatting';
 import { sanitizeHtml } from '../utils/sanitize';
-import { ShoppingCartIcon, ArrowLeftIcon } from '../components/ui/icons';
+import { ArrowLeftIcon } from '../components/ui/icons';
 
 interface ProductCardProps {
   product: ProductNode;
@@ -48,23 +47,9 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFeatured }) => {
   const navigateTo = `/product/${product.slug || product.databaseId}`;
   const isOutOfStock = product.stockStatus === 'OUT_OF_STOCK';
-  const { addToCart } = useCart();
 
   const usdPrice = extractUsdPrice(product.metaData);
   const displayPrice = product.displayPrice || 'نامشخص';
-  const cartPrice = parseWooCommercePrice(product.price || product.displayPrice);
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: cartPrice,
-      imageUrl: product.image?.sourceUrl || '',
-      slug: product.slug,
-    });
-  };
 
   return (
     <div className="group relative flex flex-col h-full overflow-hidden rounded-lg border border-[#3A3150] bg-[#1E192B] transition-colors duration-150 hover:border-[#4A4068]">
@@ -123,18 +108,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
           </div>
         </div>
       </Link>
-
-      {/* Cart button — solid, always-visible-on-hover, no choreography */}
-      {!isOutOfStock && (
-        <button
-          type="button"
-          onClick={handleAddToCart}
-          aria-label="افزودن به سبد خرید"
-          className="absolute top-3 right-3 z-20 w-9 h-9 flex items-center justify-center rounded-md bg-[#110E18]/90 border border-[#3A3150] text-[#8E3BFF] opacity-0 transition-opacity duration-150 group-hover:opacity-100 hover:border-[#8E3BFF] hover:text-[#A56BFF]"
-        >
-          <ShoppingCartIcon className="w-4 h-4" />
-        </button>
-      )}
     </div>
   );
 };

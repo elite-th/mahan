@@ -3,30 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCart } from '@/context/CartContext';
-import { useAuth } from '@/context/AuthContext';
-import { ShoppingCartIcon } from '@/components/ui/icons';
-import UserMenu from './UserMenu';
 import NavLinks from './NavLinks';
 
 /**
- * Header — refined with smooth transitions.
+ * Header — catalog-only mode.
  *
- * The scrolled/unscrolled transition now uses a single base background
- * (surface-1) with an opacity ramp, so the color shifts smoothly instead
- * of jumping between two discrete colors. The border fades in on scroll.
- * No glassmorphism / backdrop-blur — just solid color with smooth opacity.
- *
- * Logo replaced with a text wordmark (the "M" monogram + company name).
+ * No cart, no login, no register — the site is a read-only product catalog.
+ * Only the logo wordmark + main nav + mobile menu remain.
  */
 const Header: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { getItemCount, isHydrated } = useCart();
-    const { isLoggedIn, isLoading } = useAuth();
     const pathname = usePathname();
-    const cartItemCount = getItemCount();
-    const displayCartCount = isHydrated ? cartItemCount : 0;
 
     useEffect(() => {
         const handleScroll = () => {
@@ -66,9 +54,9 @@ const Header: React.FC = () => {
                         <Link
                             href="/"
                             className="shrink-0 flex items-center gap-2.5"
-                            aria-label="ماهان ارتباطات خردمنده - خانه"
+                            aria-label="ماهان ارتباطات خردمند - خانه"
                         >
-                            {/* "M" monogram — a styled letter mark instead of an image logo */}
+                            {/* "M" monogram — text wordmark instead of an image logo */}
                             <span
                                 className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--bg)] font-bold text-lg leading-none"
                                 aria-hidden="true"
@@ -89,45 +77,8 @@ const Header: React.FC = () => {
                         </nav>
                     </div>
 
-                    {/* Actions — far left in RTL */}
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                        {/* Cart — solid icon, solid badge */}
-                        <Link
-                            href="/cart"
-                            className="relative inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
-                            aria-label={`سبد خرید (${displayCartCount} آیتم)`}
-                        >
-                            <ShoppingCartIcon className="h-5 w-5" />
-                            {isHydrated && cartItemCount > 0 && (
-                                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 text-[10px] font-bold leading-none text-[var(--bg)] bg-[var(--accent)] rounded-full flex items-center justify-center nums">
-                                    {cartItemCount}
-                                </span>
-                            )}
-                        </Link>
-
-                        {/* Auth */}
-                        {!isLoading && (
-                            isLoggedIn ? (
-                                <UserMenu />
-                            ) : (
-                                <div className="hidden lg:flex items-center gap-1.5">
-                                    <Link
-                                        href="/login"
-                                        className="inline-flex h-9 items-center rounded-lg px-3.5 text-sm font-medium text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
-                                    >
-                                        ورود
-                                    </Link>
-                                    <Link
-                                        href="/register"
-                                        className="inline-flex h-9 items-center rounded-lg bg-[var(--accent)] px-4 text-sm font-semibold text-[var(--bg)] transition-colors hover:bg-[var(--accent-hover)] focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
-                                    >
-                                        ثبت‌نام
-                                    </Link>
-                                </div>
-                            )
-                        )}
-
-                        {/* Mobile Menu Button */}
+                    {/* Actions — mobile menu button only (catalog mode: no cart/auth) */}
+                    <div className="flex items-center gap-2">
                         <button
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg text-[var(--text-muted)] transition-colors hover:bg-[var(--surface-2)] hover:text-[var(--text)]"
@@ -165,7 +116,7 @@ const Header: React.FC = () => {
                             م
                         </span>
                         <div>
-                            <p className="text-sm font-semibold text-[var(--text)] leading-tight">ماهان ارتباطات خردمنده</p>
+                            <p className="text-sm font-semibold text-[var(--text)] leading-tight">ماهان ارتباطات خردمند</p>
                             <p className="text-[11px] text-[var(--text-faint)]">تجهیزات شبکه و راهکارهای ICT</p>
                         </div>
                     </div>
@@ -173,23 +124,6 @@ const Header: React.FC = () => {
                     <div className="flex-1 overflow-y-auto no-scrollbar">
                         <NavLinks mobile />
                     </div>
-
-                    {!isLoading && !isLoggedIn && (
-                        <div className="mt-4 space-y-2 pt-4 border-t border-[var(--border)]">
-                            <Link
-                                href="/register"
-                                className="flex items-center justify-center w-full h-11 text-sm font-semibold text-[var(--bg)] bg-[var(--accent)] rounded-lg transition-colors hover:bg-[var(--accent-hover)]"
-                            >
-                                ثبت‌نام
-                            </Link>
-                            <Link
-                                href="/login"
-                                className="flex items-center justify-center w-full h-11 text-sm font-medium text-[var(--text)] border border-[var(--border)] rounded-lg transition-colors hover:bg-[var(--surface-2)]"
-                            >
-                                ورود به حساب
-                            </Link>
-                        </div>
-                    )}
                 </div>
             </div>
         </>

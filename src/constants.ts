@@ -1,6 +1,6 @@
 import { NavLink } from './types';
 
-export const COMPANY_NAME = "ماهان ارتباطات خردمنده";
+export const COMPANY_NAME = "ماهان ارتباطات خردمند";
 export const COMPANY_SLOGAN = "زیرساخت شبکه، با اطمینان ماهان";
 
 /** Canonical production origin — single source of truth for the domain. */

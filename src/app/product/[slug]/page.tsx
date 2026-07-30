@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from 'next';
 import { COMPANY_NAME, COMPANY_SLOGAN, SITE_URL } from "@/constants";
 import { productSchema, breadcrumbSchema } from "@/lib/seo";
-import { getMockProductBySlug } from "@/lib/mock-data";
+import { getProductBySlug } from "@/lib/products";
 
 export interface ProductDetails {
   __typename: 'SimpleProduct' | 'VariableProduct';
@@ -37,7 +37,7 @@ function extractNumericPrice(price: string | null): string | undefined {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getMockProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) {
     return { title: `محصول یافت نشد | ${COMPANY_NAME}`, robots: { index: false, follow: true } };
   }
@@ -57,13 +57,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 /**
- * ProductPage — mock mode.
+ * ProductPage — real backend (GraphQL + REST image enrichment).
  *
- * Looks up the product in the mock data by slug. No Apollo/GraphQL query.
+ * Fetches the product by slug from WPGraphQL, enriches its image from
+ * WooCommerce REST if GraphQL returned null, and renders the detail page.
  */
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getMockProductBySlug(slug);
+  const product = await getProductBySlug(slug);
   if (!product) { notFound(); }
 
   // Adapt ProductNode → ProductDetails shape expected by ProductDetailsClient

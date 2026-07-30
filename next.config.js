@@ -4,13 +4,12 @@ const nextConfig = {
 
   poweredByHeader: false,
 
-  // Mock mode: disable next/image optimization so data-URI SVGs and any
-  // inline placeholder images pass through without hostname configuration.
-  // Re-enable optimization + configure remotePatterns when switching back
-  // to the real WooCommerce backend (product images served from
-  // wordpress.mahan-ic.ir).
+  // Product images are served from the WordPress media library.
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'wordpress.vna-co.ir' },
+      { protocol: 'https', hostname: 'vna-co.ir' },
+    ],
   },
 
   // isomorphic-dompurify pulls in jsdom, which loads a bundled CSS file

@@ -25,9 +25,11 @@ export interface RequiredEnvVar {
 }
 
 /**
- * All required environment variables for the NewModernVIRA application.
+ * Required environment variables for the ماهان catalog-only site.
  *
- * To add a new required variable, simply append to this array.
+ * Catalog mode: only WooCommerce REST + GraphQL are needed to fetch and
+ * display products. User auth, cart, and payment are disabled, so
+ * WP_APP_*, ZIBAL_MERCHANT, etc. are NOT required.
  */
 export const REQUIRED_VARS: RequiredEnvVar[] = [
     {
@@ -39,30 +41,13 @@ export const REQUIRED_VARS: RequiredEnvVar[] = [
         description: 'رمز مصرف‌کننده ووکامرس (WooCommerce Consumer Secret)',
     },
     {
-        name: 'WP_APP_USERNAME',
-        description: 'نام کاربری ادمین وردپرس برای ثبت‌نام (WordPress Admin Username for Application Password)',
-    },
-    {
-        name: 'WP_APP_PASSWORD',
-        description: 'رمز اپلیکیشن وردپرس برای ثبت‌نام (WordPress Application Password)',
-    },
-    {
         name: 'NEXT_PUBLIC_GRAPHQL_URI',
         description: 'آدرس GraphQL وردپرس (WordPress GraphQL URI)',
     },
     {
         name: 'NEXT_PUBLIC_WP_API_URL',
-        description: 'آدرس API وردپرس (WordPress REST API URL — used by auth routes)',
+        description: 'آدرس API وردپرس (WordPress REST API URL — used for product images)',
         alternative: 'NEXT_PUBLIC_API_BASE_URL',
-    },
-    {
-        name: 'NEXT_PUBLIC_API_BASE_URL',
-        description: 'آدرس پایه API وردپرس (WordPress API Base URL)',
-        alternative: 'NEXT_PUBLIC_WP_API_URL',
-    },
-    {
-        name: 'ZIBAL_MERCHANT',
-        description: 'شناسه پذیرنده زیبال (Zibal Merchant ID)',
     },
 ];
 

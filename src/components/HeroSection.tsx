@@ -32,7 +32,7 @@ const HeroSection: React.FC = () => {
   return (
     <section id="hero" ref={sectionRef} className={`relative h-screen -mt-20 overflow-hidden bg-[#110E18] ${isLowPerf ? styles.lowPerf : ''}`}>
       <div ref={sketchContainerRef} className={styles.heroContainer}>
-        <div className={styles.heroBackgroundImage} role="img" aria-label="ماهان ارتباطات خردمنده"></div>
+        <div className={styles.heroBackgroundImage} role="img" aria-label="ماهان ارتباطات خردمند"></div>
         <div className={styles.heroBackgroundOverlay}></div>
 
         {/* The SVG filters are part of the "spins" visual effect, so they should also be conditionally rendered */}
@@ -48,7 +48,7 @@ const HeroSection: React.FC = () => {
 
         <div className={styles.contentCenter}>
           <div className={styles.titleContainer}>
-            <h1>ماهان ارتباطات خردمنده</h1>
+            <h1>ماهان ارتباطات خردمند</h1>
             <p>پیشگام در صنعت ICT</p>
           </div>
 

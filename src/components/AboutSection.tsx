@@ -141,7 +141,7 @@ const AboutSection: React.FC = () => {
               درباره {COMPANY_NAME}
             </h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--text-muted)]">
-              <span className="font-semibold text-[var(--text)]">ماهان ارتباطات خردمنده</span>{' '}
+              <span className="font-semibold text-[var(--text)]">ماهان ارتباطات خردمند</span>{' '}
               از سال ۱۴۰۰ با تمرکز بر واردات، تأمین و اجرای پروژه‌های تجهیزات
               شبکه و زیرساخت فناوری اطلاعات فعالیت می‌کند. ما با کارت بازرگانی،
               نماد اعتماد الکترونیک (اینماد) و کد مالیاتی، فرایند خرید را شفاف

@@ -1,16 +1,14 @@
-"use client";
-
 import React from 'react';
 import ProductListSection from '@/components/ProductListSection';
-import { getFeaturedProducts } from '@/lib/mock-data';
+import { getFeaturedProducts } from '@/lib/products';
 
 /**
- * FeaturedProducts — mock mode.
+ * FeaturedProducts — real backend (GraphQL + REST image enrichment).
  *
- * Uses static mock data instead of an Apollo GraphQL query. No backend
- * connection required.
+ * Server component: fetches featured products from WPGraphQL (enriched with
+ * REST images) and passes them to the client ProductListSection for display.
  */
-export default function FeaturedProducts() {
-  const products = getFeaturedProducts(4);
+export default async function FeaturedProducts() {
+  const products = await getFeaturedProducts(4);
   return <ProductListSection products={products} />;
 }

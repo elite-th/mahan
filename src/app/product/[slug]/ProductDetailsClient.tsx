@@ -3,21 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useCart } from '@/context/CartContext';
 import { useToast } from '@/context/ToastContext';
 import { ProductDetails } from './page';
-import { parseWooCommercePrice, extractUsdPrice, formatUsdPrice } from '@/utils/formatting';
+import { extractUsdPrice, formatUsdPrice } from '@/utils/formatting';
 import { sanitizeHtml } from '@/utils/sanitize';
-import { ShoppingCartIcon, ShareIcon } from '@/components/ui/icons';
+import { ShareIcon } from '@/components/ui/icons';
 
 type ImageType = NonNullable<ProductDetails['image']>;
 
 /**
- * ProductDetailsClient — v3 anti-slop styling + mock mode (unoptimized images).
+ * ProductDetailsClient — catalog-only mode (no add-to-cart, no purchase).
+ * Shows product image, gallery, price, USD equivalent, description, and a
+ * consultation phone CTA. Share button copies the product URL.
  */
 export default function ProductDetailsClient({ product }: { product: ProductDetails }) {
     const { showToast } = useToast();
-    const { addToCart } = useCart();
     const [selectedImage, setSelectedImage] = useState<ImageType | null>(product.image);
 
     const usdPrice = extractUsdPrice(product.metaData);
@@ -134,22 +134,12 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                 )}
                             </div>
 
-                            <button
-                                onClick={() => {
-                                    addToCart({
-                                        id: product.id,
-                                        name: product.name,
-                                        price: parseWooCommercePrice(product.price || product.displayPrice),
-                                        imageUrl: product.image?.sourceUrl || '',
-                                        slug: product.slug,
-                                    });
-                                }}
-                                disabled={product.stockStatus === 'OUT_OF_STOCK' || parseWooCommercePrice(product.price || product.displayPrice) <= 0}
-                                className="flex items-center justify-center gap-2 h-12 bg-[#8E3BFF] rounded-md px-6 text-[#110E18] font-semibold text-base hover:bg-[#A56BFF] transition-colors w-full disabled:opacity-40 disabled:cursor-not-allowed"
+                            <a
+                                href="tel:09386473626"
+                                className="flex items-center justify-center gap-2 h-12 bg-[#8E3BFF] rounded-md px-6 text-[#110E18] font-semibold text-base hover:bg-[#A56BFF] transition-colors w-full"
                             >
-                                <ShoppingCartIcon className="w-5 h-5" />
-                                {product.stockStatus === 'OUT_OF_STOCK' ? 'ناموجود' : 'افزودن به سبد خرید'}
-                            </button>
+                                {product.stockStatus === 'OUT_OF_STOCK' ? 'استعلام موجودی' : 'مشاوره و استعلام قیمت'}
+                            </a>
 
                             <div className="grid grid-cols-2 gap-3">
                                 <button
