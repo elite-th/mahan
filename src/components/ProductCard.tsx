@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ProductNode } from '../types';
-import { extractUsdPrice, formatUsdPrice } from '../utils/formatting';
 import { sanitizeHtml } from '../utils/sanitize';
 import { ArrowLeftIcon } from '../components/ui/icons';
 
@@ -48,7 +47,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
   const navigateTo = `/product/${product.slug || product.databaseId}`;
   const isOutOfStock = product.stockStatus === 'OUT_OF_STOCK';
 
-  const usdPrice = extractUsdPrice(product.metaData);
   const displayPrice = product.displayPrice || 'نامشخص';
 
   return (
@@ -97,11 +95,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, index: _index, isFea
                 className="text-lg font-semibold text-[#FBF7FE] nums leading-none"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }}
               />
-              {usdPrice ? (
-                <span className="text-[11px] text-[#CFC6E0] mt-1 nums">
-                  ({formatUsdPrice(usdPrice)})
-                </span>
-              ) : null}
             </div>
 
             <ArrowLeftIcon className="w-4 h-4 text-[#9D94B5] transition-colors group-hover:text-[#8E3BFF]" />

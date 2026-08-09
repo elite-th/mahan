@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useToast } from '@/context/ToastContext';
 import { ProductDetails } from './page';
-import { extractUsdPrice, formatUsdPrice } from '@/utils/formatting';
 import { sanitizeHtml } from '@/utils/sanitize';
 import { ShareIcon } from '@/components/ui/icons';
 
@@ -13,14 +12,13 @@ type ImageType = NonNullable<ProductDetails['image']>;
 
 /**
  * ProductDetailsClient — catalog-only mode (no add-to-cart, no purchase).
- * Shows product image, gallery, price, USD equivalent, description, and a
- * consultation phone CTA. Share button copies the product URL.
+ * Shows product image, gallery, price, description, and a consultation phone
+ * CTA. Share button copies the product URL.
  */
 export default function ProductDetailsClient({ product }: { product: ProductDetails }) {
     const { showToast } = useToast();
     const [selectedImage, setSelectedImage] = useState<ImageType | null>(product.image);
 
-    const usdPrice = extractUsdPrice(product.metaData);
     const displayPrice = product.displayPrice || 'قیمت نامشخص';
 
     useEffect(() => {
@@ -122,12 +120,6 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                 <div className="flex items-baseline gap-4 mb-2">
                                     <span className="text-3xl sm:text-4xl font-semibold text-[#FBF7FE] tracking-tight nums" dangerouslySetInnerHTML={{ __html: sanitizeHtml(displayPrice) }} />
                                 </div>
-
-                                {usdPrice ? (
-                                    <p className="text-sm text-[#9D94B5] mb-2 nums">
-                                        معادل: {formatUsdPrice(usdPrice)}
-                                    </p>
-                                ) : null}
 
                                 {product.sku && (
                                     <p className="text-xs text-[#9D94B5] tracking-widest mt-2 nums">SKU: {product.sku}</p>

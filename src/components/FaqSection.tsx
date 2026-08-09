@@ -88,16 +88,26 @@ const FaqSection: React.FC = () => {
                             سوالات متداول
                         </h2>
                         <p className="mt-4 text-sm text-[#CFC6E0] leading-7 max-w-md">
-                            پاسخ به برخی از رایج‌ترین سوالات. اگر پاسخ خود را نیافتید، با شماره فروش ما تماس بگیرید.
+                            پاسخ به برخی از رایج‌ترین سوالات. اگر پاسخ خود را نیافتید، با شماره‌های تماس ما در ارتباط باشید.
                         </p>
-                        <a
-                            href="tel:+989927353979"
-                            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
-                            dir="ltr"
-                        >
-                            +989927353979
-                            <span aria-hidden="true">←</span>
-                        </a>
+                        <div className="mt-6 flex flex-col gap-2">
+                            <a
+                                href="tel:+982191094448"
+                                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
+                                dir="ltr"
+                            >
+                                +98 21 9109 4448
+                                <span aria-hidden="true">←</span>
+                            </a>
+                            <a
+                                href="tel:+989927353979"
+                                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
+                                dir="ltr"
+                            >
+                                +98 992 735 3979
+                                <span aria-hidden="true">←</span>
+                            </a>
+                        </div>
                     </aside>
 
                     {/* Accordion (left in RTL) */}
