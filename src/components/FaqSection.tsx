@@ -91,11 +91,11 @@ const FaqSection: React.FC = () => {
                             پاسخ به برخی از رایج‌ترین سوالات. اگر پاسخ خود را نیافتید، با شماره فروش ما تماس بگیرید.
                         </p>
                         <a
-                            href="tel:09386473626"
+                            href="tel:+989927353979"
                             className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
                             dir="ltr"
                         >
-                            0938-647-3626
+                            +989927353979
                             <span aria-hidden="true">←</span>
                         </a>
                     </aside>

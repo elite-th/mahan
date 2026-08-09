@@ -14,8 +14,8 @@ import { SITE_URL, COMPANY_NAME, COMPANY_SLOGAN } from '@/constants';
 // ---------------------------------------------------------------------------
 
 export const CONTACT = {
-  phoneSales: '09386473626',
-  phoneSupport: '09104491267',
+  phoneSales: '+989927353979',
+  phoneSupport: '+982191094448',
   email: 'info@mahan-ic.ir',
   addressCountry: 'IR',
   addressRegion: 'تهران',
@@ -80,7 +80,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     question: 'شماره تماس ماهان؟',
-    answer: 'شماره فروش: 09386473626 | شماره پشتیبانی: 09104491267',
+    answer: 'شماره موبایل: +989927353979 | شماره ثابت: 021-91094448',
   },
 ];
 

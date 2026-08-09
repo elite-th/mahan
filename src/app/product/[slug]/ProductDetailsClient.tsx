@@ -135,7 +135,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                             </div>
 
                             <a
-                                href="tel:09386473626"
+                                href="tel:+989927353979"
                                 className="flex items-center justify-center gap-2 h-12 bg-[#8E3BFF] rounded-md px-6 text-[#110E18] font-semibold text-base hover:bg-[#A56BFF] transition-colors w-full"
                             >
                                 {product.stockStatus === 'OUT_OF_STOCK' ? 'استعلام موجودی' : 'مشاوره و استعلام قیمت'}
@@ -154,7 +154,7 @@ export default function ProductDetailsClient({ product }: { product: ProductDeta
                                     اشتراک‌گذاری
                                 </button>
                                 <a
-                                    href="tel:09386473626"
+                                    href="tel:+989927353979"
                                     className="flex items-center justify-center gap-2 py-2.5 px-4 border border-[#3A3150] hover:border-[#4A4068] hover:bg-[#2D253E] transition-colors rounded-md text-sm font-medium text-[#CFC6E0]"
                                 >
                                     مشاوره رایگان

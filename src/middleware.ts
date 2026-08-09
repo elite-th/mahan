@@ -81,7 +81,7 @@ export function middleware(request: NextRequest) {
       default-src 'self';
       script-src 'self' 'unsafe-inline' 'unsafe-eval';
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-      img-src 'self' data: https://trustseal.enamad.ir;
+      img-src 'self' data: https://trustseal.enamad.ir https://wordpress.vna-co.ir https://vna-co.ir;
       font-src 'self' https://fonts.gstatic.com;
       connect-src 'self' https://gateway.zibal.ir https://sandbox.zibal.ir;
       frame-src https://gateway.zibal.ir https://sandbox.zibal.ir https://trustseal.enamad.ir;

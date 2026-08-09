@@ -92,34 +92,22 @@ const Footer: React.FC = () => {
             <ul className="flex flex-col gap-2.5 text-sm">
               <li>
                 <a
-                  href="tel:02191090702"
+                  href="tel:+982191094448"
                   className="inline-flex items-center gap-2 text-[#CFC6E0] transition-colors hover:text-[#FBF7FE]"
                 >
                   <Phone className="h-4 w-4 text-[#9D94B5]" />
-                  <span className="nums">۰۲۱-۹۱۰۹۰۷۰۲</span>
+                  <span className="nums">۰۲۱-۹۱۰۹۴۴۴۸</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="tel:09386473626"
+                  href="tel:+989927353979"
                   className="inline-flex items-center gap-2 text-[#CFC6E0] transition-colors hover:text-[#FBF7FE]"
                 >
                   <Phone className="h-4 w-4 text-[#9D94B5]" />
                   <span>
-                    <span className="nums">۰۹۳۸-۶۴۷-۳۶۲۶</span>{' '}
-                    <span className="text-[#9D94B5] text-xs">(فروش)</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:09104491267"
-                  className="inline-flex items-center gap-2 text-[#CFC6E0] transition-colors hover:text-[#FBF7FE]"
-                >
-                  <Phone className="h-4 w-4 text-[#9D94B5]" />
-                  <span>
-                    <span className="nums">۰۹۱۰-۴۴۹-۱۲۶۷</span>{' '}
-                    <span className="text-[#9D94B5] text-xs">(پشتیبانی)</span>
+                    <span className="nums" dir="ltr">+۹۸۹۹۲۷۳۵۳۹۷۹</span>{' '}
+                    <span className="text-[#9D94B5] text-xs">(موبایل)</span>
                   </span>
                 </a>
               </li>

@@ -63,16 +63,16 @@ export default function CTASection({ color }: CTASectionProps) {
 
           {/* Phone CTA button */}
           <a
-            href="tel:02191090702"
+            href="tel:+982191094448"
             className="inline-flex items-center gap-2
  bg-[var(--accent-hover)] hover:bg-[var(--accent)]
  text-[var(--bg)] px-6 py-3 rounded-xl
  font-semibold transition-colors duration-200
  focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
-            aria-label="تماس با ۰۲۱۹۱۰۹۰۷۰۲"
+            aria-label="تماس با ۰۲۱-۹۱۰۹۴۴۴۸"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
-            ۰۲۱۹۱۰۹۰۷۰۲
+            ۰۲۱-۹۱۰۹۴۴۴۸
           </a>
         </div>
       </div>
