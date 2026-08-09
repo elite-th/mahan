@@ -31,8 +31,8 @@ const plex = IBM_Plex_Sans_Arabic({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: COMPANY_SLOGAN,
-    template: `%s | ${COMPANY_SLOGAN}`,
+    default: 'ماهان ارتباطات',
+    template: `%s | ماهان ارتباطات`,
   },
   description: `خرید آنلاین تجهیزات شبکه از ${COMPANY_SLOGAN}؛ سوئیچ سیسکو، روتر، تجهیزات دیتاسنتر و خدمات امنیت شبکه، مجازی‌سازی، SD-WAN و ایمیل سرور با گارانتی و پشتیبانی تخصصی.`,
   keywords: [

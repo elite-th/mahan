@@ -96,7 +96,7 @@ const FaqSection: React.FC = () => {
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
                                 dir="ltr"
                             >
-                                +98 21 9109 4448
+                                021-91094448
                                 <span aria-hidden="true">←</span>
                             </a>
                             <a
@@ -104,7 +104,7 @@ const FaqSection: React.FC = () => {
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
                                 dir="ltr"
                             >
-                                +98 992 735 3979
+                                0992-735-3979
                                 <span aria-hidden="true">←</span>
                             </a>
                         </div>

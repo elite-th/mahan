@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
                 >
                   <Phone className="h-4 w-4 text-[#9D94B5]" />
                   <span>
-                    <span className="nums" dir="ltr">+۹۸۹۹۲۷۳۵۳۹۷۹</span>{' '}
+                    <span className="nums" dir="ltr">۰۹۹۲-۷۳۵-۳۹۷۹</span>{' '}
                     <span className="text-[#9D94B5] text-xs">(موبایل)</span>
                   </span>
                 </a>
