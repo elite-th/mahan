@@ -28,7 +28,7 @@ export default function ResumeContact({ color }: ResumeContactProps) {
     {
       icon: <Phone className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />,
       label: "تلفن",
-      value: "021-91094448",
+      value: "0219104448",
       href: "tel:+982191094448",
     },
     {

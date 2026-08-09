@@ -96,7 +96,7 @@ const Footer: React.FC = () => {
                   className="inline-flex items-center gap-2 text-[#CFC6E0] transition-colors hover:text-[#FBF7FE]"
                 >
                   <Phone className="h-4 w-4 text-[#9D94B5]" />
-                  <span className="nums">۰۲۱-۹۱۰۹۴۴۴۸</span>
+                  <span className="nums">۰۲۱۹۱۰۹۴۴۴۸</span>
                 </a>
               </li>
               <li>

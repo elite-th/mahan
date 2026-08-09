@@ -69,10 +69,10 @@ export default function CTASection({ color }: CTASectionProps) {
  text-[var(--bg)] px-6 py-3 rounded-xl
  font-semibold transition-colors duration-200
  focus-visible:outline-2 focus-visible:outline-[var(--accent)] focus-visible:outline-offset-2"
-            aria-label="تماس با ۰۲۱-۹۱۰۹۴۴۴۸"
+            aria-label="تماس با ۰۲۱۹۱۰۹۴۴۴۸"
           >
             <Phone className="w-4 h-4" aria-hidden="true" />
-            ۰۲۱-۹۱۰۹۴۴۴۸
+            ۰۲۱۹۱۰۹۴۴۴۸
           </a>
         </div>
       </div>

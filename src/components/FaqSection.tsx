@@ -96,7 +96,7 @@ const FaqSection: React.FC = () => {
                                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[#8E3BFF] transition-colors hover:text-[#A56BFF]"
                                 dir="ltr"
                             >
-                                021-91094448
+                                0219104448
                                 <span aria-hidden="true">←</span>
                             </a>
                             <a
