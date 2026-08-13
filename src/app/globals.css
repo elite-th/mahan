@@ -155,17 +155,6 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   animation: stat-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ---------- Clients marquee (JS-driven, seamless) ----------
- * The track transform is driven by requestAnimationFrame in
- * OurClientsSection.tsx (not CSS keyframes) for pixel-perfect seamless
- * looping. The CSS here only provides the base layout.
- */
-.clients-track {
-  display: flex;
-  direction: ltr;
-  will-change: transform;
-}
-
 /* ---------- Prefers-reduced-motion: kill ALL animation ---------- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -177,8 +166,5 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   .stat-row {
     opacity: 1 !important;
     transform: none !important;
-  }
-  .clients-track {
-    animation: none !important;   /* show static list when motion is reduced */
   }
 }
