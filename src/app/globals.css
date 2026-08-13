@@ -155,26 +155,15 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   animation: stat-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ---------- Clients marquee (infinite carousel) ----------
- * The clients list is duplicated (rendered twice in a row). The track
- * translates from 0 to -50% (half its width = one full set) creating a
- * seamless infinite loop. Duration scales with content length so the
- * scroll speed stays consistent regardless of how many clients there are.
- *
- * The container shows exactly 5 slots at a time (grid-cols-5 on desktop,
- * fewer on mobile). Overflow is hidden so only the visible 5 show.
+/* ---------- Clients marquee (JS-driven, seamless) ----------
+ * The track transform is driven by requestAnimationFrame in
+ * OurClientsSection.tsx (not CSS keyframes) for pixel-perfect seamless
+ * looping. The CSS here only provides the base layout.
  */
-@keyframes clients-marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }   /* -50% = one full set (RTL: moves left) */
-}
 .clients-track {
   display: flex;
-  width: max-content;       /* let it grow to fit all items */
-  animation: clients-marquee 40s linear infinite;
-}
-.clients-track:hover {
-  animation-play-state: paused;   /* pause on hover for readability */
+  direction: ltr;
+  will-change: transform;
 }
 
 /* ---------- Prefers-reduced-motion: kill ALL animation ---------- */
