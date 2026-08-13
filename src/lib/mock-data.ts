@@ -26,17 +26,6 @@ function placeholderImage(label: string, hue: number): string {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
-function clientLogoSvg(name: string, hue: number): string {
-  const initials = name.slice(0, 2);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="80" viewBox="0 0 200 80">
-    <rect width="200" height="80" fill="hsl(${hue}, 10%, 20%)"/>
-    <circle cx="40" cy="40" r="20" fill="none" stroke="hsl(${hue}, 30%, 55%)" stroke-width="2"/>
-    <text x="40" y="40" font-family="sans-serif" font-size="14" font-weight="700" fill="hsl(${hue}, 30%, 65%)" text-anchor="middle" dominant-baseline="middle">${initials}</text>
-    <text x="75" y="40" font-family="sans-serif" font-size="13" font-weight="500" fill="hsl(${hue}, 15%, 70%)" text-anchor="start" dominant-baseline="middle">${name}</text>
-  </svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
-
 // ---------------------------------------------------------------------------
 // Mock products — 8 items, ICT/network equipment
 // ---------------------------------------------------------------------------
@@ -164,15 +153,22 @@ export const MOCK_PRODUCTS: ProductNode[] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Mock clients — 6 items with inline SVG logos
+// Clients — real companies with logos (9 have images, 5 use text monograms)
 // ---------------------------------------------------------------------------
 export const MOCK_CLIENTS: ClientLogo[] = [
-  { id: 'c1', name: 'سازمان فناوری', logoUrl: clientLogoSvg('سازمان فناوری', 260) },
-  { id: 'c2', name: 'بانک توسعه', logoUrl: clientLogoSvg('بانک توسعه', 200) },
-  { id: 'c3', name: 'گروه صنعتی پارس', logoUrl: clientLogoSvg('گروه صنعتی پارس', 30) },
-  { id: 'c4', name: 'دانشگاه تهران', logoUrl: clientLogoSvg('دانشگاه تهران', 0) },
-  { id: 'c5', name: 'شرکت بیمه ایران', logoUrl: clientLogoSvg('بیمه ایران', 280) },
-  { id: 'c6', name: 'هلدینگ آریا', logoUrl: clientLogoSvg('هلدینگ آریا', 180) },
+  { id: 'shatel', name: 'شاتل', logoUrl: '/images/clients/SHatel.jpg', websiteUrl: 'https://www.shatel.ir' },
+  { id: 'asiatech', name: 'اسیاتک', logoUrl: '/images/clients/asiatech.jpg', websiteUrl: 'https://asiatech.ir' },
+  { id: 'fanava', name: 'فن آوا', logoUrl: '', websiteUrl: 'https://www.fanava-group.com' },
+  { id: 'irancell', name: 'ایرانسل', logoUrl: '/images/clients/irancell.jpeg', websiteUrl: 'https://www.irancell.ir' },
+  { id: 'hamrahaval', name: 'همراه اول', logoUrl: '/images/clients/hamrahaval.jpg', websiteUrl: 'https://www.hamrahaval.ir' },
+  { id: 'pishgaman', name: 'پیشگامان داروسازی', logoUrl: '', websiteUrl: '#' },
+  { id: 'abidi', name: 'عبیدی', logoUrl: '/images/clients/abidi.jpg', websiteUrl: 'https://www.abidi.co' },
+  { id: 'respina', name: 'رسپینا', logoUrl: '/images/clients/respina.jpg', websiteUrl: '#' },
+  { id: 'sinadaru', name: 'سینا دارو', logoUrl: '', websiteUrl: '#' },
+  { id: 'daroupakhsh', name: 'داروپخش', logoUrl: '', websiteUrl: 'https://www.daroupakhsh.com' },
+  { id: 'zirsakht', name: 'شرکت ارتباطات زیرساخت', logoUrl: '/images/clients/zirsakhtertebatat.jpg', websiteUrl: '#' },
+  { id: 'mobinnet', name: 'مبین نت', logoUrl: '/images/clients/mobinnet.jpg', websiteUrl: 'https://www.mobinnet.ir' },
+  { id: 'imazdental', name: 'ایماز دنتال', logoUrl: '', websiteUrl: '#' },
 ];
 
 // ---------------------------------------------------------------------------

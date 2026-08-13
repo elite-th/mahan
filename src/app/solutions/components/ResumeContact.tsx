@@ -34,8 +34,8 @@ export default function ResumeContact({ color }: ResumeContactProps) {
     {
       icon: <Mail className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />,
       label: "ایمیل",
-      value: "info@example.com",
-      href: "mailto:info@example.com",
+      value: "info@mek-co.ir",
+      href: "mailto:info@mek-co.ir",
     },
     {
       icon: <Globe className={`w-5 h-5 ${color.primary}`} aria-hidden="true" />,

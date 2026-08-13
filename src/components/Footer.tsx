@@ -113,16 +113,16 @@ const Footer: React.FC = () => {
               </li>
               <li>
                 <a
-                  href="mailto:info@mahan-ic.ir"
+                  href="mailto:info@mek-co.ir"
                   className="inline-flex items-center gap-2 text-[#CFC6E0] transition-colors hover:text-[#FBF7FE] break-all"
                 >
                   <Mail className="h-4 w-4 text-[#9D94B5] shrink-0" />
-                  <span dir="ltr">info@mahan-ic.ir</span>
+                  <span dir="ltr">info@mek-co.ir</span>
                 </a>
               </li>
               <li className="inline-flex items-center gap-2 text-[#CFC6E0] pt-1">
                 <Clock className="h-4 w-4 text-[#9D94B5]" />
-                <span>شنبه تا پنجشنبه، ۸ الی ۱۶</span>
+                <span>شنبه تا پنجشنبه، ۹ الی ۱۷</span>
               </li>
             </ul>
           </div>

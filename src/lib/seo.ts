@@ -16,7 +16,7 @@ import { SITE_URL, COMPANY_NAME, COMPANY_SLOGAN } from '@/constants';
 export const CONTACT = {
   phoneSales: '+989927353979',
   phoneSupport: '+982191094448',
-  email: 'info@mahan-ic.ir',
+  email: 'info@mek-co.ir',
   addressCountry: 'IR',
   addressRegion: 'تهران',
   addressLocality: 'شمیرانات، تجریش',
@@ -25,12 +25,12 @@ export const CONTACT = {
   geo: { latitude: 35.8059, longitude: 51.4361 },
 } as const;
 
-/** Working hours: Saturday–Thursday, 08:00–16:00 Asia/Tehran. */
+/** Working hours: Saturday–Thursday, 09:00–17:00 Asia/Tehran. */
 export const OPENING_HOURS = [
   {
     days: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-    opens: '08:00',
-    closes: '16:00',
+    opens: '09:00',
+    closes: '17:00',
   },
 ] as const;
 
@@ -76,7 +76,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'ساعات پاسخگویی مجموعه به چه صورت میباشد؟',
     answer:
-      'ما از شنبه تا پنج شنبه 8 الی 16 در خدمت شما به صورت آنلاین و تلفنی هستیم.',
+      'ما از شنبه تا پنج شنبه 9 الی 17 در خدمت شما به صورت آنلاین و تلفنی هستیم.',
   },
   {
     question: 'شماره تماس ماهان؟',
