@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import NavLinks from './NavLinks';
 
@@ -56,13 +57,15 @@ const Header: React.FC = () => {
                             className="shrink-0 flex items-center gap-2.5"
                             aria-label="ماهان ارتباطات خردمند - خانه"
                         >
-                            {/* "M" monogram — text wordmark instead of an image logo */}
-                            <span
-                                className="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--accent)] text-[var(--bg)] font-bold text-lg leading-none"
-                                aria-hidden="true"
-                            >
-                                م
-                            </span>
+                            {/* Logo image */}
+                            <Image
+                                src="/logo.png"
+                                alt="ماهان ارتباطات خردمند"
+                                width={40}
+                                height={40}
+                                className="h-10 w-auto"
+                                priority
+                            />
                             <span className="hidden sm:inline-flex flex-col leading-tight">
                                 <span className="text-sm font-semibold text-[var(--text)]">ماهان ارتباطات</span>
                                 <span className="text-[10px] text-[var(--text-faint)]">زیرساخت شبکه و ICT</span>
@@ -109,12 +112,13 @@ const Header: React.FC = () => {
             >
                 <div className="flex h-full flex-col pt-20 pb-6 px-4">
                     <div className="flex items-center gap-3 mb-6 px-2 pb-4 border-b border-[var(--border)]">
-                        <span
-                            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-[var(--accent)] text-[var(--bg)] font-bold text-base leading-none"
-                            aria-hidden="true"
-                        >
-                            م
-                        </span>
+                        <Image
+                            src="/logo.png"
+                            alt="ماهان ارتباطات خردمند"
+                            width={32}
+                            height={32}
+                            className="h-8 w-auto"
+                        />
                         <div>
                             <p className="text-sm font-semibold text-[var(--text)] leading-tight">ماهان ارتباطات خردمند</p>
                             <p className="text-[11px] text-[var(--text-faint)]">تجهیزات شبکه و راهکارهای ICT</p>

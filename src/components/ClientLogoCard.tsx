@@ -12,17 +12,15 @@ interface ClientLogoCardProps {
  * ClientLogoCard — displays a client logo image, or a text monogram
  * (first letter of the company name) for clients without a logo image.
  *
- * Clients with a logoUrl show the image via next/image (unoptimized pass-through).
- * Clients without a logoUrl (empty string) show a styled monogram chip.
+ * No links — the card is purely visual (display-only). The logo/monogram
+ * is not clickable.
  */
 const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
   const hasLogo = Boolean(client.logoUrl);
-
-  // Build a monogram from the first letter of the company name.
   const monogram = client.name?.trim()?.charAt(0) || '؟';
 
-  const inner = (
-    <div className="flex h-28 items-center justify-center p-6">
+  return (
+    <div className="flex h-28 items-center justify-center p-6 shrink-0">
       {hasLogo ? (
         <ImageWithFallback
           src={client.logoUrl}
@@ -44,24 +42,6 @@ const ClientLogoCard: React.FC<ClientLogoCardProps> = ({ client }) => {
         </div>
       )}
     </div>
-  );
-
-  return (
-    <>
-      {client.websiteUrl && client.websiteUrl !== '#' ? (
-        <a
-          href={client.websiteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`وب‌سایت ${client.name}`}
-          className="block"
-        >
-          {inner}
-        </a>
-      ) : (
-        inner
-      )}
-    </>
   );
 };
 
@@ -96,7 +76,7 @@ const ImageWithFallback: React.FC<{ src: string; alt: string; name: string }> = 
       width={140}
       height={60}
       unoptimized
-      className="max-h-14 max-w-full object-contain opacity-60 transition-opacity duration-200 hover:opacity-100"
+      className="max-h-14 max-w-full object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
       onError={() => setErrored(true)}
     />
   );

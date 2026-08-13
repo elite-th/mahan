@@ -1,5 +1,5 @@
 {
-  "name": "ماهان ارتباطات خردمنده",
+  "name": "ماهان ارتباطات خردمند",
   "short_name": "ماهان",
   "description": "فروشگاه آنلاین تجهیزات شبکه و راهکارهای فناوری اطلاعات",
   "lang": "fa",
@@ -9,5 +9,7 @@
   "background_color": "#110E18",
   "theme_color": "#110E18",
   "categories": ["business", "shopping", "technology"],
-  "icons": []
+  "icons": [
+    { "src": "/logo.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
 }

@@ -156,19 +156,21 @@ export const MOCK_PRODUCTS: ProductNode[] = [
 // Clients — real companies with logos (9 have images, 5 use text monograms)
 // ---------------------------------------------------------------------------
 export const MOCK_CLIENTS: ClientLogo[] = [
-  { id: 'shatel', name: 'شاتل', logoUrl: '/images/clients/SHatel.jpg', websiteUrl: 'https://www.shatel.ir' },
-  { id: 'asiatech', name: 'اسیاتک', logoUrl: '/images/clients/asiatech.jpg', websiteUrl: 'https://asiatech.ir' },
-  { id: 'fanava', name: 'فن آوا', logoUrl: '', websiteUrl: 'https://www.fanava-group.com' },
-  { id: 'irancell', name: 'ایرانسل', logoUrl: '/images/clients/irancell.jpeg', websiteUrl: 'https://www.irancell.ir' },
-  { id: 'hamrahaval', name: 'همراه اول', logoUrl: '/images/clients/hamrahaval.jpg', websiteUrl: 'https://www.hamrahaval.ir' },
-  { id: 'pishgaman', name: 'پیشگامان داروسازی', logoUrl: '', websiteUrl: '#' },
-  { id: 'abidi', name: 'عبیدی', logoUrl: '/images/clients/abidi.jpg', websiteUrl: 'https://www.abidi.co' },
-  { id: 'respina', name: 'رسپینا', logoUrl: '/images/clients/respina.jpg', websiteUrl: '#' },
-  { id: 'sinadaru', name: 'سینا دارو', logoUrl: '', websiteUrl: '#' },
-  { id: 'daroupakhsh', name: 'داروپخش', logoUrl: '', websiteUrl: 'https://www.daroupakhsh.com' },
-  { id: 'zirsakht', name: 'شرکت ارتباطات زیرساخت', logoUrl: '/images/clients/zirsakhtertebatat.jpg', websiteUrl: '#' },
-  { id: 'mobinnet', name: 'مبین نت', logoUrl: '/images/clients/mobinnet.jpg', websiteUrl: 'https://www.mobinnet.ir' },
-  { id: 'imazdental', name: 'ایماز دنتال', logoUrl: '', websiteUrl: '#' },
+  // Most well-known first (ایرانسل، همراه اول، شاتل، مبین نت، اسیاتک، پیشگامان)
+  { id: 'irancell', name: 'ایرانسل', logoUrl: '/images/clients/irancell.jpeg' },
+  { id: 'hamrahaval', name: 'همراه اول', logoUrl: '/images/clients/hamrahaval.jpg' },
+  { id: 'shatel', name: 'شاتل', logoUrl: '/images/clients/SHatel.jpg' },
+  { id: 'mobinnet', name: 'مبین نت', logoUrl: '/images/clients/mobinnet.jpg' },
+  { id: 'asiatech', name: 'اسیاتک', logoUrl: '/images/clients/asiatech.jpg' },
+  { id: 'pishgaman', name: 'پیشگامان', logoUrl: '/images/clients/pishgaman.jpg' },
+  // Then the rest
+  { id: 'abidi', name: 'عبیدی', logoUrl: '/images/clients/abidi.jpg' },
+  { id: 'respina', name: 'رسپینا', logoUrl: '/images/clients/respina.jpg' },
+  { id: 'zirsakht', name: 'شرکت ارتباطات زیرساخت', logoUrl: '/images/clients/zirsakhtertebatat.jpg' },
+  { id: 'fanava', name: 'فن آوا', logoUrl: '' },
+  { id: 'sinadaru', name: 'سینا دارو', logoUrl: '' },
+  { id: 'daroupakhsh', name: 'داروپخش', logoUrl: '' },
+  { id: 'imazdental', name: 'ایماز دنتال', logoUrl: '' },
 ];
 
 // ---------------------------------------------------------------------------
